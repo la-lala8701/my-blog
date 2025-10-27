@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import { Box, Container, Grid } from "@mui/material";
 
-export default function ActionAreaCard() {
+export default function Home() {
   return (
     <Container maxWidth="md">
       <Typography variant="h1" gutterBottom>
@@ -14,13 +14,13 @@ export default function ActionAreaCard() {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid size={4}>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="140"
                   image="https://placehold.jp/400x300.png"
-                  alt="green iguana"
+                  alt="xxxxx"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -34,13 +34,13 @@ export default function ActionAreaCard() {
             </Card>
           </Grid>
           <Grid size={4}>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="140"
                   image="https://placehold.jp/400x300.png"
-                  alt="green iguana"
+                  alt="xxxxx"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -54,13 +54,13 @@ export default function ActionAreaCard() {
             </Card>
           </Grid>
           <Grid size={4}>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="140"
                   image="https://placehold.jp/400x300.png"
-                  alt="green iguana"
+                  alt="xxxxx"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
@@ -74,13 +74,13 @@ export default function ActionAreaCard() {
             </Card>
           </Grid>
           <Grid size={4}>
-            <Card sx={{ maxWidth: 345 }}>
+            <Card>
               <CardActionArea>
                 <CardMedia
                   component="img"
                   height="140"
                   image="https://placehold.jp/400x300.png"
-                  alt="green iguana"
+                  alt="xxxxx"
                 />
                 <CardContent>
                   <Typography gutterBottom variant="h5" component="div">
