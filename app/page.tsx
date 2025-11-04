@@ -1,101 +1,20 @@
-"use client";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import CardActionArea from "@mui/material/CardActionArea";
-import { Box, Container, Grid } from "@mui/material";
+import Link from "next/link"
 
 export default function Home() {
   return (
-    <Container maxWidth="md">
-      <Typography variant="h1" gutterBottom>
+    <div>
+      <h1>
         ブログサイト
-      </Typography>
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid size={4}>
-            <Card>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://placehold.jp/400x300.png"
-                  alt="xxxxx"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    タイトルが入ります
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    2026/01/01
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid size={4}>
-            <Card>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://placehold.jp/400x300.png"
-                  alt="xxxxx"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    タイトルが入ります
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    2026/01/01
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid size={4}>
-            <Card>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://placehold.jp/400x300.png"
-                  alt="xxxxx"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    タイトルが入ります
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    2026/01/01
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid size={4}>
-            <Card>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="https://placehold.jp/400x300.png"
-                  alt="xxxxx"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    タイトルが入ります
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                    2026/01/01
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        </Grid>
-      </Box>
-    </Container>
+      </h1>
+      <div>
+        <Link href="/about">
+          <div>
+            <img src="https://placehold.jp/400x300.png" alt="" />
+          </div>
+          <p>タイトルが入ります</p>
+          <p>2025年04月08日</p>
+        </Link>
+      </div>
+    </div>
   );
 }
