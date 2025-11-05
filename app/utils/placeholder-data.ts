@@ -1,4 +1,12 @@
-export const postData = [
+export type PostData = {
+  id: number;
+  title: string;
+  content: string;
+  author: string;
+  date: string;
+}
+
+export const postData: PostData[] = [
   {
     id: 1,
     title: "記事タイトル1",
