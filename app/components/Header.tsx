@@ -10,21 +10,21 @@ export const Header = () => {
           </Link>
         </h1>
         <nav>
-          <ul className="flex">
-            <li>
-              <Link
-                className="ml-4 px-4 py-3 bg-green-300 rounded-md hover:bg-green-400"
-                href="/create"
-              >
-                記事作成
-              </Link>
-            </li>
+          <ul className="flex items-center">
             <li>
               <Link
                 className="px-4 py-3 bg-blue-300 rounded-md hover:bg-blue-400"
                 href="/login"
               >
                 ログイン
+              </Link>
+            </li>
+            <li>
+              <Link
+                className="ml-4 px-4 py-3 bg-green-300 rounded-md hover:bg-green-400"
+                href="/create"
+              >
+                記事作成
               </Link>
             </li>
           </ul>
