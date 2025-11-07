@@ -1,13 +1,21 @@
 'use client';
 import { Params } from "next/dist/server/request/params";
-import { postData } from "../utils/placeholder-data";
 import { useParams } from "next/navigation";
 import { PostData } from "../types";
 
+const getPosts = (): PostData[] => {
+  if (typeof window !== "undefined") {
+    const storedPosts = localStorage.getItem("posts");
+    return storedPosts ? JSON.parse(storedPosts) : [];
+  }
+  return [];
+};
+
 export const Article = () => {
   const params: Params = useParams();
-  const data: PostData | undefined = postData.find(
-    (post) => post.id === Number(params.id)
+  const postsFromStorage: PostData[] = getPosts();
+  const data: PostData | undefined = postsFromStorage.find(
+    (post) => post.id === params.id
   );
 
   if (!data) {
