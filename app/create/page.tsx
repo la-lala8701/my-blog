@@ -1,42 +1,78 @@
-'use client';
-import { useCallback, useState } from "react";
+"use client";
+import { useCallback, useEffect, useState } from "react";
 import { Container } from "../components/Container";
 import { Header } from "../components/Header";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
+import { PostData } from "../types";
+
+const getInitialPosts = (): PostData[] => {
+  if (typeof window !== "undefined") {
+    const storedPosts = localStorage.getItem("posts");
+    return storedPosts ? JSON.parse(storedPosts) : [];
+  }
+  return [];
+};
 
 export default function CreatePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
-  const [date, setDate] = useState("");
-  const [id, setId] = useState("");
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(getInitialPosts);
 
-  const handleChangeAuthor = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setAuthor(e.target.value);
-  }, []);
+  const handleChangeAuthor = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setAuthor(e.target.value);
+    },
+    []
+  );
 
-  const handleChangeTitle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
-  }, []);
+  const handleChangeTitle = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setTitle(e.target.value);
+    },
+    []
+  );
 
-  const handleChangeContent = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
-  }, []);
+  const handleChangeContent = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(e.target.value);
+    },
+    []
+  );
 
-  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const id: string = uuidv4();
-    const date: string = new Date().toLocaleString('ja-JP').split(' ')[0];
-    // ここで記事作成のロジックを実装します
-    if (!title || !content || !author) {
-      alert("全てのフィールドを入力してください。");
-      return;
-    }
+  const handleSubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      const id: string = uuidv4();
+      const date: string = new Date().toLocaleString("ja-JP").split(" ")[0];
+      // ここで記事作成のロジックを実装します
+      if (!title || !content || !author) {
+        alert("全てのフィールドを入力してください。");
+        return;
+      }
 
-    localStorage.setItem(`post-${id}`, JSON.stringify({ id, title, content, author, date }));
-    console.log("記事が作成されました:", { id, title, content, author, date });
-  }, [title, content, author]);
+      const newPost: PostData = {
+        id: id,
+        title: title,
+        content: content,
+        author: author,
+        date: date,
+      };
+      setPosts((prevPosts) => [...prevPosts, newPost]);
+
+      // フォームをリセット
+      setTitle("");
+      setContent("");
+      setAuthor("");
+      alert("記事が作成されました！");
+    },
+    [title, content, author]
+  );
+
+  useEffect(() => {
+    localStorage.setItem("posts", JSON.stringify(posts));
+  }, [posts]);
 
   return (
     <div>
@@ -56,8 +92,8 @@ export default function CreatePage() {
           <div>
             <label className="block mb-1">タイトル</label>
             <input
-              type="text"
               className="border border-gray-300 rounded-md p-2 w-full"
+              type="text"
               value={title}
               onChange={handleChangeTitle}
             />
@@ -77,6 +113,9 @@ export default function CreatePage() {
           >
             作成
           </button>
+          <Link href="/" className="ml-4 text-gray-500 hover:underline">
+            キャンセル
+          </Link>
         </form>
       </Container>
     </div>
