@@ -1,10 +1,4 @@
-export type PostData = {
-  id: number;
-  title: string;
-  content: string;
-  author: string;
-  date: string;
-}
+import { PostData } from "../types";
 
 export const postData: PostData[] = [
   {

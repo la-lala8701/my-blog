@@ -1,7 +1,8 @@
 'use client';
 import { Params } from "next/dist/server/request/params";
-import { postData, PostData } from "../utils/placeholder-data";
+import { postData } from "../utils/placeholder-data";
 import { useParams } from "next/navigation";
+import { PostData } from "../types";
 
 export const Article = () => {
   const params: Params = useParams();
