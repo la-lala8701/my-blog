@@ -22,7 +22,7 @@ export const Article = () => {
   }
 
   return (
-    <article suppressHydrationWarning={true}>
+    <article>
       <h1 className="text-5xl font-bold mb-8">{data.title}</h1>
       <div className="flex items-start gap-2">
         <div className="w-7 h-7 bg-gray-400 rounded-full"></div>
