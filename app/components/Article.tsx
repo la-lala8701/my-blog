@@ -1,7 +1,8 @@
-'use client';
+"use client";
 import { Params } from "next/dist/server/request/params";
 import { useParams } from "next/navigation";
 import { PostData } from "../types";
+import { useEffect, useState } from "react";
 
 const getPosts = (): PostData[] => {
   if (typeof window !== "undefined") {
@@ -13,8 +14,13 @@ const getPosts = (): PostData[] => {
 
 export const Article = () => {
   const params: Params = useParams();
-  const postsFromStorage: PostData[] = getPosts();
-  const data: PostData | undefined = postsFromStorage.find(
+  const [posts, setPosts] = useState<PostData[]>([]);
+
+  useEffect(() => {
+    setPosts(getPosts());
+  }, []);
+  
+  const data: PostData | undefined = posts.find(
     (post) => post.id === params.id
   );
 
@@ -23,7 +29,7 @@ export const Article = () => {
   }
 
   return (
-    <article>
+    <article suppressHydrationWarning={true}>
       <h1 className="text-5xl font-bold mb-8">{data.title}</h1>
       <div className="flex items-start gap-2">
         <div className="w-7 h-7 bg-gray-400 rounded-full"></div>
