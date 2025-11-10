@@ -5,20 +5,13 @@ import { Header } from "../components/Header";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 import { PostData } from "../types";
-
-const getInitialPosts = (): PostData[] => {
-  if (typeof window !== "undefined") {
-    const storedPosts = localStorage.getItem("posts");
-    return storedPosts ? JSON.parse(storedPosts) : [];
-  }
-  return [];
-};
+import { storageData } from "../utils/storageData";
 
 export default function CreatePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
-  const [posts, setPosts] = useState(getInitialPosts);
+  const [posts, setPosts] = useState(() => storageData("posts"));
 
   const handleChangeAuthor = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -2,19 +2,12 @@
 import { useEffect, useState } from "react";
 import { PostData } from "../types";
 import { PostsItem } from "./PostsItem";
-
-const getPosts = (): PostData[] => {
-  if (typeof window !== "undefined") {
-    const storedPosts = localStorage.getItem("posts");
-    return storedPosts ? JSON.parse(storedPosts) : [];
-  }
-  return [];
-};
+import { storageData } from "../utils/storageData";
 
 export const Posts = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
   useEffect(() => {
-    setPosts(getPosts());
+    setPosts(storageData("posts"));
   }, []);
   return (
     <section>

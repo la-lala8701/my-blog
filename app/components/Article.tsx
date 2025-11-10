@@ -3,21 +3,14 @@ import { Params } from "next/dist/server/request/params";
 import { useParams } from "next/navigation";
 import { PostData } from "../types";
 import { useEffect, useState } from "react";
-
-const getPosts = (): PostData[] => {
-  if (typeof window !== "undefined") {
-    const storedPosts = localStorage.getItem("posts");
-    return storedPosts ? JSON.parse(storedPosts) : [];
-  }
-  return [];
-};
+import { storageData } from "../utils/storageData";
 
 export const Article = () => {
   const params: Params = useParams();
   const [posts, setPosts] = useState<PostData[]>([]);
 
   useEffect(() => {
-    setPosts(getPosts());
+    setPosts(storageData("posts"));
   }, []);
   
   const data: PostData | undefined = posts.find(
