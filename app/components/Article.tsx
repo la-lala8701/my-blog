@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { storageData } from "../utils/storageData";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { table } from "console";
 
 const renders = {
   h1: ({ ...props }) => <h1 className="text-4xl font-bold my-6" {...props} />,
