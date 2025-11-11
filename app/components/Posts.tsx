@@ -1,14 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
-import { PostData } from "../types";
 import { PostsItem } from "./PostsItem";
-import { storageData } from "../utils/storageData";
+import { usePosts } from "../hooks/usePosts";
 
 export const Posts = () => {
-  const [posts, setPosts] = useState<PostData[]>([]);
-  useEffect(() => {
-    setPosts(storageData("posts"));
-  }, []);
+  const { posts } = usePosts();
   return (
     <section>
       <h2 className="text-3xl pb-6">記事一覧</h2>

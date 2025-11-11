@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { storageData } from "../utils/storageData";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { usePosts } from "../hooks/usePosts";
 
 const renders = {
   h1: ({ ...props }) => <h1 className="text-4xl font-bold my-6" {...props} />,
@@ -24,13 +25,8 @@ const renders = {
 };
 
 export const Article = () => {
-  
+  const { posts } = usePosts();
   const params: Params = useParams();
-  const [posts, setPosts] = useState<PostData[]>([]);
-
-  useEffect(() => {
-    setPosts(storageData("posts"));
-  }, []);
 
   const data: PostData | undefined = posts.find(
     (post) => post.id === params.id
