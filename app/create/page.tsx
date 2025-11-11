@@ -101,6 +101,7 @@ export default function CreatePage() {
               className="border border-gray-300 rounded-md p-2 w-full"
               rows={10}
               value={content}
+              placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
               onChange={handleChangeContent}
             ></textarea>
           </div>
