@@ -12,6 +12,7 @@ export default function CreatePage() {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [posts, setPosts] = useState(() => storageData("posts"));
+  const [id, setId] = useState("");
 
   const handleChangeAuthor = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +39,7 @@ export default function CreatePage() {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const id: string = uuidv4();
+      setId(id);
       const date: string = new Date().toLocaleString("ja-JP").split(" ")[0];
       // ここで記事作成のロジックを実装します
       if (!title || !content || !author) {
@@ -59,6 +61,8 @@ export default function CreatePage() {
       setContent("");
       setAuthor("");
       alert("記事が作成されました！");
+
+      location.href = `/post/${id}`;
     },
     [title, content, author]
   );
@@ -72,7 +76,7 @@ export default function CreatePage() {
       <Header />
       <Container>
         <h1 className="text-2xl font-bold mb-4">記事作成</h1>
-        <form className="space-y-4" onSubmit={handleSubmit}>
+        <form className="space-y-4" onSubmit={handleSubmit} action={`/post/${id}`}>
           <div>
             <label className="block mb-1">著者名</label>
             <input
