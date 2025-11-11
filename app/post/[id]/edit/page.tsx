@@ -52,6 +52,7 @@ export default function EditPage() {
       )
     ));
     alert("記事が更新されました！");
+    location.href = `/post/${editPost.id}`;
   }, [editPost, posts]);
 
 
