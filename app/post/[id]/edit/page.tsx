@@ -3,7 +3,7 @@ import { PostData } from "@/app/types";
 import { storageData } from "@/app/utils/storageData";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { use, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function EditPage() {
   const params = useParams();
