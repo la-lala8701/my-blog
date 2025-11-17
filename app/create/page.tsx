@@ -13,16 +13,12 @@ type Action =
   | { type: "change_author"; nextValue: string }
   | { type: "change_title"; nextValue: string }
   | { type: "change_content"; nextValue: string }
-  | { type: "full"; date: string }
-  | { type: "finished" }
-  | { type: "send"; id: string };
+  | { type: "finished" };
 
 const initialState = {
-  id: "",
   title: "",
   content: "",
   author: "",
-  date: "",
 };
 
 const reducer = (state: ChangeValue, action: Action) => {
@@ -42,25 +38,12 @@ const reducer = (state: ChangeValue, action: Action) => {
         ...state,
         content: action.nextValue,
       };
-    case "full":
-      return {
-        id: state.id,
-        title: state.title,
-        content: state.content,
-        author: state.author,
-        date: state.date,
-      };
     case "finished":
       return {
         ...state,
         title: "",
         content: "",
         author: "",
-      };
-    case "send":
-      return {
-        ...state,
-        id: action.id,
       };
   }
 };
@@ -70,7 +53,7 @@ export default function CreatePage() {
   // const [content, setContent] = useState("");
   // const [author, setAuthor] = useState("");
   const [posts, setPosts] = useState(() => storageData("posts"));
-  // const [id, setId] = useState("");
+  const [id, setId] = useState("");
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -101,11 +84,10 @@ export default function CreatePage() {
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      // const id: string = uuidv4();
-      // setId(id);
-      dispatch({ type: "send", id: uuidv4() });
+      const id: string = uuidv4();
+      setId(id);
 
-      // const date: string = new Date().toLocaleString("ja-JP").split(" ")[0];
+      const date: string = new Date().toLocaleString("ja-JP").split(" ")[0];
 
       // ここで記事作成のロジックを実装します
       if (!state.title || !state.content || !state.author) {
@@ -114,18 +96,14 @@ export default function CreatePage() {
       }
 
       const newPost: PostData = {
-        id: state.id,
+        id: id,
         title: state.title,
         content: state.content,
         author: state.author,
-        date: state.date,
+        date: date,
       };
 
-      setPosts((prevPosts) => [...prevPosts, newPost]);
-      dispatch({
-        type: "full",
-        date: new Date().toLocaleString("ja-JP").split(" ")[0],
-      });
+      setPosts((prev) => [...prev, newPost]);
 
       // フォームをリセット
       dispatch({ type: "finished" });
@@ -134,7 +112,7 @@ export default function CreatePage() {
       // setAuthor("");
       alert("記事が作成されました！");
 
-      location.href = `/post/${state.id}`;
+      location.href = `/post/${id}`;
     },
     [state.title, state.content, state.author]
   );
@@ -151,7 +129,7 @@ export default function CreatePage() {
         <form
           className="space-y-4"
           onSubmit={handleSubmit}
-          action={`/post/${state.id}`}
+          action={`/post/${id}`}
         >
           <div>
             <label className="block mb-1">著者名</label>
