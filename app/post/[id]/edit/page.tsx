@@ -13,48 +13,54 @@ export default function EditPage() {
   useEffect(() => {
     setPosts(storageData("posts"));
   }, []);
-  
+
   useEffect(() => {
     // 編集する記事を特定
-    const postToEdit: PostData | undefined = posts.find((post) => post.id === params.id);
+    const postToEdit: PostData | undefined = posts.find(
+      (post) => post.id === params.id
+    );
     if (!postToEdit) return; // 記事が見つからない場合は何もしない
     setEditPost(postToEdit); // 編集する記事の状態を設定
   }, [posts, params.id]);
 
-
   const handleChangeTitle = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setEditPost((prevPost => prevPost ? { ...prevPost, title: e.target.value } : prevPost));
+      setEditPost((prevPost) =>
+        prevPost ? { ...prevPost, title: e.target.value } : prevPost
+      );
     },
     []
   );
 
   const handleChangeContent = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setEditPost((prevPost => prevPost ? { ...prevPost, content: e.target.value } : prevPost));
+      setEditPost((prevPost) =>
+        prevPost ? { ...prevPost, content: e.target.value } : prevPost
+      );
     },
     []
   );
 
-  const onsubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!editPost) return;  // 編集する記事がない場合は何もしない
+  const onsubmit = useCallback(
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      if (!editPost) return; // 編集する記事がない場合は何もしない
 
-    // ここで記事編集のロジックを実装します
-    setPosts((prevPosts) =>
-      prevPosts.map((post) =>
-        post.id === editPost.id ? editPost : post
-      )
-    );
-    localStorage.setItem("posts", JSON.stringify(
-      posts.map((post) =>
-        post.id === editPost.id ? editPost : post
-      )
-    ));
-    alert("記事が更新されました！");
-    location.href = `/post/${editPost.id}`;
-  }, [editPost, posts]);
-
+      // ここで記事編集のロジックを実装します
+      setPosts((prevPosts) =>
+        prevPosts.map((post) => (post.id === editPost.id ? editPost : post))
+      );
+      localStorage.setItem(
+        "posts",
+        JSON.stringify(
+          posts.map((post) => (post.id === editPost.id ? editPost : post))
+        )
+      );
+      alert("記事が更新されました！");
+      location.href = `/post/${editPost.id}`;
+    },
+    [editPost, posts]
+  );
 
   if (!editPost) {
     return <div>Loading...</div>;
