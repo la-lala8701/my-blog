@@ -7,18 +7,27 @@ import Link from "next/link";
 import { PostData } from "../types";
 import { storageData } from "../utils/storageData";
 
-type ChangeValue = typeof initialState;
+type ChangeValue = {
+  title: string;
+  content: string;
+  author: string;
+  posts: PostData[];
+};
 
 type Action =
   | { type: "change_author"; nextValue: string }
   | { type: "change_title"; nextValue: string }
   | { type: "change_content"; nextValue: string }
+  | { type: "full"; newPost: PostData}
   | { type: "finished" };
 
-const initialState = {
-  title: "",
-  content: "",
-  author: "",
+const init = (): ChangeValue => {
+  return {
+    title: "",
+    content: "",
+    author: "",
+    posts: storageData("posts"),
+  };
 };
 
 const reducer = (state: ChangeValue, action: Action) => {
@@ -38,6 +47,11 @@ const reducer = (state: ChangeValue, action: Action) => {
         ...state,
         content: action.nextValue,
       };
+    case "full":
+      return {
+        ...state,
+        posts: [...state.posts, action.newPost]
+      };
     case "finished":
       return {
         ...state,
@@ -49,17 +63,12 @@ const reducer = (state: ChangeValue, action: Action) => {
 };
 
 export default function CreatePage() {
-  // const [title, setTitle] = useState("");
-  // const [content, setContent] = useState("");
-  // const [author, setAuthor] = useState("");
-  const [posts, setPosts] = useState(() => storageData("posts"));
-  const [id, setId] = useState("");
-
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, null, init);
+  const id: string = uuidv4();
+  const date: string = new Date().toLocaleString("ja-JP").split(" ")[0];
 
   const handleChangeAuthor = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      // setAuthor(e.target.value);
       dispatch({ type: "change_author", nextValue: e.target.value });
     },
     []
@@ -67,7 +76,6 @@ export default function CreatePage() {
 
   const handleChangeTitle = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      // setTitle(e.target.value);
       dispatch({ type: "change_title", nextValue: e.target.value });
     },
     []
@@ -75,19 +83,16 @@ export default function CreatePage() {
 
   const handleChangeContent = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      // setContent(e.target.value);
       dispatch({ type: "change_content", nextValue: e.target.value });
     },
     []
   );
 
+  console.log(state);
+
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const id: string = uuidv4();
-      setId(id);
-
-      const date: string = new Date().toLocaleString("ja-JP").split(" ")[0];
 
       // ここで記事作成のロジックを実装します
       if (!state.title || !state.content || !state.author) {
@@ -103,23 +108,20 @@ export default function CreatePage() {
         date: date,
       };
 
-      setPosts((prev) => [...prev, newPost]);
+      // 新規データを追加
+      dispatch({type: "full", newPost})
 
       // フォームをリセット
       dispatch({ type: "finished" });
-      // setTitle("");
-      // setContent("");
-      // setAuthor("");
       alert("記事が作成されました！");
-
       location.href = `/post/${id}`;
     },
     [state.title, state.content, state.author]
   );
 
   useEffect(() => {
-    localStorage.setItem("posts", JSON.stringify(posts));
-  }, [posts]);
+    localStorage.setItem("posts", JSON.stringify(state.posts));
+  }, [state.posts]);
 
   return (
     <div>
@@ -130,6 +132,7 @@ export default function CreatePage() {
           className="space-y-4"
           onSubmit={handleSubmit}
           action={`/post/${id}`}
+          suppressHydrationWarning
         >
           <div>
             <label className="block mb-1">著者名</label>
