@@ -2,13 +2,15 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { storageData } from "../utils/storageData";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 
 export const EditButtons = () => {
   const params = useParams<{ id: string }>();
   const posts = storageData("posts");
+  const [showModal, setShowModal] = useState(false);
 
   const handleDelete = useCallback(() => {
+    alert('本当に削除しますか？')
     const updatedPosts = posts.filter((post) => post.id !== params.id);
     localStorage.setItem("posts", JSON.stringify(updatedPosts));
   }, [params.id, posts]);
