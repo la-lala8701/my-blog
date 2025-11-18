@@ -18,8 +18,7 @@ type Action =
   | { type: "change_author"; nextValue: string }
   | { type: "change_title"; nextValue: string }
   | { type: "change_content"; nextValue: string }
-  | { type: "full"; newPost: PostData}
-  | { type: "finished" };
+  | { type: "finished"; newPost: PostData };
 
 const init = (): ChangeValue => {
   return {
@@ -47,17 +46,13 @@ const reducer = (state: ChangeValue, action: Action) => {
         ...state,
         content: action.nextValue,
       };
-    case "full":
-      return {
-        ...state,
-        posts: [...state.posts, action.newPost]
-      };
     case "finished":
       return {
         ...state,
         title: "",
         content: "",
         author: "",
+        posts: [...state.posts, action.newPost],
       };
   }
 };
@@ -66,6 +61,14 @@ export default function CreatePage() {
   const [state, dispatch] = useReducer(reducer, null, init);
   const id: string = uuidv4();
   const date: string = new Date().toLocaleString("ja-JP").split(" ")[0];
+  // 新規データ
+  const newPost: PostData = {
+    id: id,
+    title: state.title,
+    content: state.content,
+    author: state.author,
+    date: date,
+  };
 
   const handleChangeAuthor = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,25 +97,14 @@ export default function CreatePage() {
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      // ここで記事作成のロジックを実装します
+      // 全てのフィールドに入力されているか確認
       if (!state.title || !state.content || !state.author) {
         alert("全てのフィールドを入力してください。");
         return;
       }
 
-      const newPost: PostData = {
-        id: id,
-        title: state.title,
-        content: state.content,
-        author: state.author,
-        date: date,
-      };
-
-      // 新規データを追加
-      dispatch({type: "full", newPost})
-
-      // フォームをリセット
-      dispatch({ type: "finished" });
+      // 新規データを追加し、フォームをリセット
+      dispatch({ type: "finished", newPost });
       alert("記事が作成されました！");
       location.href = `/post/${id}`;
     },
