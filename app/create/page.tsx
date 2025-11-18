@@ -91,8 +91,6 @@ export default function CreatePage() {
     []
   );
 
-  console.log(state);
-
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
