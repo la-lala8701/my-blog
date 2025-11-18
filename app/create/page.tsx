@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useEffect, useReducer, useState } from "react";
 import { Container } from "../components/Container";
-import { Header } from "../components/Header";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 import { PostData } from "../types";
@@ -114,55 +113,52 @@ export default function CreatePage() {
   }, [state.posts]);
 
   return (
-    <div>
-      <Header />
-      <Container>
-        <h1 className="text-2xl font-bold mb-4">記事作成</h1>
-        <form
-          className="space-y-4"
-          onSubmit={handleSubmit}
-          action={`/post/${id}`}
-          suppressHydrationWarning
+    <Container>
+      <h1 className="text-2xl font-bold mb-4">記事作成</h1>
+      <form
+        className="space-y-4"
+        onSubmit={handleSubmit}
+        action={`/post/${id}`}
+        suppressHydrationWarning
+      >
+        <div>
+          <label className="block mb-1">著者名</label>
+          <input
+            type="text"
+            value={state.author}
+            onChange={handleChangeAuthor}
+            className="border border-gray-300 rounded-md p-2 w-full"
+          />
+        </div>
+        <div>
+          <label className="block mb-1">タイトル</label>
+          <input
+            className="border border-gray-300 rounded-md p-2 w-full"
+            type="text"
+            value={state.title}
+            onChange={handleChangeTitle}
+          />
+        </div>
+        <div>
+          <label className="block mb-1">内容</label>
+          <textarea
+            className="border border-gray-300 rounded-md p-2 w-full"
+            rows={10}
+            value={state.content}
+            placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
+            onChange={handleChangeContent}
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 cursor-pointer"
         >
-          <div>
-            <label className="block mb-1">著者名</label>
-            <input
-              type="text"
-              value={state.author}
-              onChange={handleChangeAuthor}
-              className="border border-gray-300 rounded-md p-2 w-full"
-            />
-          </div>
-          <div>
-            <label className="block mb-1">タイトル</label>
-            <input
-              className="border border-gray-300 rounded-md p-2 w-full"
-              type="text"
-              value={state.title}
-              onChange={handleChangeTitle}
-            />
-          </div>
-          <div>
-            <label className="block mb-1">内容</label>
-            <textarea
-              className="border border-gray-300 rounded-md p-2 w-full"
-              rows={10}
-              value={state.content}
-              placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
-              onChange={handleChangeContent}
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 cursor-pointer"
-          >
-            作成
-          </button>
-          <Link href="/" className="ml-4 text-gray-500 hover:underline">
-            キャンセル
-          </Link>
-        </form>
-      </Container>
-    </div>
+          作成
+        </button>
+        <Link href="/" className="ml-4 text-gray-500 hover:underline">
+          キャンセル
+        </Link>
+      </form>
+    </Container>
   );
 }

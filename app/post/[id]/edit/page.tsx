@@ -1,4 +1,5 @@
 "use client";
+import { Container } from "@/app/components/Container";
 import { PostData } from "@/app/types";
 import { storageData } from "@/app/utils/storageData";
 import Link from "next/link";
@@ -67,7 +68,7 @@ export default function EditPage() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto py-20">
+    <Container>
       <h1 className="text-4xl font-bold mb-8">記事編集ページ</h1>
       <form onSubmit={onsubmit}>
         <div className="mb-6">
@@ -108,6 +109,6 @@ export default function EditPage() {
           記事詳細に戻る
         </button>
       </Link>
-    </div>
+    </Container>
   );
 }
