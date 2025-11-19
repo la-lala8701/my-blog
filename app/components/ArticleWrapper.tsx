@@ -1,16 +1,27 @@
 "use client";
 import { Article } from "@/app/components/Article";
 import { EditButtons } from "@/app/components/EditButtons";
+import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useCallback, useState } from "react";
+import { storageData } from "../utils/storageData";
 
 export const ArticleWrapper = () => {
+  const params = useParams<{ id: string }>();
+  const posts = storageData("posts");
   const [showModal, setShowModal] = useState(false);
+
   const handleDelete = useCallback(() => {
     setShowModal(true);
   }, []);
   const handleCancel = useCallback(() => {
     setShowModal(false);
   }, []);
+  const handleDecisiton = useCallback(() => {
+    const updatedPosts = posts.filter((post) => post.id !== params.id);
+    localStorage.setItem("posts", JSON.stringify(updatedPosts));
+  }, [params.id, posts]);
+
   return (
     <>
       {showModal ? (
@@ -30,9 +41,13 @@ export const ArticleWrapper = () => {
                 >
                   いいえ
                 </button>
-                <button className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 cursor-pointer inline-block">
+                <Link
+                  href="/"
+                  onClick={handleDecisiton}
+                  className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 cursor-pointer inline-block"
+                >
                   はい
-                </button>
+                </Link>
               </div>
             </dd>
           </dl>
@@ -40,7 +55,7 @@ export const ArticleWrapper = () => {
       ) : null}
 
       <Article />
-      <EditButtons onDelete={handleDelete} />
+      <EditButtons onDelete={handleDelete} params={params.id} />
     </>
   );
 };

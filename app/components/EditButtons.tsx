@@ -1,36 +1,21 @@
 "use client";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { storageData } from "../utils/storageData";
-import { useCallback, useState } from "react";
 
-export const EditButtons = ({ onDelete }: { onDelete: () => void }) => {
-  const params = useParams<{ id: string }>();
-  const posts = storageData("posts");
-  // const [showModal, setShowModal] = useState(false);
+type ArticleProps = {
+  onDelete: () => void;
+  params: string;
+}
 
-  // const handleDelete = useCallback(() => {
-  //   setShowModal(true);
-  // }, []);
-
-  const handleDecisiton = useCallback(() => {
-    // const updatedPosts = posts.filter((post) => post.id !== params.id);
-    // localStorage.setItem("posts", JSON.stringify(updatedPosts));
-  }, [params.id, posts]);
-
-  // if (showModal) {
-  //   return <div>HI</div>;
-  // }
-
+export const EditButtons = (props: ArticleProps) => {
   return (
     <div className="text-right mt-20">
-      <Link href={`/post/${params.id}/edit`}>
+      <Link href={`/post/${props.params}/edit`}>
         <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 cursor-pointer">
           記事を編集
         </button>
       </Link>
       <button
-        onClick={onDelete}
+        onClick={props.onDelete}
         className="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 cursor-pointer"
       >
         削除
