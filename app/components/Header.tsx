@@ -4,11 +4,9 @@ export const Header = () => {
   return (
     <header className="py-6 px-14 border-b border-gray-300">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">
-          <Link className="p-1.5" href="/">
-            Home
-          </Link>
-        </h1>
+        <Link className="p-1.5 text-2xl font-bold" href="/">
+          Home
+        </Link>
         <nav>
           <ul className="flex items-center">
             <li>
