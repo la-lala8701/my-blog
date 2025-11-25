@@ -58,7 +58,7 @@ export default function EditPage() {
         )
       );
       alert("記事が更新されました！");
-      location.href = `/post/${editPost.id}`;
+      location.href = `/pages/post/${editPost.id}`;
     },
     [editPost, posts]
   );
@@ -104,7 +104,7 @@ export default function EditPage() {
           更新
         </button>
       </form>
-      <Link href={`/post/${params.id}`}>
+      <Link href={`/pages/post/${params.id}`}>
         <button className="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 cursor-pointer">
           記事詳細に戻る
         </button>

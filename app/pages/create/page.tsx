@@ -103,7 +103,7 @@ export default function CreatePage() {
       // 新規データを追加し、フォームをリセット
       dispatch({ type: "finished", newPost });
       alert("記事が作成されました！");
-      location.href = `/post/${id}`;
+      location.href = `/pages/post/${id}`;
     },
     [state.title, state.content, state.author]
   );
@@ -118,7 +118,7 @@ export default function CreatePage() {
       <form
         className="space-y-4"
         onSubmit={handleSubmit}
-        action={`/post/${id}`}
+        action={`/pages/post/${id}`}
         suppressHydrationWarning
       >
         <div>

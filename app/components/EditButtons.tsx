@@ -9,7 +9,7 @@ type ArticleProps = {
 export const EditButtons = (props: ArticleProps) => {
   return (
     <div className="text-right mt-20">
-      <Link href={`/post/${props.params}/edit`}>
+      <Link href={`/pages/post/${props.params}/edit`}>
         <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 cursor-pointer">
           記事を編集
         </button>
