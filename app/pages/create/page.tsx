@@ -1,10 +1,10 @@
 "use client";
 import { useCallback, useEffect, useReducer, useState } from "react";
-import { Container } from "../components/Container";
 import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
-import { PostData } from "../types";
-import { storageData } from "../utils/storageData";
+import { PostData } from "@/app/types";
+import { storageData } from "@/app/utils/storageData";
+import { Container } from "@/app/components/Container";
 
 type ChangeValue = {
   title: string;
