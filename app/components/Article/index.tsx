@@ -16,18 +16,18 @@ export const Article = () => {
     (post) => post.id === params.id
   );
 
-  if (!data) {
-    return <div className="font-bold text-2xl">記事が見つかりません。</div>;
-  }
+  // if (!data) {
+  //   return <div className="font-bold text-2xl">記事が見つかりません。</div>;
+  // }
 
   return (
     <article>
-      <h1 className="text-5xl leading-normal font-bold">{data.title}</h1>
+      <h1 className="text-5xl leading-normal font-bold">{data?.title}</h1>
       <div className="flex items-start gap-2 mt-12">
         <div className="w-7 h-7 bg-gray-400 rounded-full"></div>
         <div>
-          <p className="text-base">{data.author}</p>
-          <p className="text-sm text-gray-500">{data.date}</p>
+          <p className="text-base">{data?.author}</p>
+          <p className="text-sm text-gray-500">{data?.date}</p>
         </div>
       </div>
       <div className="mt-28 prose prose-lg max-w-none">
@@ -37,7 +37,7 @@ export const Article = () => {
             skipHtml={false}
             rehypePlugins={[rehypeRaw]}
           >
-            {data.content}
+            {data?.content}
           </Markdown>
         </section>
       </div>
