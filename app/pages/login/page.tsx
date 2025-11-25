@@ -1,8 +1,6 @@
-import { Container } from "@/app/components/Container";
-
 export default function LoginPage() {
   return (
-    <Container>
+    <>
       <h1 className="text-2xl font-bold mb-4">ログイン</h1>
       <form className="space-y-4">
         <div>
@@ -26,6 +24,6 @@ export default function LoginPage() {
           ログイン
         </button>
       </form>
-    </Container>
+    </>
   );
 }

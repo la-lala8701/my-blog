@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from "uuid";
 import Link from "next/link";
 import { PostData } from "@/app/types";
 import { storageData } from "@/app/utils/storageData";
-import { Container } from "@/app/components/Container";
 
 type ChangeValue = {
   title: string;
@@ -113,7 +112,7 @@ export default function CreatePage() {
   }, [state.posts]);
 
   return (
-    <Container>
+    <>
       <h1 className="text-2xl font-bold mb-4">記事作成</h1>
       <form
         className="space-y-4"
@@ -159,6 +158,6 @@ export default function CreatePage() {
           キャンセル
         </Link>
       </form>
-    </Container>
+    </>
   );
 }
