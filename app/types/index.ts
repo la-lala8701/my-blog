@@ -1,7 +1,7 @@
 export type PostData = {
-  id: string | number;
+  id: string;
   title: string;
   content: string;
   author: string;
-  date: string;
+  created_at: string;
 }
