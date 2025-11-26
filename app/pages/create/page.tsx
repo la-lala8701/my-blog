@@ -1,115 +1,110 @@
-"use client";
-import { useCallback, useEffect, useReducer, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import Link from "next/link";
-import { PostData } from "@/app/types";
-import { storageData } from "@/app/utils/storageData";
+'use client';
+import { useCallback, useReducer } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import Link from 'next/link';
+import { PostData } from '@/app/types';
+import { addPost } from '@/app/utils/supabaseFunctions';
 
 type ChangeValue = {
   title: string;
   content: string;
   author: string;
-  posts: PostData[];
 };
 
 type Action =
-  | { type: "change_author"; nextValue: string }
-  | { type: "change_title"; nextValue: string }
-  | { type: "change_content"; nextValue: string }
-  | { type: "finished"; newPost: PostData };
+  | { type: 'change_author'; nextValue: string }
+  | { type: 'change_title'; nextValue: string }
+  | { type: 'change_content'; nextValue: string }
+  | { type: 'finished' };
 
 const init = (): ChangeValue => {
   return {
-    title: "",
-    content: "",
-    author: "",
-    posts: storageData("posts"),
+    title: '',
+    content: '',
+    author: '',
   };
 };
 
 const reducer = (state: ChangeValue, action: Action) => {
   switch (action.type) {
-    case "change_author":
+    case 'change_author':
       return {
         ...state,
         author: action.nextValue,
       };
-    case "change_title":
+    case 'change_title':
       return {
         ...state,
         title: action.nextValue,
       };
-    case "change_content":
+    case 'change_content':
       return {
         ...state,
         content: action.nextValue,
       };
-    case "finished":
+    case 'finished':
       return {
         ...state,
-        title: "",
-        content: "",
-        author: "",
-        posts: [...state.posts, action.newPost],
+        title: '',
+        content: '',
+        author: '',
       };
   }
 };
 
 export default function CreatePage() {
   const [state, dispatch] = useReducer(reducer, null, init);
-  const id: string = uuidv4();
-  const date: string = new Date().toLocaleString("ja-JP").split(" ")[0];
-  // 新規データ
-  const newPost: PostData = {
-    id: id,
-    title: state.title,
-    content: state.content,
-    author: state.author,
-    date: date,
-  };
+  const id = uuidv4();
 
   const handleChangeAuthor = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch({ type: "change_author", nextValue: e.target.value });
+      dispatch({ type: 'change_author', nextValue: e.target.value });
     },
-    []
+    [],
   );
 
   const handleChangeTitle = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch({ type: "change_title", nextValue: e.target.value });
+      dispatch({ type: 'change_title', nextValue: e.target.value });
     },
-    []
+    [],
   );
 
   const handleChangeContent = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      dispatch({ type: "change_content", nextValue: e.target.value });
+      dispatch({ type: 'change_content', nextValue: e.target.value });
     },
-    []
+    [],
   );
 
   const handleSubmit = useCallback(
-    (e: React.FormEvent<HTMLFormElement>) => {
+    async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
       // 全てのフィールドに入力されているか確認
       if (!state.title || !state.content || !state.author) {
-        alert("全てのフィールドを入力してください。");
+        alert('全てのフィールドを入力してください。');
         return;
       }
 
+      // 新規データ
+      const newPost: PostData = {
+        id,
+        title: state.title,
+        content: state.content,
+        author: state.author,
+        created_at: new Date().toISOString(),
+      };
+
+      await addPost(newPost);
+
       // 新規データを追加し、フォームをリセット
-      dispatch({ type: "finished", newPost });
-      alert("記事が作成されました！");
+      dispatch({ type: 'finished' });
+      alert('記事が作成されました！');
       location.href = `/pages/post/${id}`;
     },
-    [state.title, state.content, state.author]
+    [state.title, state.content, state.author, id],
   );
-
-  useEffect(() => {
-    localStorage.setItem("posts", JSON.stringify(state.posts));
-  }, [state.posts]);
 
   return (
     <>

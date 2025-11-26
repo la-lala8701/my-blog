@@ -4,12 +4,14 @@ import { EditButtons } from "@/app/components/EditButtons";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useState } from "react";
-import { storageData } from "../utils/storageData";
+// import { storageData } from "../utils/storageData";
+import { usePosts } from "../hooks/usePosts";
 
 export const ArticleWrapper = () => {
   const params = useParams<{ id: string }>();
-  const posts = storageData("posts");
+  // const posts = storageData("posts");
   const [showModal, setShowModal] = useState(false);
+    const { posts } = usePosts();
 
   const handleDelete = useCallback(() => {
     setShowModal(true);
@@ -54,7 +56,7 @@ export const ArticleWrapper = () => {
         </div>
       ) : null}
 
-      <Article />
+      <Article params={params.id} posts={posts} />
       <EditButtons onDelete={handleDelete} params={params.id} />
     </>
   );
