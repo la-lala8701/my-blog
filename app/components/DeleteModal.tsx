@@ -1,9 +1,10 @@
 'use client';
 import Link from 'next/link';
 import { usePost } from '../hooks/usePost';
+import { Dispatch, SetStateAction } from 'react';
 
-export const DeleteModal = () => {
-  const { showModal, handleCancel, handleDecisiton } = usePost();
+export const DeleteModal = ({showModal, setShowModal}:{showModal:boolean, setShowModal: Dispatch<SetStateAction<boolean>>}) => {
+  const { handleCancel, handleDelete } = usePost();
 
   if (showModal) {
     return (
@@ -18,14 +19,14 @@ export const DeleteModal = () => {
             </p>
             <div className="flex gap-3 justify-end mt-12 mb-2">
               <button
-                onClick={handleCancel}
+                onClick={() => handleCancel(setShowModal)}
                 className="px-4 py-2 bg-gray-500 text-white rounded-md hover:bg-gray-600 cursor-pointer inline-block"
               >
                 いいえ
               </button>
               <Link
                 href="/"
-                onClick={handleDecisiton}
+                onClick={handleDelete}
                 className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 cursor-pointer inline-block"
               >
                 はい

@@ -1,30 +1,25 @@
 import { useParams } from 'next/navigation';
-import { useCallback, useState } from 'react';
-import { usePosts } from './usePosts';
+import { Dispatch, SetStateAction, useCallback } from 'react';
+import { deletePostById } from '../utils/supabaseFunctions';
 
 export const usePost = () => {
   const params = useParams<{ id: string }>();
-  const [showModal, setShowModal] = useState(false);
-  const { posts } = usePosts();
 
-  const handleDelete = useCallback(() => {
-    setShowModal(true);
+  const handleShowModal = useCallback((setFunc: Dispatch<SetStateAction<boolean>>) => {
+    setFunc(true);
   }, []);
-  const handleCancel = useCallback(() => {
-    setShowModal(false);
+  const handleCancel = useCallback((setFunc: Dispatch<SetStateAction<boolean>>) => {
+    setFunc(false);
   }, []);
 
-  const handleDecisiton = useCallback(() => {
-    const updatedPosts = posts.filter((post) => post !== params);
-    localStorage.setItem('posts', JSON.stringify(updatedPosts));
-  }, [params, posts]);
+  const handleDelete = useCallback(async() => {
+    await deletePostById(params.id);
+  }, [params.id]);
 
   return {
     params,
-    showModal,
-    posts,
-    handleDelete,
+    handleShowModal,
     handleCancel,
-    handleDecisiton,
+    handleDelete,
   };
 };
