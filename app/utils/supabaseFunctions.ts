@@ -6,6 +6,19 @@ export const getAllPosts = async () => {
   return posts.data;
 };
 
+export const getPostById = async (id:string) => {
+  const post = await supabase.from('posts').select('*').eq('id', id).single();
+  return post.data;
+}
+
 export const addPost = async (post:PostData) => {
   await supabase.from('posts').insert(post);
+};
+
+export const deletePostById = async (id:string) => {
+  await supabase.from('posts').delete().eq('id', id);
+};
+
+export const updatePostById = async (id:string, updatedPost:Partial<PostData>) => {
+  await supabase.from('posts').update(updatedPost).eq('id', id);
 };
