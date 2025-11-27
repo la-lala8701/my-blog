@@ -1,19 +1,16 @@
-"use client";
-import { Params } from "next/dist/server/request/params";
-import { useParams } from "next/navigation";
+'use client';
 import { PostData } from "../../types";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { usePosts } from "../../hooks/usePosts";
 import rehypeRaw from "rehype-raw";
 import classes from "./Article.module.css";
+import { usePost } from "@/app/hooks/usePost";
 
-export const Article = ({params, posts}: {params:string, posts: PostData[]}) => {
-  // const { posts } = usePosts();
-  // const params: Params = useParams();
+export const Article = () => {
+  const { params, posts } = usePost();
 
   const data: PostData | undefined = posts.find(
-    (post) => post.id === params
+    (post) => post.id === params.id
   );
 
   if (!data) {

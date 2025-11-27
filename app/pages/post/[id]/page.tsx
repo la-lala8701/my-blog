@@ -1,7 +1,7 @@
-import { ArticleWrapper } from "@/app/components/ArticleWrapper";
+import { Post as PostComponent } from "@/app/components/Post";
 
 export default function Post() {
   return (
-    <ArticleWrapper />
+    <PostComponent />
   );
 }
