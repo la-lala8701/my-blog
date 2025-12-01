@@ -1,9 +1,11 @@
-'use client';
 import { PostsItem } from './PostsItem';
-import { usePosts } from '../hooks/usePosts';
+import { getAllPosts } from '../utils/supabaseFunctions';
 
-export const Posts = () => {
-  const { posts } = usePosts();
+export const Posts = async () => {
+  const posts = await getAllPosts();
+  if (!posts) {
+    return <div>記事が見つかりませんでした。</div>;
+  }
 
   return (
     <section>

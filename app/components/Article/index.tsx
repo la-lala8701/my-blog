@@ -6,28 +6,26 @@ import classes from './Article.module.css';
 
 export const Article = async ({ post }: { post: PostData }) => {
   return (
-    <>
-      <article>
-        <h1 className="text-5xl leading-normal font-bold">{post?.title}</h1>
-        <div className="flex items-start gap-2 mt-12">
-          <div className="w-7 h-7 bg-gray-400 rounded-full"></div>
-          <div>
-            <p className="text-base">{post?.author}</p>
-            <p className="text-sm text-gray-500">{post?.created_at}</p>
-          </div>
+    <article>
+      <h1 className="text-5xl leading-normal font-bold">{post?.title}</h1>
+      <div className="flex items-start gap-2 mt-12">
+        <div className="w-7 h-7 bg-gray-400 rounded-full"></div>
+        <div>
+          <p className="text-base">{post?.author}</p>
+          <p className="text-sm text-gray-500">{post?.created_at}</p>
         </div>
-        <div className="mt-28 prose prose-lg max-w-none">
-          <section className={classes.markdown}>
-            <Markdown
-              remarkPlugins={[remarkGfm]}
-              skipHtml={false}
-              rehypePlugins={[rehypeRaw]}
-            >
-              {post?.content}
-            </Markdown>
-          </section>
-        </div>
-      </article>
-    </>
+      </div>
+      <div className="mt-28 prose prose-lg max-w-none">
+        <section className={classes.markdown}>
+          <Markdown
+            remarkPlugins={[remarkGfm]}
+            skipHtml={false}
+            rehypePlugins={[rehypeRaw]}
+          >
+            {post?.content}
+          </Markdown>
+        </section>
+      </div>
+    </article>
   );
 };
