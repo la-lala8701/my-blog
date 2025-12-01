@@ -1,10 +1,12 @@
 import { PostsItem } from './PostsItem';
 import { getAllPosts } from '../utils/supabaseFunctions';
+import { notFound } from 'next/navigation';
 
 export const Posts = async () => {
   const posts = await getAllPosts();
-  if (!posts) {
-    return <div>記事が見つかりませんでした。</div>;
+  
+  if (!posts || posts.length === 0) {
+    notFound();
   }
 
   return (
