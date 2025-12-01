@@ -1,28 +1,10 @@
-'use client';
 import { PostData } from '../../types';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import classes from './Article.module.css';
-import { usePost } from '@/app/hooks/usePost';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { getPostById } from '@/app/utils/supabaseFunctions';
-import { EditButtons } from '../EditButtons';
 
-export const Article = ({setShowModal}: {setShowModal: Dispatch<SetStateAction<boolean>>}) => {
-  const { params } = usePost();
-  const [post, setPost] = useState<PostData | null>(null);
-
-  useEffect(() => {
-    const getPost = async () => {
-      const post = await getPostById(params.id);
-      setPost(post);
-    };
-    getPost();
-  }, [params.id]);
-
-  if (!post) return <div>ローディング中...</div>;
-
+export const Article = async ({ post }: { post: PostData }) => {
   return (
     <>
       <article>
@@ -46,7 +28,6 @@ export const Article = ({setShowModal}: {setShowModal: Dispatch<SetStateAction<b
           </section>
         </div>
       </article>
-      <EditButtons setShowModal={setShowModal} />
     </>
   );
 };

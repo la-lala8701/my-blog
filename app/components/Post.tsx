@@ -1,15 +1,14 @@
-'use client';
-import { Article } from "@/app/components/Article";
-import { DeleteModal } from "./DeleteModal";
-import { useState } from "react";
+import { Article } from '@/app/components/Article';
+import { PostWrapper } from './PostWrapper';
+import { getPostById } from '../utils/supabaseFunctions';
+import { PostData } from '../types';
 
-export const Post = () => {
-  const [showModal, setShowModal] = useState(false);
-  
+export const Post = async ({ pageId }: { pageId: string }) => {
+  const getPost: PostData =  await getPostById(pageId);
+
   return (
-    <>
-      <DeleteModal showModal={showModal} setShowModal={setShowModal} />
-      <Article setShowModal={setShowModal} />
-    </>
+    <PostWrapper>
+      <Article post={getPost} />
+    </PostWrapper>
   );
 };
