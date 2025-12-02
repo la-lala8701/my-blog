@@ -1,32 +1,11 @@
 'use client';
 import { PostData } from '@/app/types';
-import { getPostById, updatePostById } from '@/app/utils/supabaseFunctions';
+import { updatePostById } from '@/app/utils/supabaseFunctions';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
-// import { title } from 'process';
-// import { useParams } from "next/navigation";
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
-export const EditPost = ({ id }: { id: string }) => {
-  // const params = useParams();
-  //   const [posts, setPosts] = useState<PostData[]>([]);
-  const [editPost, setEditPost] = useState<PostData | undefined>(undefined);
-
-  useEffect(() => {
-    // 編集する記事を特定
-    const getPost = async () => {
-      if (!id) return;
-      const post = await getPostById(id);
-      setEditPost(post);
-      console.log(id);
-    };
-    getPost();
-    // const postToEdit: PostData | undefined = posts.find(
-    //   (post) => post.id === id,
-    // );
-    // if (!postToEdit) return; // 記事が見つからない場合は何もしない
-    // setEditPost(postToEdit); // 編集する記事の状態を設定
-  }, [id]);
+export const EditPost = ({ post }: { post: PostData }) => {
+  const [editPost, setEditPost] = useState<PostData>(post);
 
   const handleChangeTitle = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,25 +31,12 @@ export const EditPost = ({ id }: { id: string }) => {
       if (!editPost) return; // 編集する記事がない場合は何もしない
 
       // ここで記事編集のロジックを実装します
-      await updatePostById(id, editPost);
-      // setPosts((prevPosts) =>
-      //   prevPosts.map((post) => (post.id === editPost.id ? editPost : post))
-      // );
-      // localStorage.setItem(
-      //   "posts",
-      //   JSON.stringify(
-      //     posts.map((post) => (post.id === editPost.id ? editPost : post))
-      //   )
-      // );
-      //   alert("記事が更新されました！");
-      //   location.href = `/pages/post/${id}`;
+      await updatePostById(post.id, editPost);
+      alert('記事が更新されました！');
+      location.href = `/pages/post/${post.id}`;
     },
-    [id, editPost],
+    [editPost, post.id],
   );
-
-  if (!editPost) {
-    notFound();
-  }
 
   return (
     <>
@@ -84,7 +50,7 @@ export const EditPost = ({ id }: { id: string }) => {
             type="text"
             id="title"
             name="title"
-            value={editPost.title}
+            value={editPost?.title}
             onChange={handleChangeTitle}
             className="w-full border border-gray-300 rounded-md p-2"
           />
@@ -96,7 +62,7 @@ export const EditPost = ({ id }: { id: string }) => {
           <textarea
             id="content"
             name="content"
-            value={editPost.content}
+            value={editPost?.content}
             onChange={handleChangeContent}
             className="w-full border border-gray-300 rounded-md p-2"
             rows={6}
@@ -109,7 +75,7 @@ export const EditPost = ({ id }: { id: string }) => {
           更新
         </button>
       </form>
-      <Link href={`/pages/post/${id}`}>
+      <Link href={`/pages/post/${post.id}`}>
         <button className="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 cursor-pointer">
           記事詳細に戻る
         </button>
