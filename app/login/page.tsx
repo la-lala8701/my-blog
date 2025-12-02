@@ -1,10 +1,14 @@
 'use client';
+import { createClient } from "@/lib/supabase/client";
 import { signInUser } from "@/lib/supabaseFunctions";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleEmailChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,11 +28,23 @@ export default function LoginPage() {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       // ログインのロジックをここに実装
-      await signInUser(email, password);
+      const supabase = createClient();
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      
 
-      alert(`ログインしました: ${email}`);
+      if (error) {
+        setMessage(`ログイン失敗: ${error.message}`);
+        console.log(`ログイン失敗: ${error.message}`);
+        
+      } else {
+        setMessage(`ログイン成功: ${email}`);
+        router.push('/');
+      }
     },
-    [email, password],
+    [email, password, router],
   );
 
   return (
