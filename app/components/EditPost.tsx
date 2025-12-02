@@ -33,7 +33,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
       // ここで記事編集のロジックを実装します
       await updatePostById(post.id, editPost);
       alert('記事が更新されました！');
-      location.href = `/pages/post/${post.id}`;
+      location.href = `/post/${post.id}`;
     },
     [editPost, post.id],
   );
@@ -75,7 +75,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
           更新
         </button>
       </form>
-      <Link href={`/pages/post/${post.id}`}>
+      <Link href={`/post/${post.id}`}>
         <button className="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 cursor-pointer">
           記事詳細に戻る
         </button>

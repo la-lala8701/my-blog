@@ -12,15 +12,23 @@ export const Header = () => {
             <li>
               <Link
                 className="px-4 py-3 bg-blue-300 rounded-md hover:bg-blue-400"
-                href="/pages/login"
+                href="/login"
               >
                 ログイン
               </Link>
             </li>
             <li>
               <Link
+                className="ml-4 px-4 py-3 bg-blue-300 rounded-md hover:bg-blue-400"
+                href="/login"
+              >
+                サインアップ
+              </Link>
+            </li>
+            <li>
+              <Link
                 className="ml-4 px-4 py-3 bg-green-300 rounded-md hover:bg-green-400"
-                href="/pages/create"
+                href="/create"
               >
                 記事作成
               </Link>

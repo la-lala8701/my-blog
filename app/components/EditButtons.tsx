@@ -8,7 +8,7 @@ export const EditButtons = ({setShowModal}: {setShowModal: Dispatch<SetStateActi
 
   return (
     <div className="text-right mt-20">
-      <Link href={`/pages/post/${params.id}/edit`}>
+      <Link href={`/post/${params.id}/edit`}>
         <button className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 cursor-pointer">
           記事を編集
         </button>
