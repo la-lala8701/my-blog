@@ -1,8 +1,8 @@
 'use client';
-import { signInUser } from "@/lib/supabaseFunctions";
-import { useCallback, useState } from "react";
+import { signUpUser } from '@/lib/supabaseFunctions';
+import { useCallback, useState } from 'react';
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,17 +23,17 @@ export default function LoginPage() {
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      // ログインのロジックをここに実装
-      await signInUser(email, password);
+      // サインアップのロジックをここに実装
+      await signUpUser(email, password);
 
-      alert(`ログインしました: ${email}`);
+      alert(`サインアップしました: ${email}`);
     },
     [email, password],
   );
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">ログイン</h1>
+      <h1 className="text-2xl font-bold mb-4">サインアップ</h1>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
           <label className="block mb-1">メールアドレス</label>
@@ -55,7 +55,7 @@ export default function LoginPage() {
           type="submit"
           className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 cursor-pointer"
         >
-          ログイン
+          サインアップ
         </button>
       </form>
     </>

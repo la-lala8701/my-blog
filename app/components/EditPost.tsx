@@ -1,6 +1,6 @@
 'use client';
 import { PostData } from '@/app/types';
-import { updatePostById } from '@/app/utils/supabaseFunctions';
+import { updatePostById } from '@/lib/supabaseFunctions';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 

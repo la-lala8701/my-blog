@@ -3,7 +3,7 @@ import { useCallback, useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
 import { PostData } from '@/app/types';
-import { addPost } from '@/app/utils/supabaseFunctions';
+import { addPost } from '@/lib/supabaseFunctions';
 
 type ChangeValue = {
   title: string;

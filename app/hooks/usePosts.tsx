@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { PostData } from '../types';
-import { getAllPosts } from '../utils/supabaseFunctions';
+import { getAllPosts } from '../lib/supabaseFunctions';
 
 export const usePosts = () => {
   const [posts, setPosts] = useState<PostData[]>([]);
