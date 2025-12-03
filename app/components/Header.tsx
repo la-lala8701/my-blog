@@ -20,7 +20,7 @@ export const Header = () => {
             <li>
               <Link
                 className="ml-4 px-4 py-3 bg-blue-300 rounded-md hover:bg-blue-400"
-                href="/login"
+                href="/auth/sign-up"
               >
                 サインアップ
               </Link>
