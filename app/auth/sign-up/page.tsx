@@ -1,8 +1,9 @@
 'use client';
-import { signUpUser } from '@/lib/supabaseFunctions';
+import { useAuth } from '@/app/hooks/useAuth';
 import { useCallback, useState } from 'react';
 
 export default function SignupPage() {
+  const { signUpUser } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -25,10 +26,9 @@ export default function SignupPage() {
       e.preventDefault();
       // サインアップのロジックをここに実装
       await signUpUser(email, password);
-
       alert(`サインアップしました: ${email}`);
     },
-    [email, password],
+    [email, password, signUpUser],
   );
 
   return (
