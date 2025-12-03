@@ -1,9 +1,8 @@
 
 import { PostData } from '@/app/types';
-// import { supabase } from '@/app/utils/spabase';
 import { createClient } from './supabase/client';
 
-const supabase = createClient();
+export const supabase = createClient();
 
 export const getAllPosts = async () => {
   const posts = await supabase.from('posts').select('*');
@@ -29,17 +28,3 @@ export const updatePostById = async (
 ) => {
   await supabase.from('posts').update(updatedPost).eq('id', id);
 };
-
-export const signUpUser = async (email: string, password: string) => {
-  await supabase.auth.signUp({
-    email,
-    password,
-  });
-};
-
-export const signInUser = async (email: string, password: string) => {
-  await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-}
