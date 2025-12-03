@@ -1,6 +1,6 @@
+import { deletePostById } from '@/lib/supabaseFunctions';
 import { useParams } from 'next/navigation';
 import { Dispatch, SetStateAction, useCallback } from 'react';
-import { deletePostById } from '../lib/supabaseFunctions';
 
 export const usePost = () => {
   const params = useParams<{ id: string }>();
