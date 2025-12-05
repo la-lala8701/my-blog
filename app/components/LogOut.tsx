@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 import { useAuth } from '../hooks/useAuth';
 
 export const Logout = () => {
@@ -16,9 +16,5 @@ export const Logout = () => {
     >
       ログアウト
     </a>
-    // <div className="flex flex-col items-center justify-center min-h-screen">
-    //   <h1 className="text-2xl font-bold mb-4">ログアウト中...</h1>
-    //   <p>しばらくお待ちください。</p>
-    // </div>
   );
 };
