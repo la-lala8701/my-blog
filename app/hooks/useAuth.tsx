@@ -1,9 +1,20 @@
-'use client';
 import { supabase } from '@/lib/supabaseFunctions';
+import { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export const useAuth = () => {
   const router = useRouter();
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((event: AuthChangeEvent, currentSession: Session | null) => {
+      setSession(currentSession);
+    });
+    return () => {
+      data.subscription.unsubscribe();
+    };
+  }, []);
 
   const signUpUser = async (email: string, password: string) => {
     try {
@@ -31,7 +42,7 @@ export const useAuth = () => {
         alert(`ログインしました: ${email}`);
         await router.push('/');
     } catch (error) {
-        alert('サインイン中にエラーが発生しました。');
+        alert('ログインに失敗しました。');
         console.error('Error signing in:', error);
     }
   };
@@ -50,5 +61,5 @@ export const useAuth = () => {
     }
   }
 
-  return { signUpUser, signInUser, logoutUser };
+  return { signUpUser, signInUser, logoutUser, session };
 };
