@@ -3,8 +3,8 @@ import Link from 'next/link';
 export default function Dashboard() {
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center mb-8">Dashboard</h1>
-      <p className="text-lg text-gray-600 text-center mb-6">
+      <h1 className="text-4xl font-bold text-center">Dashboard</h1>
+      <p className="text-lg text-gray-600 text-center mt-8">
         Welcome to your dashboard! Here you can manage your posts and view your
         profile.
       </p>
