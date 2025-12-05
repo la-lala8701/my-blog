@@ -26,7 +26,6 @@ export default function LoginPage() {
       e.preventDefault();
       // ログインのロジックをここに実装
       await signInUser(email,password);
-      alert(`ログインしました: ${email}`);
     },
     [email, password, signInUser],
   );

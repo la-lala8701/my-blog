@@ -28,6 +28,7 @@ export const useAuth = () => {
         password,
       });
         if (signInError) { throw signInError; }
+        alert(`ログインしました: ${email}`);
         await router.push('/');
     } catch (error) {
         alert('サインイン中にエラーが発生しました。');
