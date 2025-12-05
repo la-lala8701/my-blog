@@ -36,5 +36,19 @@ export const useAuth = () => {
     }
   };
 
-  return { signUpUser, signInUser };
+  const logoutUser = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        throw error;
+      }
+      // Optionally, redirect to the login page or home page after logout
+      await router.push('/');
+    } catch (error) {
+      alert('ログアウト中にエラーが発生しました。');
+      console.error('Error logging out:', error);
+    }
+  }
+
+  return { signUpUser, signInUser, logoutUser };
 };
