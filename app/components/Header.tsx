@@ -27,13 +27,21 @@ export const Header = () => {
                 <li className="ml-4">
                   <Logout />
                 </li>
+                <li>
+                  <Link
+                    className="ml-4 px-4 py-3 bg-yellow-300 rounded-md hover:bg-yellow-400"
+                    href="/dashboard"
+                  >
+                    ダッシュボード
+                  </Link>
+                </li>
               </>
             ) :(
               <>
                 <li>
                   <Link
                     className="px-4 py-3 bg-blue-300 rounded-md hover:bg-blue-400"
-                    href="/login"
+                    href="/auth/login"
                   >
                     ログイン
                   </Link>

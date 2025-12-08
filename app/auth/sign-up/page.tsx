@@ -6,6 +6,14 @@ export default function SignupPage() {
   const { signUpUser } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+
+  const handleUsernameChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setUsername(e.target.value);
+    },
+    [],
+  );
 
   const handleEmailChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,16 +33,29 @@ export default function SignupPage() {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       // サインアップのロジックをここに実装
-      await signUpUser(email, password);
+      if (!username) {
+        alert('表示名を入力してください。');
+        return;
+      }
+      await signUpUser(email, password, username);
       alert(`サインアップしました: ${email}`);
     },
-    [email, password, signUpUser],
+    [email, password, username, signUpUser],
   );
 
   return (
     <>
       <h1 className="text-2xl font-bold mb-4">サインアップ</h1>
       <form className="space-y-4" onSubmit={handleSubmit}>
+        <div>
+          <label className="block mb-1">ユーザー名</label>
+          <input
+            type="text"
+            className="border border-gray-300 rounded-md p-2 w-full"
+            onChange={handleUsernameChange}
+            placeholder="任意の表示名を設定してください"
+          />
+        </div>
         <div>
           <label className="block mb-1">メールアドレス</label>
           <input

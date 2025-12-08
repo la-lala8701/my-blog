@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
+import Link from 'next/link';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -57,6 +58,18 @@ export default function LoginPage() {
           ログイン
         </button>
       </form>
+      <ul>
+        <li className="mt-2">
+          <Link href="/auth/forgot-password" className="text-blue-500 hover:underline">
+            パスワードをお忘れですか？
+          </Link>
+        </li>
+        <li>
+          <Link href="/auth/sign-up" className="text-blue-500 hover:underline">
+            アカウントをお持ちでないですか？登録はこちら
+          </Link>
+        </li>
+      </ul>
     </>
   );
 }
