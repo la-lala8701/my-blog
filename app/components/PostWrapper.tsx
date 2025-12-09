@@ -7,12 +7,12 @@ import { useAuth } from '../hooks/useAuth';
 
 export const PostWrapper = ({ children }: { children: React.ReactNode }) => {
   const [showModal, setShowModal] = useState(false);
-  const { session } = useAuth();
+  const { context } = useAuth();
   return (
     <>
       {children}
       <DeleteModal showModal={showModal} setShowModal={setShowModal} />
-      {session ? <EditButtons setShowModal={setShowModal} /> : null}
+      {context ? <EditButtons setShowModal={setShowModal} /> : null}
     </>
   );
 };

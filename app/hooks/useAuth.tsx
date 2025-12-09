@@ -1,22 +1,15 @@
 import { supabase } from '@/lib/supabaseFunctions';
-import { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 
 export const useAuth = () => {
   const router = useRouter();
-  const [session, setSession] = useState<Session | null>(null);
 
-  useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange(
-      (event: AuthChangeEvent, currentSession: Session | null) => {
-        setSession(currentSession);
-      },
-    );
-    return () => {
-      data.subscription.unsubscribe();
-    };
-  }, []);
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuthはAuthProvider内で使用する必要があります');
+  }
 
   const signUpUser = async (
     email: string,
@@ -80,14 +73,29 @@ export const useAuth = () => {
         password,
       });
       if (error) {
-        throw error
+        throw error;
       }
       await router.refresh();
     } catch (error) {
-      alert('パスワード更新中にエラーが発生しました')
+      alert('パスワード更新中にエラーが発生しました');
       console.error('Password Change Error:', error);
     }
   };
 
-  return { signUpUser, signInUser, logoutUser, session, updatePassword };
+  const updateEmail = async (email: string) => {
+    try {
+      const { error } = await supabase.auth.updateUser({
+        email,
+      });
+      if (error) {
+        throw error;
+      }
+      await router.refresh();
+    } catch (error) {
+      alert('設定メールアドレス更新中にエラーが発生しました');
+      console.error('Email Change Error:', error);
+    }
+  };
+
+  return { signUpUser, signInUser, logoutUser, context, updatePassword };
 };

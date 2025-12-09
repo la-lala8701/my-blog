@@ -4,7 +4,7 @@ import { Logout } from './LogOut';
 import { useAuth } from '../hooks/useAuth';
 
 export const Header = () => {
-  const { session } = useAuth();
+  const { context } = useAuth();
 
   return (
     <header className="py-6 px-14 border-b border-gray-300">
@@ -14,7 +14,7 @@ export const Header = () => {
         </Link>
         <nav>
           <ul className="flex items-center">
-            {session ? (
+            {context ? (
               <>
                 <li>
                   <Link
