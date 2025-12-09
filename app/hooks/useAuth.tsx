@@ -8,26 +8,31 @@ export const useAuth = () => {
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    const { data } = supabase.auth.onAuthStateChange((event: AuthChangeEvent, currentSession: Session | null) => {
-      setSession(currentSession);
-    });
+    const { data } = supabase.auth.onAuthStateChange(
+      (event: AuthChangeEvent, currentSession: Session | null) => {
+        setSession(currentSession);
+      },
+    );
     return () => {
       data.subscription.unsubscribe();
     };
   }, []);
 
-  const signUpUser = async (email: string, password: string, username: string) => {
+  const signUpUser = async (
+    email: string,
+    password: string,
+    username: string,
+  ) => {
     try {
       const { error: signUpError } = await supabase.auth.signUp({
-        email, 
+        email,
         password,
         options: {
           data: {
             username,
           },
-        }
-      }
-    );
+        },
+      });
       if (signUpError) {
         throw signUpError;
       }
@@ -40,16 +45,18 @@ export const useAuth = () => {
 
   const signInUser = async (email: string, password: string) => {
     try {
-      const {error: signInError} = await supabase.auth.signInWithPassword({
+      const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-        if (signInError) { throw signInError; }
-        alert(`ログインしました: ${email}`);
-        await router.push('/');
+      if (signInError) {
+        throw signInError;
+      }
+      alert(`ログインしました: ${email}`);
+      await router.push('/');
     } catch (error) {
-        alert('ログインに失敗しました。');
-        console.error('Error signing in:', error);
+      alert('ログインに失敗しました。');
+      console.error('Error signing in:', error);
     }
   };
 
@@ -65,7 +72,22 @@ export const useAuth = () => {
       alert('ログアウト中にエラーが発生しました。');
       console.error('Error logging out:', error);
     }
-  }
+  };
 
-  return { signUpUser, signInUser, logoutUser, session };
+  const updatePassword = async (password: string) => {
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password,
+      });
+      if (error) {
+        throw error
+      }
+      await router.refresh();
+    } catch (error) {
+      alert('パスワード更新中にエラーが発生しました')
+      console.error('Password Change Error:', error);
+    }
+  };
+
+  return { signUpUser, signInUser, logoutUser, session, updatePassword };
 };
