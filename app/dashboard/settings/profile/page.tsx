@@ -1,12 +1,25 @@
 'use client';
 import Link from 'next/link';
-import { useForm } from 'react-hook-form';
+import { useCallback } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+type ProfileData = {
+  username: string;
+  introduction: string;
+}
 
 export default function ProfilePage() {
-  const {register, handleSubmit} = useForm();
-  const onSubmit = (data: any) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ProfileData>();
+
+  const onSubmit: SubmitHandler<ProfileData> = useCallback((data) => {
     console.log(data);
-  };
+    // useAuthでデータを更新したい
+    alert('データを更新しました')
+  }, []);
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -18,19 +31,30 @@ export default function ProfilePage() {
       </p> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-6">
-          <label className="block text-sm font-medium text-gray-700">表示名</label>
+          <label className="block text-sm font-medium text-gray-700">
+            表示名
+            <span className="text-red-500">*</span>
+            <span className="ml-2 text-sm text-red-500">
+              {errors.username && <span>必須項目です</span>}
+            </span>
+          </label>
           <input
             type="text"
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             placeholder="表示名を入力してください"
+            defaultValue="testuser"
+            {...register('username', { required: true })}
           />
         </div>
         <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700">自己紹介文</label>
+          <label className="block text-sm font-medium text-gray-700">
+            自己紹介文
+          </label>
           <textarea
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             rows={4}
             placeholder="自己紹介文を入力してください"
+            {...register('introduction')}
           ></textarea>
         </div>
         <button
