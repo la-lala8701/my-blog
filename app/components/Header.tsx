@@ -14,7 +14,7 @@ export const Header = () => {
         </Link>
         <nav>
           <ul className="flex items-center">
-            {context ? (
+            {context.session ? (
               <>
                 <li>
                   <Link
