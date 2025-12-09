@@ -20,18 +20,10 @@ export default function Dashboard() {
         </li>
         <li>
           <Link
-            href="/dashboard/settings/profile"
+            href="/dashboard/settings"
             className="border p-4 rounded-md hover:text-blue-500"
           >
-            プロフィール設定 →
-          </Link>
-        </li>
-        <li>
-          <Link
-            href="/dashboard/settings/account"
-            className="border p-4 rounded-md hover:text-blue-500"
-          >
-            アカウント設定 →
+            設定 →
           </Link>
         </li>
       </ul>

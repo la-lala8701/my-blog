@@ -65,8 +65,8 @@ export default function ProfilePage() {
         </button>
       </form>
       <div className="mt-8">
-        <Link href="/dashboard" className="text-blue-500 hover:underline">
-          ← ダッシュボードに戻る
+        <Link href="/dashboard/settings" className="text-blue-500 hover:underline">
+          ← 設定ページに戻る
         </Link>
       </div>
     </div>
