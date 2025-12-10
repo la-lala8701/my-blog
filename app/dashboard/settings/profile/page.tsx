@@ -16,7 +16,6 @@ export default function ProfilePage() {
   } = useForm<ProfileData>();
 
   const onSubmit: SubmitHandler<ProfileData> = useCallback((data) => {
-    console.log(data);
     // useAuthでデータを更新したい
     alert('データを更新しました')
   }, []);
