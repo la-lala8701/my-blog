@@ -75,7 +75,8 @@ export const useAuth = () => {
       if (error) {
         throw error;
       }
-      await router.refresh();
+      alert('パスワードが変更されました');
+      router.refresh();
     } catch (error) {
       alert('パスワード更新中にエラーが発生しました');
       console.error('Password Change Error:', error);
@@ -90,12 +91,20 @@ export const useAuth = () => {
       if (error) {
         throw error;
       }
-      await router.refresh();
+      alert('メールアドレスが変更されました');
+      router.refresh();
     } catch (error) {
       alert('設定メールアドレス更新中にエラーが発生しました');
       console.error('Email Change Error:', error);
     }
   };
 
-  return { signUpUser, signInUser, logoutUser, context, updatePassword };
+  return {
+    signUpUser,
+    signInUser,
+    logoutUser,
+    context,
+    updatePassword,
+    updateEmail,
+  };
 };
