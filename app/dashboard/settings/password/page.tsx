@@ -16,6 +16,7 @@ export default function ChangePasswordPage() {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<PasswordData>();
 
   const onSubmit: SubmitHandler<PasswordData> = async (data) => {
@@ -24,7 +25,7 @@ export default function ChangePasswordPage() {
       return;
     }
     await updatePassword(data.password);
-    alert('パスワードが変更されました')
+    reset();
   };
 
   return (
@@ -56,7 +57,6 @@ export default function ChangePasswordPage() {
             <span className="text-red-500">*</span>
             <span className="ml-2 text-sm text-red-500">
               {errors.confirmation && <span>確認は必須です</span>}
-              {}
             </span>
           </label>
           <input
