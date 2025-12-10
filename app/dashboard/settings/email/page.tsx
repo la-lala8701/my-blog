@@ -5,29 +5,25 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 type EmailData = {
-  password: string;
-  confirmation: string;
+  email: string;
 };
 
 export default function ChangeEmailPage() {
-  const { context, updatePassword } = useAuth();
+  const { context, updateEmail } = useAuth();
   const [message, setMessage] = useState('');
-  console.log(context);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<EmailData>();
 
-    const onSubmit: SubmitHandler<EmailData> = async (data) => {
-      if (data.password !== data.confirmation) {
-        setMessage('メールアドレスが一致していません');
-        return;
-      }
-      await updatePassword(data.password);
-      alert('メールアドレスが変更されました');
-    };
+  const onSubmit: SubmitHandler<EmailData> = async (data) => {
+    if (context.session?.user.email === data.email) {
+      setMessage('新しいメールアドレスを入力してください')
+      return;
+    }
+    await updateEmail(data.email);
+  };
 
   return (
     <div className="max-w-2xl mx-auto">
@@ -49,16 +45,18 @@ export default function ChangeEmailPage() {
             新しいメールアドレス
             <span className="text-red-500">*</span>
             <span className="ml-2 text-sm text-red-500">
-              {errors.confirmation && <span>入力してください</span>}
-              {}
+              {errors.email?.type==='required' && <span>入力してください</span>}
+              {errors.email?.type==='pattern' && <span>正しいメールアドレスを入力してください</span>}
             </span>
           </label>
           <input
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-            {...register('confirmation', { required: true })}
+            {...register('email', { required: true, pattern: /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/ })}
           ></input>
         </div>
-        <p className="text-center text-sm text-red-500 mt-4">{message}</p>
+
+        <p className='text-center text-sm text-red-500 mt-4'>{message}</p>
+
         <button
           type="submit"
           className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
