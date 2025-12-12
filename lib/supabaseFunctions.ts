@@ -1,4 +1,3 @@
-
 import { PostData } from '@/app/types';
 import { createClient } from './supabase/client';
 
@@ -15,7 +14,13 @@ export const getPostById = async (id: string) => {
 };
 
 export const addPost = async (post: PostData) => {
-  await supabase.from('posts').insert(post);
+  const { error: postError } = await supabase.from('posts').insert(post);
+  if (postError) {
+    console.error('投稿エラー:', postError)
+    alert('記事の投稿に失敗しました。')
+    return
+  }
+  alert('記事が投稿されました！');
 };
 
 export const deletePostById = async (id: string) => {
