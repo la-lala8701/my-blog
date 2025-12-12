@@ -14,7 +14,7 @@ export const useAuth = () => {
   const signUpUser = async (
     email: string,
     password: string,
-    username: string,
+    display_name: string,
   ) => {
     try {
       const { error: signUpError } = await supabase.auth.signUp({
@@ -22,16 +22,17 @@ export const useAuth = () => {
         password,
         options: {
           data: {
-            username,
+            display_name,
           },
         },
       });
       if (signUpError) {
         throw signUpError;
       }
-      await router.push('/login');
+      alert('サインアップしました');
+      router.push('/dashboard/settings/profile');
     } catch (error) {
-      alert('サインアップ中にエラーが発生しました。');
+      alert(`サインアップ中にエラーが発生しました。(${error})`);
       console.error('Error signing up:', error);
     }
   };
@@ -46,7 +47,7 @@ export const useAuth = () => {
         throw signInError;
       }
       alert(`ログインしました: ${email}`);
-      await router.push('/');
+      router.push('/');
     } catch (error) {
       alert('ログインに失敗しました。');
       console.error('Error signing in:', error);
