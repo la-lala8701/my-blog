@@ -1,14 +1,17 @@
 'use client';
+import { useAuth } from '@/app/hooks/useAuth';
 import Link from 'next/link';
 import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 type ProfileData = {
-  username: string;
+  display_name: string;
   introduction: string;
-}
+};
 
 export default function ProfilePage() {
+  const { context: {session} } = useAuth();
+  
   const {
     register,
     handleSubmit,
@@ -17,7 +20,7 @@ export default function ProfilePage() {
 
   const onSubmit: SubmitHandler<ProfileData> = useCallback((data) => {
     // useAuthでデータを更新したい
-    alert('データを更新しました')
+    alert('データを更新しました');
   }, []);
 
   return (
@@ -34,15 +37,15 @@ export default function ProfilePage() {
             表示名
             <span className="text-red-500">*</span>
             <span className="ml-2 text-sm text-red-500">
-              {errors.username && <span>必須項目です</span>}
+              {errors.display_name && <span>必須項目です</span>}
             </span>
           </label>
           <input
             type="text"
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             placeholder="表示名を入力してください"
-            defaultValue="testuser"
-            {...register('username', { required: true })}
+            defaultValue={session?.user.user_metadata.display_name}
+            {...register('display_name', { required: true })}
           />
         </div>
         <div className="mt-4">
@@ -64,7 +67,10 @@ export default function ProfilePage() {
         </button>
       </form>
       <div className="mt-8">
-        <Link href="/dashboard/settings" className="text-blue-500 hover:underline">
+        <Link
+          href="/dashboard/settings"
+          className="text-blue-500 hover:underline"
+        >
           ← 設定ページに戻る
         </Link>
       </div>
