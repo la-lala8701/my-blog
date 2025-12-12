@@ -1,16 +1,18 @@
 'use client';
 import { useAuth } from '@/app/hooks/useAuth';
 import { useCallback, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
 export default function SignupPage() {
   const { signUpUser } = useAuth();
+  useForm();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [username, setUsername] = useState('');
+  const [displayName, setDisplayName] = useState('');
 
-  const handleUsernameChange = useCallback(
+  const handleDisplayNameChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      setUsername(e.target.value);
+      setDisplayName(e.target.value);
     },
     [],
   );
@@ -33,14 +35,13 @@ export default function SignupPage() {
     async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       // サインアップのロジックをここに実装
-      if (!username) {
+      if (!displayName) {
         alert('表示名を入力してください。');
         return;
       }
-      await signUpUser(email, password, username);
-      alert(`サインアップしました: ${email}`);
+      await signUpUser(email, password, displayName);
     },
-    [email, password, username, signUpUser],
+    [email, password, displayName, signUpUser],
   );
 
   return (
@@ -48,11 +49,11 @@ export default function SignupPage() {
       <h1 className="text-2xl font-bold mb-4">サインアップ</h1>
       <form className="space-y-4" onSubmit={handleSubmit}>
         <div>
-          <label className="block mb-1">ユーザー名</label>
+          <label className="block mb-1">表示名</label>
           <input
             type="text"
             className="border border-gray-300 rounded-md p-2 w-full"
-            onChange={handleUsernameChange}
+            onChange={handleDisplayNameChange}
             placeholder="任意の表示名を設定してください"
           />
         </div>
@@ -62,6 +63,7 @@ export default function SignupPage() {
             type="email"
             className="border border-gray-300 rounded-md p-2 w-full"
             onChange={handleEmailChange}
+            placeholder="メールアドレスを設定してください"
           />
         </div>
         <div>
@@ -70,6 +72,7 @@ export default function SignupPage() {
             type="password"
             className="border border-gray-300 rounded-md p-2 w-full"
             onChange={handlePasswordChange}
+            placeholder="6桁以上の半角英数字でパスワードを設定してください"
           />
         </div>
         <button
