@@ -18,9 +18,9 @@ export const usePost = () => {
     [],
   );
 
-  const handleDelete = useCallback(async () => {
+  const handleDelete = async () => {
     await deletePostById(params.id);
-  }, [params.id]);
+  };
 
   return {
     params,
