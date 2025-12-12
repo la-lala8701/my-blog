@@ -1,5 +1,4 @@
 'use client';
-import Link from 'next/link';
 import { usePost } from '../hooks/usePost';
 import { Dispatch, SetStateAction } from 'react';
 
@@ -24,13 +23,12 @@ export const DeleteModal = ({showModal, setShowModal}:{showModal:boolean, setSho
               >
                 いいえ
               </button>
-              <Link
-                href="/"
+              <button
                 onClick={handleDelete}
                 className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 cursor-pointer inline-block"
               >
                 はい
-              </Link>
+              </button>
             </div>
           </dd>
         </dl>
