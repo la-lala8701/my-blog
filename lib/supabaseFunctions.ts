@@ -33,7 +33,6 @@ export const deletePostById = async (id: string) => {
     alert('記事の削除に失敗しました。');
     return;
   }
-
 };
 
 export const updatePostById = async (
@@ -41,4 +40,15 @@ export const updatePostById = async (
   updatedPost: Partial<PostData>,
 ) => {
   await supabase.from('posts').update(updatedPost).eq('id', id);
+};
+
+export const uploadsImage = async (file) => {
+  const { error } = await supabase.storage
+    .from('bucket_name')
+    .upload('file_path', file);
+  if (error) {
+    console.error('削除エラー:', error);
+    alert('画像のアップロードに失敗しました。');
+    return;
+  }
 };
