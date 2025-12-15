@@ -3,6 +3,8 @@ import { useAuth } from '@/app/hooks/useAuth';
 import Link from 'next/link';
 import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import PersonIcon from '@mui/icons-material/Person';
 
 type ProfileData = {
   display_name: string;
@@ -27,10 +29,11 @@ export default function ProfilePage() {
     <div className="max-w-2xl mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-center">プロフィール設定</h1>
       {/* アイコン画像 */}
-      <div className="w-32 h-32 bg-gray-300 block mx-auto rounded-full"></div>
-      {/* <p className="text-lg text-gray-700">
-        ここでプロフィール情報を編集できます。将来的にはアバターのアップロードやソーシャルリンクの追加などの機能も追加予定です。
-      </p> */}
+      <div className="w-32 h-32 bg-gray-300 block mx-auto rounded-full">
+        <AccountCircleIcon color="disabled" sx={{ fontSize: 128 }}/>
+        {/* <PersonIcon color="disabled" sx={{ fontSize: 128 }} /> */}
+      </div>
+      <input type="file" name="" id="" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mt-6">
           <label className="block text-sm font-medium text-gray-700">
