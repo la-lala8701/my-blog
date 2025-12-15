@@ -1,9 +1,11 @@
+'use client';
 import { deletePostById } from '@/lib/supabaseFunctions';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
 export const usePost = () => {
   const params = useParams<{ id: string }>();
+  const router = useRouter();
 
   const handleShowModal = useCallback(
     (setFunc: Dispatch<SetStateAction<boolean>>) => {
@@ -20,6 +22,7 @@ export const usePost = () => {
 
   const handleDelete = async () => {
     await deletePostById(params.id);
+    router.push('/');
   };
 
   return {
