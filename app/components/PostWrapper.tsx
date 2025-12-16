@@ -12,7 +12,7 @@ export const PostWrapper = ({ children }: { children: React.ReactNode }) => {
     <>
       {children}
       <DeleteModal showModal={showModal} setShowModal={setShowModal} />
-      {context ? <EditButtons setShowModal={setShowModal} /> : null}
+      {context.session ? <EditButtons setShowModal={setShowModal} /> : null}
     </>
   );
 };
