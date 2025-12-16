@@ -1,4 +1,5 @@
 'use client';
+import Avatar from 'boring-avatars';
 import { useAuth } from '../hooks/useAuth';
 
 export const Profile = () => {
@@ -6,8 +7,8 @@ export const Profile = () => {
 
   return (
     <div className="mt-10 flex flex-col items-center gap-4">
-      <div className="w-32 h-32 bg-gray-300 rounded-full text-gray-100 flex items-center justify-center">
-        画像
+      <div className="w-32 h-32 rounded-full flex items-center justify-center">
+        <Avatar name={context.session?.user.user_metadata.display_name} size={128} variant="beam" />
       </div>
       <div>
         <p className="text-xl font-semibold text-center">{context.session?.user.user_metadata.display_name}</p>

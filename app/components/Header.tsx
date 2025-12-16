@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { Logout } from './LogOut';
 import { useAuth } from '../hooks/useAuth';
+import Avatar from 'boring-avatars';
 
 export const Header = () => {
   const { context } = useAuth();
@@ -29,14 +30,18 @@ export const Header = () => {
                 </li>
                 <li>
                   <Link
-                    className="ml-4 px-4 py-3 bg-yellow-300 rounded-md hover:bg-yellow-400"
+                    className="ml-8 w-11 h-11 rounded-full block"
                     href="/dashboard"
                   >
-                    ダッシュボード
+                    <Avatar
+                      name={context.session?.user.user_metadata.display_name}
+                      size={44}
+                      variant="beam"
+                    />
                   </Link>
                 </li>
               </>
-            ) :(
+            ) : (
               <>
                 <li>
                   <Link
