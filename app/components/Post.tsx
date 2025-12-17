@@ -8,9 +8,15 @@ export const Post = async ({ pageId }: { pageId: string }) => {
   const getPost: PostData = await getPostById(pageId);
 
   return (
-    <PostWrapper>
-      <Article post={getPost} />
-      <Profile author={getPost.author} />
-    </PostWrapper>
+    <div className="flex gap-10 mx-auto max-w-5xl mt-12">
+      <div className='max-w-3xl flex-1'>
+        <PostWrapper>
+          <Article post={getPost} />
+        </PostWrapper>
+      </div>
+      <div className='w-56 sticky top-12 h-fit'>
+        <Profile author={getPost.author} />
+      </div>
+    </div>
   );
 };
