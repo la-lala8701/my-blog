@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Profile } from '../components/Profile';
 
 export default function Dashboard() {
   return (
@@ -8,7 +7,6 @@ export default function Dashboard() {
       <p className="text-center mt-4 text-gray-600">
         ようこそ、ダッシュボードへ！ここからブログの管理や設定が行えます。
       </p>
-      <Profile />
       <ul className="flex flex-wrap gap-6 justify-center mt-16">
         <li>
           <Link
