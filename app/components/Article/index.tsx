@@ -7,7 +7,7 @@ import Avatar from 'boring-avatars';
 
 export const Article = async ({ post }: { post: PostData }) => {
   return (
-    <article>
+    <article className='px-4'>
       <h1 className="text-5xl leading-normal font-bold">{post?.title}</h1>
       <div className="flex items-start gap-2 mt-12">
         <div className="w-7 h-7 rounded-full">
