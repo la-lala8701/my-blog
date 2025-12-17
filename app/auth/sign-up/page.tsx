@@ -31,18 +31,15 @@ export default function SignupPage() {
     [],
   );
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      // サインアップのロジックをここに実装
-      if (!displayName) {
-        alert('表示名を入力してください。');
-        return;
-      }
-      await signUpUser(email, password, displayName);
-    },
-    [email, password, displayName, signUpUser],
-  );
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // サインアップのロジックをここに実装
+    if (!displayName) {
+      alert('表示名を入力してください。');
+      return;
+    }
+    await signUpUser(email, password, displayName);
+  };
 
   return (
     <>
