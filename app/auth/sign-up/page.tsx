@@ -1,84 +1,83 @@
 'use client';
 import { useAuth } from '@/app/hooks/useAuth';
-import { useCallback, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+type SignupData = {
+  email: string;
+  password: string;
+};
 
 export default function SignupPage() {
   const { signUpUser } = useAuth();
-  useForm();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignupData>();
 
-  const handleDisplayNameChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setDisplayName(e.target.value);
-    },
-    [],
-  );
-
-  const handleEmailChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(e.target.value);
-    },
-    [],
-  );
-
-  const handlePasswordChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setPassword(e.target.value);
-    },
-    [],
-  );
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // サインアップのロジックをここに実装
-    if (!displayName) {
-      alert('表示名を入力してください。');
-      return;
-    }
-    await signUpUser(email, password, displayName);
+  const onSubmit: SubmitHandler<SignupData> = async (data) => {
+    console.log(data);
+    await signUpUser(data.email, data.password);
   };
 
   return (
-    <>
-      <h1 className="text-2xl font-bold mb-4">サインアップ</h1>
-      <form className="space-y-4" onSubmit={handleSubmit}>
+    <div className="max-w-2xl mx-auto mt-12">
+      <h1 className="text-3xl font-bold mb-6 text-center">サインアップ</h1>
+      <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <label className="block mb-1">表示名</label>
-          <input
-            type="text"
-            className="border border-gray-300 rounded-md p-2 w-full"
-            onChange={handleDisplayNameChange}
-            placeholder="任意の表示名を設定してください"
-          />
-        </div>
-        <div>
-          <label className="block mb-1">メールアドレス</label>
+          <label className="block mb-1">
+            メールアドレス
+            <span className="text-red-500">*</span>
+            <span className="ml-2 text-sm text-red-500">
+              {errors.email?.type === 'required' && (
+                <span>入力してください</span>
+              )}
+              {errors.email?.type === 'pattern' && (
+                <span>正しいメールアドレスを入力してください</span>
+              )}
+            </span>
+          </label>
           <input
             type="email"
             className="border border-gray-300 rounded-md p-2 w-full"
-            onChange={handleEmailChange}
             placeholder="メールアドレスを設定してください"
+            {...register('email', {
+              required: true,
+              pattern:
+                /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/,
+            })}
           />
         </div>
         <div>
-          <label className="block mb-1">パスワード</label>
+          <label className="block mb-1">
+            パスワード
+            <span className="text-red-500">*</span>
+            <span className="ml-2 text-sm text-red-500">
+              {errors.password?.type === 'required' && '入力してください'}
+              {errors.password?.type === 'pattern' &&
+                '半角英数字で設定してください'}
+              {errors.password?.type === 'minLength' &&
+                '6文字以上で設定してください'}
+            </span>
+          </label>
           <input
             type="password"
             className="border border-gray-300 rounded-md p-2 w-full"
-            onChange={handlePasswordChange}
             placeholder="6桁以上の半角英数字でパスワードを設定してください"
+            {...register('password', {
+              required: true,
+              pattern: /^[a-zA-Z0-9]+$/,
+              minLength: 6,
+            })}
           />
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 cursor-pointer"
+          className="bg-blue-500 text-white rounded-md py-2 px-4 ml-auto block hover:bg-blue-600 cursor-pointer"
         >
           サインアップ
         </button>
       </form>
-    </>
+    </div>
   );
 }

@@ -14,17 +14,11 @@ export const useAuth = () => {
   const signUpUser = async (
     email: string,
     password: string,
-    display_name: string,
   ) => {
     try {
       const { error: signUpError } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          data: {
-            display_name,
-          },
-        },
       });
       if (signUpError) {
         throw signUpError;
