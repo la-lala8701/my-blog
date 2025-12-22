@@ -1,22 +1,54 @@
 'use client';
-import { useAuth } from '@/app/hooks/useAuth';
 import Link from 'next/link';
-import { useCallback } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PersonIcon from '@mui/icons-material/Person';
-import Image from 'next/image';
 import Avatar from 'boring-avatars';
+import {
+  getProfileById,
+  supabase,
+  updateProfileById,
+} from '@/lib/supabaseFunctions';
+// import { useState } from 'react';
+// import { User } from '@supabase/supabase-js';
 
 type ProfileData = {
   display_name: string;
-  introduction: string;
+  description: string;
 };
 
-export default function ProfilePage() {
+const currentUserId = async () => {
+  // 現在のユーザー情報を取得
   const {
-    context: { session },
-  } = useAuth();
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) {
+    alert('ログインしていません');
+    return;
+  }
+  return user.id;
+};
+
+
+const loginUserName = async () => {
+  try {
+    // ユーザーIDを取得
+    const userId: string | undefined = await currentUserId();
+    if (!userId) {
+      alert('ユーザーIDを取得できませんでした')
+      return;
+    }
+
+    // プロフィールに設定された表示名の取得
+    const { desplay_name } = await getProfileById(userId);
+    // setDisplayName(desplay_name);
+    return desplay_name;
+  } catch (error) {
+    console.error('予期せぬエラー', error);
+  }
+};
+loginUserName();
+
+export default function ProfilePage() {
+  // const [displayName, setDisplayName] = useState<string | undefined>(undefined);
 
   const {
     register,
@@ -24,19 +56,28 @@ export default function ProfilePage() {
     formState: { errors },
   } = useForm<ProfileData>();
 
-  const onSubmit: SubmitHandler<ProfileData> = useCallback((data) => {
-    // useAuthでデータを更新したい
-    alert('データを更新しました');
-  }, []);
+  const onSubmit: SubmitHandler<ProfileData> = async (data) => {
+    try {
+      // 現在のユーザー情報を取得
+      const userId: string | undefined = await currentUserId();
+      if (!userId) {
+        alert('ユーザーIDを取得できませんでした')
+        return;
+      }
+      // データを更新
+      console.log(data);
+      await updateProfileById(userId, data.display_name, data.description);
+    } catch (error) {
+      console.error('予期せぬエラー', error);
+    }
+  };
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto mt-12">
       <h1 className="text-3xl font-bold mb-6 text-center">プロフィール設定</h1>
       {/* アイコン画像 */}
       <div className="w-32 h-32 block mx-auto rounded-full">
-        {/* <AccountCircleIcon color="disabled" sx={{ fontSize: 128 }} /> */}
-        {/* <PersonIcon color="disabled" sx={{ fontSize: 128 }} /> */}
-        <Avatar name={session?.user.user_metadata.display_name} size={128} variant="beam" />
+        <Avatar name={desplay_name} size={128} variant="beam" />
       </div>
       <input
         type="file"
@@ -57,7 +98,7 @@ export default function ProfilePage() {
             type="text"
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             placeholder="表示名を入力してください"
-            defaultValue={session?.user.user_metadata.display_name}
+            defaultValue={displayName}
             {...register('display_name', { required: true })}
           />
         </div>
@@ -69,12 +110,12 @@ export default function ProfilePage() {
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             rows={4}
             placeholder="自己紹介文を入力してください"
-            {...register('introduction')}
+            {...register('description')}
           ></textarea>
         </div>
         <button
           type="submit"
-          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 block ml-auto cursor-pointer"
         >
           保存
         </button>
