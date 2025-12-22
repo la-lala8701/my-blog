@@ -3,6 +3,7 @@ import { createClient } from './supabase/client';
 
 export const supabase = createClient();
 
+// 記事データ
 export const getAllPosts = async () => {
   const posts = await supabase.from('posts').select('*');
   return posts.data;
@@ -40,6 +41,12 @@ export const updatePostById = async (
   updatedPost: Partial<PostData>,
 ) => {
   await supabase.from('posts').update(updatedPost).eq('id', id);
+};
+
+// プロフィールデータ
+export const getProfileById = async (id: string) => {
+  const profile = await supabase.from('profiles').select('*').eq('id', id).single();
+  return profile.data;
 };
 
 export const uploadsImage = async (file) => {
