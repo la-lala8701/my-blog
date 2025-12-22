@@ -45,8 +45,22 @@ export const updatePostById = async (
 
 // プロフィールデータ
 export const getProfileById = async (id: string) => {
-  const profile = await supabase.from('profiles').select('*').eq('id', id).single();
+  const profile = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', id)
+    .single();
   return profile.data;
+};
+
+export const updateProfileById = async (id: string, name: string, description: string) => {
+  const { error } = await supabase.from('profiles').update({'display_name': name, 'description': description}).eq('id', id);
+  if (error) {
+    console.error('エラー:', error);
+    alert('データの更新に失敗しました。');
+    return;
+  }
+  alert('データを更新しました');
 };
 
 export const uploadsImage = async (file) => {
