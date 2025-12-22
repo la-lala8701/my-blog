@@ -11,10 +11,7 @@ export const useAuth = () => {
     throw new Error('useAuthはAuthProvider内で使用する必要があります');
   }
 
-  const signUpUser = async (
-    email: string,
-    password: string,
-  ) => {
+  const signUpUser = async (email: string, password: string) => {
     try {
       const { error: signUpError } = await supabase.auth.signUp({
         email,
