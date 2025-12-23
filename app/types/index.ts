@@ -6,3 +6,9 @@ export type PostData = {
   author: string;
   created_at: string;
 }
+
+export type ProfileData = {
+  id: string;
+  display_name: string;
+  description: string;
+};
