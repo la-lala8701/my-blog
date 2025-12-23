@@ -4,12 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProfileData } from '../types';
 import { useRouter } from 'next/navigation';
 
-type UserInfo = {
-  userId: string;
-  displayName: string;
-};
-
-export const ProfileSettings = (props: UserInfo) => {
+export const ProfileSettings = (props: ProfileData) => {
   const router = useRouter();
   const {
     register,
@@ -21,7 +16,7 @@ export const ProfileSettings = (props: UserInfo) => {
     try {
       // データを更新
       await updateProfileById(
-        props.userId,
+        props.id,
         data.display_name,
         data.description,
       );
@@ -46,7 +41,7 @@ export const ProfileSettings = (props: UserInfo) => {
             type="text"
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             placeholder="表示名を入力してください"
-            defaultValue={props.displayName}
+            defaultValue={props.display_name}
             {...register('display_name', { required: true })}
           />
         </div>
@@ -58,6 +53,7 @@ export const ProfileSettings = (props: UserInfo) => {
             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             rows={4}
             placeholder="自己紹介文を入力してください"
+            defaultValue={props.description}
             {...register('description')}
           ></textarea>
         </div>

@@ -15,7 +15,7 @@ export const Post = async ({ pageId }: { pageId: string }) => {
         </PostWrapper>
       </div>
       <div className='w-56 sticky top-12 h-fit'>
-        <Profile author={getPost.author} />
+        <Profile userId={getPost.user_id} />
       </div>
     </div>
   );

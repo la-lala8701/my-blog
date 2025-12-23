@@ -14,6 +14,11 @@ export const getPostById = async (id: string) => {
   return post.data;
 };
 
+export const getUserPosts = async (id: string) => {
+  const posts = await supabase.from('posts').select('*').eq('user_id', id);
+  return posts.data;
+}
+
 export const addPost = async (post: PostData) => {
   const { error: postError } = await supabase.from('posts').insert(post);
   if (postError) {
