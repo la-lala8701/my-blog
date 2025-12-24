@@ -75,7 +75,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
           更新
         </button>
       </form>
-      <Link href={`/post/${post.id}`}>
+      <Link href={`/user/post/${post.id}`}>
         <button className="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 cursor-pointer">
           記事詳細に戻る
         </button>

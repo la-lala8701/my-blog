@@ -27,7 +27,7 @@ export const HeaderNaviItems = ({
           <Logout />
         </li>
         <li>
-          <Link className="ml-8 w-11 h-11 rounded-full block" href="/dashboard">
+          <Link className="ml-8 w-11 h-11 rounded-full block" href="/user">
             {children}
           </Link>
         </li>

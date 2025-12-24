@@ -22,7 +22,7 @@ export const usePost = () => {
 
   const handleDelete = async () => {
     await deletePostById(params.id);
-    router.push('/');
+    router.push('/user/posts');
   };
 
   return {
