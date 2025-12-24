@@ -7,7 +7,7 @@ export default function Settings() {
       <ul className="grow flex flex-wrap justify-center gap-4 mt-20">
         <li>
           <Link
-            href="/dashboard/settings/profile"
+            href="settings/profile"
             className="border p-4 rounded-md hover:text-blue-500 block"
           >
             プロフィール →
@@ -15,7 +15,7 @@ export default function Settings() {
         </li>
         <li>
           <Link
-            href="/dashboard/settings/password"
+            href="settings/password"
             className="border p-4 rounded-md hover:text-blue-500 block"
           >
             パスワード変更 →
@@ -23,7 +23,7 @@ export default function Settings() {
         </li>
         <li>
           <Link
-            href="/dashboard/settings/email"
+            href="settings/email"
             className="border p-4 rounded-md hover:text-blue-500 block"
           >
             メールアドレス変更 →
