@@ -6,7 +6,7 @@ export const PostsItem = (props: PostData) => {
   return (
     <article>
       <Link
-        href={`post/${props.id}`}
+        href={`/user/post/${props.id}`}
         className="block border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100"
       >
         <h2 className="text-xl font-bold mb-3">{props.title}</h2>
