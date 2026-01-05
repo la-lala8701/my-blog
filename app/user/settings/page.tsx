@@ -30,11 +30,6 @@ export default function Settings() {
           </Link>
         </li>
       </ul>
-      <p className="text-center text-red-500 mt-40">
-        <span className=" hover:underline cursor-pointer">
-          アカウント削除
-        </span>
-      </p>
     </div>
   );
 }
