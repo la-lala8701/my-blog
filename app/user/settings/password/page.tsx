@@ -74,10 +74,10 @@ export default function ChangePasswordPage() {
       </form>
       <div className="mt-8">
         <Link
-          href="/dashboard/settings"
+          href="/user"
           className="text-blue-500 hover:underline"
         >
-          ← 設定ページに戻る
+          ← マイページに戻る
         </Link>
       </div>
     </div>

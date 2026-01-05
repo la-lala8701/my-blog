@@ -37,10 +37,10 @@ export default async function ProfilePage() {
       <ProfileSettings id={user.id} display_name={profileInfo.display_name} description={profileInfo.description} />
       <div className="mt-8">
         <Link
-          href="/dashboard/settings"
+          href="/user"
           className="text-blue-500 hover:underline"
         >
-          ← 設定ページに戻る
+          ← マイページに戻る
         </Link>
       </div>
     </div>
