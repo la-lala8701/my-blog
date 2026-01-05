@@ -1,22 +1,23 @@
 import { getProfileById } from '@/lib/supabaseFunctions';
 import Avatar from 'boring-avatars';
 import { ProfileData } from '../types';
+import Link from 'next/link';
 
 export const Profile = async ({ userId }: { userId: string }) => {
   // プロフィールに設定された表示名の取得
   const profileInfo: ProfileData = await getProfileById(userId);
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="flex items-center justify-center gap-3">
-        <span className="w-16 h-16 rounded-full">
-          <Avatar name={profileInfo.display_name} size={64} variant="beam" />
+    <div>
+      <div className="flex items-center gap-3">
+        <span className="w-20 h-20 rounded-full shrink-0">
+          <Avatar name={profileInfo.display_name} size={80} variant="beam" />
         </span>
-        <p className="text-xl font-semibold text-center">
-          {profileInfo.display_name}
-        </p>
+        <span className="text-lg font-semibold shrink wrap-anywhere">
+          {profileInfo.display_name.length > 0 ? profileInfo.display_name : <span><Link className='text-blue-500 underline' href="/user/settings/profile">設定</Link>してください</span>}
+        </span>
       </div>
-      <div>
+      <div className='mt-5'>
         <p className="mt-2 text-sm">{profileInfo.description}</p>
       </div>
     </div>
