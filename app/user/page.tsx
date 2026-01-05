@@ -20,25 +20,17 @@ export default async function Dashboard() {
   // ユーザーが書いた記事を取得する
   const posts: PostData[] | null = await getUserPosts(user.id);
 
-  if (!posts || posts.length === 0) {
-    notFound();
-  }
+  // if (!posts || posts.length === 0) {
+  //   notFound();
+  // }
 
   return (
     <div className="max-w-5xl mx-auto pt-12 pb-16">
       <h1 className="text-4xl font-bold mb-8 text-center">マイページ</h1>
-      <div className='flex gap-10'>
-        <div className='w-44'>
+      <div className='flex gap-12'>
+        <div className='w-64 shrink-0'>
           <Profile userId={user.id} />
           <ul className='mt-9'>
-            {/* <li>
-              <Link
-                href="/user/posts"
-                className="border p-4 rounded-md hover:text-blue-500"
-              >
-                記事管理 →
-              </Link>
-            </li> */}
             <li>
               <Link
                 href="/user/settings"
@@ -50,7 +42,7 @@ export default async function Dashboard() {
           </ul>
         </div>
         <div className='flex-auto'>
-          <Posts postsData={posts} manage={true} />
+          {posts && posts.length > 0 ? <Posts postsData={posts} manage={true} /> : <p className='text-center'>記事がまだありません</p>}
         </div>
       </div>
     </div>
