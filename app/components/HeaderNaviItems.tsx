@@ -11,6 +11,7 @@ export const HeaderNaviItems = ({
   const {
     context: { session },
   } = useAuth();
+  console.log(session?.user.id);
 
   if (session) {
     return (
