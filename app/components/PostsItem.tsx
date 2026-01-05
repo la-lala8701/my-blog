@@ -2,11 +2,13 @@ import Link from 'next/link';
 import { PostData } from '../types';
 import Avatar from 'boring-avatars';
 
-export const PostsItem = (props: PostData) => {
+type Props = PostData & { manage?: boolean };
+
+export const PostsItem = (props: Props) => {
   return (
     <article>
       <Link
-        href={`/user/post/${props.id}`}
+        href={props.manage ? `/user/post/${props.id}` : `/post/${props.id}`}
         className="block border-2 border-gray-300 rounded-lg p-4 hover:bg-gray-100"
       >
         <h2 className="text-xl font-bold mb-3">{props.title}</h2>

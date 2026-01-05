@@ -50,7 +50,7 @@ export default async function Dashboard() {
           </ul>
         </div>
         <div className='flex-auto'>
-          <Posts postsData={posts} />
+          <Posts postsData={posts} manage={true} />
         </div>
       </div>
     </div>
