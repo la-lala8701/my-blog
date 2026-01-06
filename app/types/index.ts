@@ -5,6 +5,7 @@ export type PostData = {
   content: string;
   author: string;
   created_at: string;
+  is_published: boolean;
 }
 
 export type ProfileData = {

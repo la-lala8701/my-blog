@@ -6,11 +6,12 @@ import { createClient } from '@/lib/supabase/server';
 import { ProfileData } from '@/app/types';
 
 export default async function ProfilePage() {
+  const supabase = await createClient();
   // 現在のユーザー情報を取得
   const {
     data: { user },
     error,
-  } = await (await createClient()).auth.getUser();
+  } = await supabase.auth.getUser();
   if (error || !user) {
     console.error('認証セッションが不正です');
     return;
@@ -18,7 +19,7 @@ export default async function ProfilePage() {
 
   // プロフィールに設定された表示名の取得
   const profileInfo: ProfileData = await getProfileById(
-    user.id,
+    supabase, user.id,
   );
 
   return (

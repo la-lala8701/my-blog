@@ -3,26 +3,22 @@ import { Profile } from '../components/Profile';
 import { createClient } from '@/lib/supabase/server';
 import { PostData } from '../types';
 import { getUserPosts } from '@/lib/supabaseFunctions';
-import { notFound } from 'next/navigation';
 import { Posts } from '../components/Posts';
 
 export default async function Dashboard() {
+  const spabase = await createClient();
   // 現在のユーザー情報を取得
   const {
     data: { user },
     error,
-  } = await (await createClient()).auth.getUser();
+  } = await spabase.auth.getUser();
   if (error || !user) {
     console.error('認証セッションが不正です');
     return;
   }
 
   // ユーザーが書いた記事を取得する
-  const posts: PostData[] | null = await getUserPosts(user.id);
-
-  // if (!posts || posts.length === 0) {
-  //   notFound();
-  // }
+  const posts: PostData[] | null = await getUserPosts(spabase, user.id);
 
   return (
     <div className="max-w-5xl mx-auto pt-12 pb-16">

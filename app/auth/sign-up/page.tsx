@@ -16,7 +16,6 @@ export default function SignupPage() {
   } = useForm<SignupData>();
 
   const onSubmit: SubmitHandler<SignupData> = async (data) => {
-    console.log(data);
     await signUpUser(data.email, data.password);
   };
 

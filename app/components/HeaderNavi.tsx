@@ -1,30 +1,32 @@
-import { createClient } from '@/lib/supabase/server';
-import { HeaderNaviItems } from './HeaderNaviItems';
-import Avatar from 'boring-avatars';
+'use client';
+import { useAuth } from '../hooks/useAuth';
+import { GuestHeader } from './GuestHeader';
+import { AuthHeader } from './AuthHeader';
+import { useEffect, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
 import { getProfileById } from '@/lib/supabaseFunctions';
 
-export const HeaderNavi = async () => {
-  // 現在のユーザー情報を取得
+export const HeaderNavi = () => {
+  const supabase = createClient();
   const {
-    data: { user },
-    error,
-  } = await(await createClient()).auth.getUser();
-  if (error || !user) {
-    console.error('認証セッションが不正です');
-    return;
+    context: { session },
+  } = useAuth();
+
+  const [displayName, setDisplayName] = useState(undefined);
+
+  useEffect(() => {
+    // 未ログインなら何もしない
+    if (!session?.user) return;
+    // ユーザーの表示名を取得してstateにセット
+    getProfileById(supabase, session.user.id).then((profile) => {
+      setDisplayName(profile?.display_name);
+    });
+
+  }, [session?.user, supabase]);
+
+  if (session) {
+    return <AuthHeader displayName={displayName} />;
   }
 
-  // プロフィールに設定された表示名の取得
-  const { display_name }: { display_name: string } = await getProfileById(
-    user.id,
-  );
-  return (
-    <nav>
-      <ul className="flex items-center">
-        <HeaderNaviItems>
-          <Avatar name={display_name} size={44} variant="beam" />
-        </HeaderNaviItems>
-      </ul>
-    </nav>
-  );
+  return <GuestHeader />;
 };

@@ -1,9 +1,11 @@
 'use client';
+import { createClient } from '@/lib/supabase/client';
 import { deletePostById } from '@/lib/supabaseFunctions';
 import { useParams, useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
 export const usePost = () => {
+      const supabase = createClient();
   const params = useParams<{ id: string }>();
   const router = useRouter();
 
@@ -21,7 +23,7 @@ export const usePost = () => {
   );
 
   const handleDelete = async () => {
-    await deletePostById(params.id);
+    await deletePostById(supabase, params.id);
     router.push('/user/posts');
   };
 

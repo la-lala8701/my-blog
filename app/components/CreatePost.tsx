@@ -2,16 +2,22 @@
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
 import { PostData } from '@/app/types';
-import { addPost, supabase } from '@/lib/supabaseFunctions';
+import { addPost } from '@/lib/supabaseFunctions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 
 type Inputs = {
   title: string;
   content: string;
 };
 
-export const CreatePost = ({ display_name }: { display_name: string | null }) => {
+export const CreatePost = ({
+  display_name,
+}: {
+  display_name: string | null;
+}) => {
+  const supabase = createClient();
   const {
     handleSubmit,
     register,
@@ -46,14 +52,15 @@ export const CreatePost = ({ display_name }: { display_name: string | null }) =>
         content: data.content,
         author: display_name,
         created_at: new Date().toISOString(),
+        is_published: false,
       };
 
       // 記事をpostsテーブルに挿入する
-      await addPost(newPost);
+      await addPost(supabase, newPost);
       // フォームをリセット
       reset();
       // 投稿した記事ページへリダイレクト
-      router.push(`/post/${id}`);
+      router.push(`/user/post/${id}`);
     } catch (error) {
       console.error('予期せぬエラー', error);
     }
@@ -92,7 +99,7 @@ export const CreatePost = ({ display_name }: { display_name: string | null }) =>
         ></textarea>
       </div>
       <div className="text-right">
-        <Link href="/" className="text-gray-500 hover:underline">
+        <Link href="/user" className="text-gray-500 hover:underline">
           キャンセル
         </Link>
         <button

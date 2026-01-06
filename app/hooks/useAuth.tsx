@@ -1,9 +1,10 @@
-import { supabase } from '@/lib/supabaseFunctions';
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { createClient } from '@/lib/supabase/client';
 
 export const useAuth = () => {
+  const supabase = createClient();
   const router = useRouter();
 
   const context = useContext(AuthContext);

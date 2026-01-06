@@ -1,10 +1,12 @@
 'use client';
 import { PostData } from '@/app/types';
+import { createClient } from '@/lib/supabase/client';
 import { updatePostById } from '@/lib/supabaseFunctions';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
 
 export const EditPost = ({ post }: { post: PostData }) => {
+  const supabase = createClient();
   const [editPost, setEditPost] = useState<PostData>(post);
 
   const handleChangeTitle = useCallback(
@@ -31,11 +33,11 @@ export const EditPost = ({ post }: { post: PostData }) => {
       if (!editPost) return; // 編集する記事がない場合は何もしない
 
       // ここで記事編集のロジックを実装します
-      await updatePostById(post.id, editPost);
+      await updatePostById(supabase, post.id, editPost);
       alert('記事が更新されました！');
-      location.href = `/post/${post.id}`;
+      location.href = `/user/post/${post.id}`;
     },
-    [editPost, post.id],
+    [editPost, post.id, supabase],
   );
 
   return (

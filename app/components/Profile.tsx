@@ -2,10 +2,12 @@ import { getProfileById } from '@/lib/supabaseFunctions';
 import Avatar from 'boring-avatars';
 import { ProfileData } from '../types';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase/server';
 
 export const Profile = async ({ userId }: { userId: string }) => {
+  const supabase = await createClient();
   // プロフィールに設定された表示名の取得
-  const profileInfo: ProfileData = await getProfileById(userId);
+  const profileInfo: ProfileData = await getProfileById(supabase, userId);
 
   return (
     <div>

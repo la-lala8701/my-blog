@@ -1,9 +1,11 @@
-import { getAllPosts } from '@/lib/supabaseFunctions';
+import { getPublicPosts } from '@/lib/supabaseFunctions';
 import { Posts } from './components/Posts';
 import { notFound } from 'next/navigation';
+import { createClient } from '@/lib/supabase/server';
 
 export default async function Home() {
-  const posts = await getAllPosts();
+  const supabase = await createClient();
+  const posts = await getPublicPosts(supabase);
 
   if (!posts || posts.length === 0) {
     notFound();

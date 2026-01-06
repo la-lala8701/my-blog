@@ -1,25 +1,30 @@
 import { PostData } from '@/app/types';
-import { createClient } from './supabase/client';
+import { SupabaseClient } from '@supabase/supabase-js';
 
-export const supabase = createClient();
 
 // 記事データ
-export const getAllPosts = async () => {
+// これは使わないだろう...
+export const getAllPosts = async (supabase: SupabaseClient) => {
   const posts = await supabase.from('posts').select('*');
   return posts.data;
 };
 
-export const getPostById = async (id: string) => {
+export const getPublicPosts = async (supabase: SupabaseClient) => {
+  const posts = await supabase.from('posts').select('*').eq('is_published', true);
+  return posts.data;
+};
+
+export const getPostById = async (supabase: SupabaseClient, id: string) => {
   const post = await supabase.from('posts').select('*').eq('id', id).single();
   return post.data;
 };
 
-export const getUserPosts = async (id: string) => {
+export const getUserPosts = async (supabase: SupabaseClient, id: string) => {
   const posts = await supabase.from('posts').select('*').eq('user_id', id);
   return posts.data;
-}
+};
 
-export const addPost = async (post: PostData) => {
+export const addPost = async (supabase: SupabaseClient, post: PostData) => {
   const { error: postError } = await supabase.from('posts').insert(post);
   if (postError) {
     console.error('投稿エラー:', postError);
@@ -29,7 +34,7 @@ export const addPost = async (post: PostData) => {
   alert('記事が投稿されました！');
 };
 
-export const deletePostById = async (id: string) => {
+export const deletePostById = async (supabase: SupabaseClient, id: string) => {
   const { error: deleteError } = await supabase
     .from('posts')
     .delete()
@@ -42,24 +47,47 @@ export const deletePostById = async (id: string) => {
 };
 
 export const updatePostById = async (
+  supabase: SupabaseClient,
   id: string,
   updatedPost: Partial<PostData>,
 ) => {
   await supabase.from('posts').update(updatedPost).eq('id', id);
 };
 
+export const updatePostPublishStatus = async (
+  supabase: SupabaseClient,
+  id: string,
+  is_published: boolean,
+) => {
+  await supabase.from('posts').update({ is_published }).eq('id', id);
+};
+
 // プロフィールデータ
-export const getProfileById = async (id: string) => {
-  const profile = await supabase
+export const getProfileById = async (supabase: SupabaseClient, id: string) => {
+  const { data, error } = await supabase
     .from('profiles')
     .select('*')
     .eq('id', id)
     .single();
-  return profile.data;
+
+  if (error) {
+    console.warn(error.message);
+    return null;
+  }
+
+  return data;
 };
 
-export const updateProfileById = async (id: string, name: string, description: string) => {
-  const { error } = await supabase.from('profiles').update({'display_name': name, 'description': description}).eq('id', id);
+export const updateProfileById = async (
+  supabase: SupabaseClient,
+  id: string,
+  name: string,
+  description: string,
+) => {
+  const { error } = await supabase
+    .from('profiles')
+    .update({ display_name: name, description: description })
+    .eq('id', id);
   if (error) {
     console.error('エラー:', error);
     alert('データの更新に失敗しました。');
@@ -68,13 +96,13 @@ export const updateProfileById = async (id: string, name: string, description: s
   alert('データを更新しました');
 };
 
-export const uploadsImage = async (file) => {
-  const { error } = await supabase.storage
-    .from('bucket_name')
-    .upload('file_path', file);
-  if (error) {
-    console.error('削除エラー:', error);
-    alert('画像のアップロードに失敗しました。');
-    return;
-  }
-};
+// export const uploadsImage = async (file) => {
+//   const { error } = await supabase.storage
+//     .from('bucket_name')
+//     .upload('file_path', file);
+//   if (error) {
+//     console.error('削除エラー:', error);
+//     alert('画像のアップロードに失敗しました。');
+//     return;
+//   }
+// };

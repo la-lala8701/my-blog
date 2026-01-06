@@ -3,8 +3,10 @@ import { updateProfileById } from '@/lib/supabaseFunctions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProfileData } from '../types';
 import { useRouter } from 'next/navigation';
+import { createClient } from '@/lib/supabase/client';
 
 export const ProfileSettings = (props: ProfileData) => {
+  const supabase = createClient();
   const router = useRouter();
   const {
     register,
@@ -16,6 +18,7 @@ export const ProfileSettings = (props: ProfileData) => {
     try {
       // データを更新
       await updateProfileById(
+        supabase,
         props.id,
         data.display_name,
         data.description,

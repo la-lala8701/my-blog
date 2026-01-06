@@ -2,6 +2,7 @@ import { Article } from '@/app/components/Article';
 import { PostEdit } from '@/app/components/PostEdit';
 import { Profile } from '@/app/components/Profile';
 import { PostData } from '@/app/types';
+import { createClient } from '@/lib/supabase/server';
 import { getPostById } from '@/lib/supabaseFunctions';
 
 export default async function Post({
@@ -9,8 +10,9 @@ export default async function Post({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const supabase = await createClient();
   const pageId: string = (await params).id;
-  const getPost: PostData = await getPostById(pageId);
+  const getPost: PostData = await getPostById(supabase, pageId);
 
   return (
     <div className="flex gap-10 mx-auto max-w-5xl mt-12 mb-16">
