@@ -39,7 +39,7 @@ export const useAuth = () => {
         throw signInError;
       }
       alert(`ログインしました: ${email}`);
-      router.push('/');
+      router.push('/user');
     } catch (error) {
       alert('ログインに失敗しました。');
       console.error('Error signing in:', error);
