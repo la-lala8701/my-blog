@@ -17,7 +17,7 @@ export default async function CreatePage() {
 
   // プロフィールに設定された表示名の取得
   const { display_name }: { display_name: string } = await getProfileById(
-    supabase,user.id,
+    supabase, user.id,
   );
 
   return (
