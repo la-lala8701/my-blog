@@ -5,7 +5,6 @@ import Avatar from 'boring-avatars';
 type Props = PostData & { manage?: boolean };
 
 export const PostsItem = (props: Props) => {
-  console.log(props.is_published);
   
   return (
     <article>
