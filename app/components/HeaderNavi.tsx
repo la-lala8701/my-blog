@@ -17,12 +17,31 @@ export const HeaderNavi = () => {
   useEffect(() => {
     // 未ログインなら何もしない
     if (!session?.user) return;
-    // ユーザーの表示名を取得してstateにセット
+    // 初回取得
     getProfileById(supabase, session.user.id).then((profile) => {
       setDisplayName(profile?.display_name);
     });
+    // RealTimeでプロフィール更新を監視
+    const profileSubscription = supabase
+      .channel('public:profiles')
+      .on(
+        'postgres_changes',
+        { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `user_id=eq.${session.user.id}` },
+        (payload) => {
+          if (payload.new.user_id === session.user?.id) {
+            setDisplayName(payload.new.display_name);
+          }
+        },
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(profileSubscription);
+    };
 
   }, [session?.user, supabase]);
+  console.log(session?.user);
+  
 
   if (session) {
     return <AuthHeader displayName={displayName} userEmail={session.user.email} />;
