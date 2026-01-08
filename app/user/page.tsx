@@ -29,10 +29,10 @@ export default async function Dashboard() {
           <ul className='mt-9'>
             <li>
               <Link
-                href="/user/settings"
+                href="/user/settings/profile"
                 className="bg-gray-700 text-white px-4 py-2.5 rounded-md hover:bg-gray-500 block text-center"
               >
-                設定 →
+                プロフィール編集 →
               </Link>
             </li>
           </ul>
