@@ -11,7 +11,7 @@ export const Logout = () => {
   }, [logoutUser]);
   return (
     <a
-      className="px-4 py-3 bg-red-300 rounded-md hover:bg-red-400 cursor-pointer"
+      className="px-4 py-3 block bg-red-300 text-center rounded-md hover:bg-red-400 cursor-pointer"
       onClick={handleLogoutClick}
     >
       ログアウト

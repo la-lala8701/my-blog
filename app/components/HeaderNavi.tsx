@@ -25,7 +25,7 @@ export const HeaderNavi = () => {
   }, [session?.user, supabase]);
 
   if (session) {
-    return <AuthHeader displayName={displayName} />;
+    return <AuthHeader displayName={displayName} userEmail={session.user.email} />;
   }
 
   return <GuestHeader />;
