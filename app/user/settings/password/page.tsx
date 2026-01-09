@@ -29,7 +29,7 @@ export default function ChangePasswordPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto mt-12">
       <h1 className="text-3xl font-bold mb-6 text-center">パスワード変更</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* 新しいパスワード */}
@@ -67,7 +67,7 @@ export default function ChangePasswordPage() {
         <p className='text-center text-sm text-red-500 mt-4'>{message}</p>
         <button
           type="submit"
-          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          className="block ml-auto cursor-pointer mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
         >
           保存
         </button>

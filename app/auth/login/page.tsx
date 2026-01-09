@@ -32,10 +32,10 @@ export default function LoginPage() {
   );
 
   return (
-    <>
-      <h1 className="text-2xl font-bold mb-4">ログイン</h1>
-      <form className="space-y-4" onSubmit={handleSubmit}>
-        <div>
+    <div className="max-w-md mx-auto mt-12 px-6 py-8 border border-gray-300 rounded-md shadow-md">
+      <h1 className="text-2xl text-center font-bold mb-6">ログイン</h1>
+      <form className="mb-8" onSubmit={handleSubmit}>
+        <div className='mb-4'>
           <label className="block mb-1">メールアドレス</label>
           <input
             type="email"
@@ -43,7 +43,7 @@ export default function LoginPage() {
             onChange={handleEmailChange}
           />
         </div>
-        <div>
+        <div className='mb-8'>
           <label className="block mb-1">パスワード</label>
           <input
             type="password"
@@ -53,7 +53,7 @@ export default function LoginPage() {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white rounded-md py-2 px-4 hover:bg-blue-600 cursor-pointer"
+          className="block w-full cursor-pointer bg-blue-500 text-white rounded-md py-3 hover:bg-blue-600"
         >
           ログイン
         </button>
@@ -70,6 +70,6 @@ export default function LoginPage() {
           </Link>
         </li>
       </ul>
-    </>
+    </div>
   );
 }

@@ -26,7 +26,7 @@ export default function ChangeEmailPage() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto mt-12">
       <h1 className="text-3xl font-bold mb-6 text-center">
         メールアドレス変更
       </h1>
@@ -59,7 +59,7 @@ export default function ChangeEmailPage() {
 
         <button
           type="submit"
-          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          className="block ml-auto cursor-pointer mt-6 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
         >
           保存
         </button>
