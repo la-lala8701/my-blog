@@ -50,7 +50,6 @@ export const CreatePost = ({
         user_id: user.id,
         title: data.title,
         content: data.content,
-        author: display_name,
         created_at: new Date().toISOString(),
         is_published: false,
       };
