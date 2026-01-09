@@ -11,7 +11,7 @@ export default async function Home() {
     notFound();
   }
   return (
-    <section>
+    <section className="max-w-3xl mx-auto mt-12 mb-16 px-4">
       <h1 className="text-3xl pb-6">記事一覧</h1>
       <Posts postsData={posts} />
     </section>

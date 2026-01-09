@@ -21,7 +21,7 @@ export default async function Dashboard() {
   const posts: PostData[] | null = await getUserPosts(spabase, user.id);
 
   return (
-    <div className="max-w-5xl mx-auto pt-12 pb-16">
+    <div className="max-w-5xl mx-auto pt-12 pb-16 px-4">
       <h1 className="text-4xl font-bold mb-8 text-center">マイページ</h1>
       <div className='flex gap-12'>
         <div className='w-64 shrink-0'>
