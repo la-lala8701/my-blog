@@ -5,6 +5,11 @@ import { updatePostById } from '@/lib/supabaseFunctions';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import classes from '@/app/components/Article/Article.module.css';
+import Markdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
+import { useCallback, useState } from 'react';
 
 type Inputs = {
   title: string;
@@ -19,6 +24,14 @@ export const EditPost = ({ post }: { post: PostData }) => {
     register,
     formState: { errors },
   } = useForm<Inputs>();
+  const [tab, setTab] = useState<'write' | 'preview'>('write');
+  const [content, setContent] = useState(post.content);
+  const handleContentChange = useCallback(
+    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+      setContent(e.target.value);
+    },
+    [],
+  );
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
@@ -52,19 +65,54 @@ export const EditPost = ({ post }: { post: PostData }) => {
           />
         </div>
         <div className="mb-6">
-          <label className="block mb-1" htmlFor="content">
+          <label className="block mb-2" htmlFor="content">
             内容
             <span className="text-red-500">*</span>
             <span className="ml-2 text-sm text-red-500">
               {errors.content && <span>入力してください</span>}
             </span>
           </label>
-          <textarea
-            defaultValue={post.content}
-            className="w-full border border-gray-300 rounded-md p-2 field-sizing-content min-h-[200px]"
-            placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
-            {...register('content', { required: true })}
-          />
+          <div className="border border-gray-300">
+            <div className="text-sm font-medium text-center border-b border-gray-300">
+              <ul className="flex flex-wrap -mb-px">
+                <li
+                  className={`me-2 inline-block py-3 px-8 border-b border-transparent rounded-t-md ${tab === 'write' ? " text-blue-600 border-b-blue-600" : "hover:text-blue-600 hover:border-b-blue-600 cursor-pointer"}`}
+                  onClick={() => setTab('write')}
+                >
+                  Write
+                </li>
+                <li
+                  className={`me-2 inline-block py-3 px-8 border-b border-transparent rounded-t-md ${tab === 'preview' ? " text-blue-600 border-b-blue-600" : "hover:text-blue-600 hover:border-b-blue-600 cursor-pointer"}`}
+                  onClick={() => setTab('preview')}
+                >
+                  Preview
+                </li>
+              </ul>
+            </div>
+            {tab === 'write' ? (
+              <div className="px-5 pt-5 pb-3.5">
+                <textarea
+                  defaultValue={post.content}
+                  className="w-full border border-gray-300 rounded-md p-2 field-sizing-content min-h-[200px]"
+                  placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
+                  {...register('content', { required: true })}
+                  onChange={handleContentChange}
+                />
+              </div>
+            ) : tab === 'preview' ? (
+              <div className="px-10 pb-10">
+                <section className={classes.markdown}>
+                  <Markdown
+                    remarkPlugins={[remarkGfm]}
+                    skipHtml={false}
+                    rehypePlugins={[rehypeRaw]}
+                  >
+                    {content}
+                  </Markdown>
+                </section>
+              </div>
+            ) : null}
+          </div>
         </div>
         <div className="flex justify-between items-end">
           <Link
