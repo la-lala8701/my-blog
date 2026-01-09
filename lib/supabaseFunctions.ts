@@ -51,7 +51,13 @@ export const updatePostById = async (
   id: string,
   updatedPost: Partial<PostData>,
 ) => {
-  await supabase.from('posts').update(updatedPost).eq('id', id);
+  const { error } = await supabase.from('posts').update(updatedPost).eq('id', id);
+  if (error) {
+    console.error('更新エラー:', error);
+    alert('記事の更新に失敗しました。');
+    return;
+  }
+  alert('記事が更新されました！');
 };
 
 export const updatePostPublishStatus = async (
