@@ -3,85 +3,84 @@ import { PostData } from '@/app/types';
 import { createClient } from '@/lib/supabase/client';
 import { updatePostById } from '@/lib/supabaseFunctions';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+type Inputs = {
+  title: string;
+  content: string;
+};
 
 export const EditPost = ({ post }: { post: PostData }) => {
   const supabase = createClient();
-  const [editPost, setEditPost] = useState<PostData>(post);
+  const router = useRouter();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<Inputs>();
 
-  const handleChangeTitle = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setEditPost((prevPost) =>
-        prevPost ? { ...prevPost, title: e.target.value } : prevPost,
-      );
-    },
-    [],
-  );
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      // 記事編集のロジック
+      await updatePostById(supabase, post.id, { ...post, ...data });
 
-  const handleChangeContent = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setEditPost((prevPost) =>
-        prevPost ? { ...prevPost, content: e.target.value } : prevPost,
-      );
-    },
-    [],
-  );
-
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault();
-      if (!editPost) return; // 編集する記事がない場合は何もしない
-
-      // ここで記事編集のロジックを実装します
-      await updatePostById(supabase, post.id, editPost);
-      alert('記事が更新されました！');
-      location.href = `/user/post/${post.id}`;
-    },
-    [editPost, post.id, supabase],
-  );
+      // 編集後の記事ページへリダイレクト
+      router.push(`/user/post/${post.id}`);
+    } catch (error) {
+      console.error('予期せぬエラー:', error);
+    }
+  };
 
   return (
-    <>
-      <h1 className="text-4xl font-bold mb-8">記事編集ページ</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="mx-auto max-w-5xl py-12">
+      <h1 className="text-3xl font-bold mb-8 text-center">記事編集ページ</h1>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6">
-          <label className="block text-lg font-medium mb-2" htmlFor="title">
+          <label className="block mb-1" htmlFor="title">
             タイトル
+            <span className="text-red-500">*</span>
+            <span className="ml-2 text-sm text-red-500">
+              {errors.title && <span>入力してください</span>}
+            </span>
           </label>
           <input
             type="text"
-            id="title"
-            name="title"
-            value={editPost?.title}
-            onChange={handleChangeTitle}
+            defaultValue={post.title}
             className="w-full border border-gray-300 rounded-md p-2"
+            {...register('title', { required: true })}
           />
         </div>
         <div className="mb-6">
-          <label className="block text-lg font-medium mb-2" htmlFor="content">
+          <label className="block mb-1" htmlFor="content">
             内容
+            <span className="text-red-500">*</span>
+            <span className="ml-2 text-sm text-red-500">
+              {errors.content && <span>入力してください</span>}
+            </span>
           </label>
           <textarea
-            id="content"
-            name="content"
-            value={editPost?.content}
-            onChange={handleChangeContent}
-            className="w-full border border-gray-300 rounded-md p-2"
-            rows={6}
+            defaultValue={post.content}
+            className="w-full border border-gray-300 rounded-md p-2 field-sizing-content min-h-[200px]"
+            placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
+            {...register('content', { required: true })}
           />
         </div>
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 cursor-pointer"
-        >
-          更新
-        </button>
+        <div className="flex justify-between items-end">
+          <Link
+            href={`/user/post/${post.id}`}
+            className="text-blue-500 hover:underline inline-block"
+          >
+            ← 戻る
+          </Link>
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 cursor-pointer inline-block"
+          >
+            更新
+          </button>
+        </div>
       </form>
-      <Link href={`/user/post/${post.id}`}>
-        <button className="px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 cursor-pointer">
-          記事詳細に戻る
-        </button>
-      </Link>
-    </>
+    </div>
   );
 };
