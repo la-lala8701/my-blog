@@ -5,7 +5,7 @@ import { PostData } from '../types';
 import { getUserPosts } from '@/lib/supabaseFunctions';
 import { Posts } from '../components/Posts';
 
-export default async function Dashboard() {
+export default async function MyPage() {
   const spabase = await createClient();
   // 現在のユーザー情報を取得
   const {
