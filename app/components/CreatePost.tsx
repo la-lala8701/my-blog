@@ -88,12 +88,11 @@ export const CreatePost = ({
           内容
           <span className="text-red-500">*</span>
           <span className="ml-2 text-sm text-red-500">
-            {errors.title && <span>入力してください</span>}
+            {errors.content && <span>入力してください</span>}
           </span>
         </label>
         <textarea
-          className="border border-gray-300 rounded-md p-2 w-full"
-          rows={10}
+          className="border border-gray-300 rounded-md p-2 w-full field-sizing-content min-h-[200px]"
           placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
           {...register('content', { required: true })}
         ></textarea>
