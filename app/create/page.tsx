@@ -26,7 +26,7 @@ export default async function CreatePage() {
         <dl className="border text-red-600 rounded-md px-4 py-3 mb-12">
           <dt className="font-bold flex place-items-end gap-2"><span className='inline-block'>【注意】</span></dt>
           <dd className='mt-2'>
-            記事を作成するには、プロフィール設定から<Link className='text-blue-600 hover:underline' href='/dashboard/settings/profile'>表示名を設定</Link>する必要があります。
+            記事を作成するには、プロフィール設定から<Link className='text-blue-600 hover:underline' href='/user/settings/profile'>表示名を設定</Link>する必要があります。
           </dd>
         </dl>
       ) : null}
