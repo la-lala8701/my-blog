@@ -22,7 +22,7 @@ export const useAuth = () => {
         throw signUpError;
       }
       alert('サインアップしました');
-      router.push('/dashboard/settings/profile');
+      router.push('/user/settings/profile');
     } catch (error) {
       alert(`サインアップ中にエラーが発生しました。(${error})`);
       console.error('Error signing up:', error);
