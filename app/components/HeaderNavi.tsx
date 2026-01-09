@@ -40,8 +40,6 @@ export const HeaderNavi = () => {
     };
 
   }, [session?.user, supabase]);
-  console.log(session?.user);
-  
 
   if (session) {
     return <AuthHeader displayName={displayName} userEmail={session.user.email} />;

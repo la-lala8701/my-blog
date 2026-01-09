@@ -8,7 +8,6 @@ import { getProfileById } from '@/lib/supabaseFunctions';
 import { createClient } from '@/lib/supabase/server';
 
 export const Article = async ({ post }: { post: PostData }) => {
-  console.log(post);
   // プロフィールに設定された表示名の取得
   const supabase = await createClient();
   const { display_name }: { display_name: string } = await getProfileById(
