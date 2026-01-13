@@ -26,11 +26,9 @@ export const HeaderNavi = () => {
       .channel('public:profiles')
       .on(
         'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `user_id=eq.${session.user.id}` },
+        { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${session.user.id}` },
         (payload) => {
-          if (payload.new.user_id === session.user?.id) {
-            setDisplayName(payload.new.display_name);
-          }
+          setDisplayName(payload.new.display_name);
         },
       )
       .subscribe();
