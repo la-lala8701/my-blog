@@ -64,6 +64,7 @@ export const CreatePost = ({
         title: data.title,
         content: data.content,
         created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
         is_published: false,
       };
 

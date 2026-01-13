@@ -36,7 +36,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       // 記事編集のロジック
-      await updatePostById(supabase, post.id, { ...post, ...data });
+      await updatePostById(supabase, post.id, { ...post, ...data, updated_at: new Date().toISOString() });
 
       // 編集後の記事ページへリダイレクト
       router.push(`/user/post/${post.id}`);

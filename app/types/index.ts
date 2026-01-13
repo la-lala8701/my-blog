@@ -4,6 +4,7 @@ export type PostData = {
   title: string;
   content: string;
   created_at: string;
+  updated_at: string;
   is_published: boolean;
 }
 

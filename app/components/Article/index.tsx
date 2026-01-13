@@ -25,7 +25,12 @@ export const Article = async ({ post }: { post: PostData }) => {
         </div>
         <div>
           <p className="text-base">{display_name}</p>
-          <p className="text-sm text-gray-500">投稿日 {japaneseFormattedDate(post.created_at)}</p>
+          <p className="text-sm text-gray-500">
+            <span>投稿日 {japaneseFormattedDate(post.created_at)}</span>
+            {post.updated_at && post.created_at !== post.updated_at ? <span className="ml-3">
+              更新日 {japaneseFormattedDate(post.updated_at)}
+            </span> : null}
+          </p>
         </div>
       </div>
       <div className="mt-28 prose prose-lg max-w-none">
