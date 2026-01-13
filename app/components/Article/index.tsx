@@ -6,6 +6,7 @@ import classes from './Article.module.css';
 import Avatar from 'boring-avatars';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { createClient } from '@/lib/supabase/server';
+import { japaneseFormattedDate } from '@/lib/common';
 
 export const Article = async ({ post }: { post: PostData }) => {
   // プロフィールに設定された表示名の取得
@@ -24,7 +25,7 @@ export const Article = async ({ post }: { post: PostData }) => {
         </div>
         <div>
           <p className="text-base">{display_name}</p>
-          <p className="text-sm text-gray-500">{post?.created_at}</p>
+          <p className="text-sm text-gray-500">投稿日 {japaneseFormattedDate(post.created_at)}</p>
         </div>
       </div>
       <div className="mt-28 prose prose-lg max-w-none">

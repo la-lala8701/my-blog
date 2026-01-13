@@ -3,6 +3,7 @@ import { PostData } from '../types';
 import Avatar from 'boring-avatars';
 import { createClient } from '@/lib/supabase/server';
 import { getProfileById } from '@/lib/supabaseFunctions';
+import { japaneseFormattedDate } from '@/lib/common';
 
 type Props = PostData & { manage?: boolean };
 
@@ -38,7 +39,7 @@ export const PostsItem = async (props: Props) => {
           </div>
           <div>
             <p className="text-base">{display_name}</p>
-            <p className="text-sm text-gray-500">{props.created_at}</p>
+            <p className="text-sm text-gray-500">{japaneseFormattedDate(props.created_at)}</p>
           </div>
         </div>
       </Link>
