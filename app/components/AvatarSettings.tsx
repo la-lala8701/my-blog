@@ -1,10 +1,9 @@
 'use client';
 import { createClient } from '@/lib/supabase/client';
 import { User } from '@supabase/supabase-js';
-import Avatar from 'boring-avatars';
-import Image from 'next/image';
 import { useState } from 'react';
 import { ProfileData } from '../types';
+import { UserAvatar } from './UserAvatar';
 
 export const AvatarSettings = ({
   user,
@@ -134,17 +133,7 @@ export const AvatarSettings = ({
       <h1 className="text-center text-2xl">プロフィール画像の変更</h1>
       {/* ここにプレビュー画像を表示する */}
       <div className="flex justify-center my-4 w-32 h-32 rounded-full mx-auto">
-        {profiles.avatar_url && profiles.avatar_url.length > 0 ? (
-          <Image
-            src={profiles.avatar_url}
-            alt="プレビュー画像"
-            width={128}
-            height={128}
-            className="rounded-full object-cover"
-          />
-        ) : (
-          <Avatar name={profiles.avatar_url} size={128} variant="beam" />
-        )}
+        <UserAvatar profiles={profiles} avatarSize={128} />
       </div>
       <form
         action=""
