@@ -1,26 +1,59 @@
 'use client';
+import { createClient } from '@/lib/supabase/client';
+import Avatar from 'boring-avatars';
+import Image from 'next/image';
+import { useState } from 'react';
 
-import { createClient } from "@/lib/supabase/client";
-
-export default function Avatar() {
+export default function AvatarPage() {
   const supabase = createClient();
+  const [avatarUrl, setAvatarUrl] = useState('');
+  console.log(avatarUrl);
 
-  const handleUploadStrage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files || e.target.files.length === 0) {
-      return;
+  // 現在のユーザー情報を取得する関数
+  const getCurrentUser = async () => {
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
+    if (error || !user) {
+      console.error('認証セッションが不正です');
+      return null;
+    }
+    return user;
+  };
+
+  // supabase strageに古い画像があれば画像名を取得する関数
+  const getOldImageName = async (userId: string) => {
+    const { data, error } = await supabase.storage
+      .from('myblog-user-assets')
+      .list(`profiles/${userId}/`, { limit: 1 });
+
+    if (error) {
+      console.error('画像取得エラー:', error.message);
+      return null;
     }
 
-    // 現在のユーザー情報を取得
-    const { data: { user }} = await supabase.auth.getUser();
-    if (!user) {
-      console.error('ユーザーが取得できません');
-      return;
+    if (data && data.length > 0) {
+      return data[0].name; // 最初の画像名を返す
     }
 
-    const file = e.target.files[0];
-    const filePath = `profiles/${user.id}/${file.name}`;
+    return null; // 画像が存在しない場合
+  };
 
-    // Supabase Storageにアップロード
+  // supabase strageに格納されている古い画像を削除する関数
+  const deleteOldImage = async (filePath: string) => {
+    const { error: deleteError } = await supabase.storage
+      .from('myblog-user-assets')
+      .remove([filePath]);
+
+    if (deleteError) {
+      console.error('削除エラー:', deleteError.message);
+      // 削除エラーは致命的ではないので、続行します
+    }
+  };
+
+  // Supabase Storageに画像アップロードする関数
+  const uploadImageToStorage = async (file: File, filePath: string) => {
     const { error: uploadError } = await supabase.storage
       .from('myblog-user-assets')
       .upload(filePath, file, {
@@ -32,35 +65,88 @@ export default function Avatar() {
       console.error('アップロードエラー:', uploadError.message);
       return;
     }
+  };
 
-    // アップロードしたファイルのパブリックURLを取得
-    const { data: urlData, error: urlError } = supabase.storage
+  // アップロードしたファイルのパブリックURLを取得する関数
+  const getPublicUrl = async (filePath: string) => {
+    const { data: urlData } = supabase.storage
       .from('myblog-user-assets')
       .getPublicUrl(filePath);
 
-    if (urlError) {
-      console.error('URL取得エラー:', urlError.message);
+    return urlData.publicUrl;
+  };
+
+  // ファイルアップロード時のハンドラー
+  const handleUploadStrage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) {
       return;
     }
 
-    const publicUrl = urlData.publicUrl;
-    console.log('ファイルのパブリックURL:', publicUrl);
+    // 現在のユーザー情報を取得
+    const user = await getCurrentUser();
+    if (!user) {
+      console.error('ユーザーが取得できません');
+      return;
+    }
 
-    // ここでpublicUrlをユーザーのプロフィールに保存する処理を追加できます
-  }
+    const file = e.target.files[0];
+    const filePath = `profiles/${user.id}/${file.name}`;
+
+    // 古い画像があれば削除する
+    const oldImageName = await getOldImageName(user.id);
+    if (oldImageName) {
+      const oldFilePath = `profiles/${user.id}/${oldImageName}`;
+      await deleteOldImage(oldFilePath);
+    }
+
+    // 新しい画像をアップロードする
+    await uploadImageToStorage(file, filePath);
+
+    // アップロードしたファイルのパブリックURLを取得
+    const url = await getPublicUrl(filePath);
+    setAvatarUrl(url);
+  };
+
+  // フォーム送信ハンドラー
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // プロフィールテーブルに画像URLを保存する処理
+    const user = await getCurrentUser();
+    if (!user) {
+      console.error('ユーザーが取得できません');
+      return;
+    }
+
+    const { error: updateError } = await supabase
+      .from('profiles')
+      .update({ avatar_url: avatarUrl })
+      .eq('id', user.id);
+
+    if (updateError) {
+      console.error('プロフィール更新エラー:', updateError.message);
+      return;
+    }
+    alert('プロフィール画像が更新されました');
+  };
 
   return (
     <div className="max-w-sm mx-auto mt-12">
       <h1 className="text-center text-2xl">プロフィール画像の変更</h1>
       {/* ここにプレビュー画像を表示する */}
       <div className="flex justify-center my-4 w-32 h-32 rounded-full mx-auto">
-        <img
-          src="https://omokaji-web.co.jp/wp-content/uploads/2024/07/catch-1.png"
-          alt="プレビュー画像"
-          className="w-32 h-32 rounded-full object-cover"
-        />
+        {avatarUrl || avatarUrl.length > 0 ? (
+          <Image
+            src={avatarUrl}
+            alt="プレビュー画像"
+            width={128}
+            height={128}
+            className="rounded-full object-cover"
+          />
+        ) : (
+          <Avatar name="" size={128} variant="beam" />
+        )}
       </div>
-      <form action="" method="post" encType="multipart/form-data">
+      <form action="" method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
         <label
           className="block mb-2.5 text-sm font-medium"
           htmlFor="file_input"
@@ -75,9 +161,7 @@ export default function Avatar() {
           onChange={(e) => handleUploadStrage(e)}
           required
         />
-        <p
-          className="mt-1 text-sm text-zinc-500 dark:text-gray-300"
-        >
+        <p className="mt-1 text-sm text-zinc-500 dark:text-gray-300">
           PNG or JPG (MIN. 250x250px).
         </p>
         <button
