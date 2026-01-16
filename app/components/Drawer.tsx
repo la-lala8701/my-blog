@@ -1,11 +1,13 @@
 import Avatar from 'boring-avatars';
 import Link from 'next/link';
 import { Logout } from './LogOut';
+import { UserAvatar } from './UserAvatar';
+import { ProfileData } from '../types';
 
 type DrawerProps = {
   isOpenMenu: boolean;
   onClose: () => void;
-  displayName: string | undefined;
+  profiles: ProfileData | null;
   userEmail: string | undefined;
 };
 
@@ -36,10 +38,10 @@ export const Drawer = (props: DrawerProps) => {
       <div className="w-64 absolute top-18 right-6 bg-white border border-gray-200 rounded-md shadow-lg p-4 z-10">
         <div className="flex flex-col gap-2 items-center mx-2">
           <div className="w-16 h-16 rounded-full shrink-0">
-            <Avatar name={props.displayName} size={64} variant="beam" />
+            <UserAvatar profiles={props.profiles} avatarSize={64} />
           </div>
           <div className="text-lg font-semibold truncate w-full text-center">
-            {props.displayName}
+            {props.profiles?.display_name}
           </div>
           <div className="text-gray-600 truncate w-full text-center">
             {props.userEmail}

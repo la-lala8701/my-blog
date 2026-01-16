@@ -38,7 +38,7 @@ export const AuthHeader = ({
       <Drawer
         isOpenMenu={showMenu}
         onClose={() => setShowMenu(false)}
-        displayName={profiles?.display_name}
+        profiles={profiles}
         userEmail={userEmail}
       />
     </div>
