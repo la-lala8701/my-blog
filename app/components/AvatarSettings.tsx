@@ -155,8 +155,8 @@ export const AvatarSettings = ({
           onChange={(e) => handleUploadStrage(e)}
           required
         />
-        <p className="mt-1 text-sm text-zinc-500 dark:text-gray-300">
-          PNG or JPG (MIN. 250x250px).
+        <p className="mt-1 text-sm text-zinc-500 mb-2">
+          ※ PNG or JPG (MAX. 5MB, 推奨サイズ 720x720px)
         </p>
         <button
           className="ml-auto block px-4 py-2 rounded-md border cursor-pointer border-zinc-800 bg-zinc-800 text-white hover:bg-white hover:text-zinc-800"
