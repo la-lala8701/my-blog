@@ -17,7 +17,7 @@ export default async function AvatarPage() {
     return;
   }
 
-  // プロフィールに設定された表示名の取得
+  // プロフィールデータの取得
   const profileInfo: ProfileData = await getProfileById(supabase, user.id);
 
   return (
