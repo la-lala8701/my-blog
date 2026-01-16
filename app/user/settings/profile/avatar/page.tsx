@@ -7,7 +7,8 @@ import { useState } from 'react';
 export default function AvatarPage() {
   const supabase = createClient();
   const [avatarUrl, setAvatarUrl] = useState('');
-  console.log(avatarUrl);
+  const [file, setFile] = useState<File | null>(null);
+  const [filePath, setFilePath] = useState('');
 
   // 現在のユーザー情報を取得する関数
   const getCurrentUser = async () => {
@@ -91,6 +92,19 @@ export default function AvatarPage() {
 
     const file = e.target.files[0];
     const filePath = `profiles/${user.id}/${file.name}`;
+    setFile(file);
+    setFilePath(filePath);
+  };
+
+  // フォーム送信ハンドラー
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // 現在のユーザーを取得
+    const user = await getCurrentUser();
+    if (!user) {
+      console.error('ユーザーが取得できません');
+      return;
+    }
 
     // 古い画像があれば削除する
     const oldImageName = await getOldImageName(user.id);
@@ -100,26 +114,20 @@ export default function AvatarPage() {
     }
 
     // 新しい画像をアップロードする
+    if (!file || !filePath) {
+      console.error('アップロードするファイルが選択されていません');
+      return;
+    }
     await uploadImageToStorage(file, filePath);
 
     // アップロードしたファイルのパブリックURLを取得
     const url = await getPublicUrl(filePath);
     setAvatarUrl(url);
-  };
 
-  // フォーム送信ハンドラー
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
     // プロフィールテーブルに画像URLを保存する処理
-    const user = await getCurrentUser();
-    if (!user) {
-      console.error('ユーザーが取得できません');
-      return;
-    }
-
     const { error: updateError } = await supabase
       .from('profiles')
-      .update({ avatar_url: avatarUrl })
+      .update({ avatar_url: url })
       .eq('id', user.id);
 
     if (updateError) {
@@ -146,7 +154,12 @@ export default function AvatarPage() {
           <Avatar name="" size={128} variant="beam" />
         )}
       </div>
-      <form action="" method="post" encType="multipart/form-data" onSubmit={handleSubmit}>
+      <form
+        action=""
+        method="post"
+        encType="multipart/form-data"
+        onSubmit={handleSubmit}
+      >
         <label
           className="block mb-2.5 text-sm font-medium"
           htmlFor="file_input"
