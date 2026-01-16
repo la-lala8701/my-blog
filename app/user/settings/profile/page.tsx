@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import Avatar from 'boring-avatars';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { ProfileSettings } from '@/app/components/ProfileSettings';
 import { createClient } from '@/lib/supabase/server';
 import { ProfileData } from '@/app/types';
+import { UserAvatar } from '@/app/components/UserAvatar';
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -29,7 +29,7 @@ export default async function ProfilePage() {
           href="/user/settings/profile/avatar"
           className="block w-32 h-32 hover:brightness-50 transition"
         >
-          <Avatar name={profileInfo.display_name} size={128} variant="beam" />
+          <UserAvatar profiles={profileInfo} avatarSize={128} />
         </Link>
         <span className='inline-block py-0.5 px-1.5 rounded-md border absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none'>編集</span>
       </div>

@@ -1,8 +1,8 @@
 import { getProfileById } from '@/lib/supabaseFunctions';
-import Avatar from 'boring-avatars';
 import { ProfileData } from '../types';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
+import { UserAvatar } from './UserAvatar';
 
 export const Profile = async ({ userId }: { userId: string }) => {
   const supabase = await createClient();
@@ -13,7 +13,7 @@ export const Profile = async ({ userId }: { userId: string }) => {
     <div>
       <div className="flex items-center gap-3">
         <span className="w-20 h-20 rounded-full shrink-0">
-          <Avatar name={profileInfo.display_name} size={80} variant="beam" />
+          <UserAvatar profiles={profileInfo} avatarSize={80} />
         </span>
         <span className="text-lg font-semibold shrink wrap-anywhere">
           {profileInfo.display_name.length > 0 ? profileInfo.display_name : <span><Link className='text-blue-500 underline' href="/user/settings/profile">設定</Link>してください</span>}

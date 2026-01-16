@@ -1,4 +1,3 @@
-import Avatar from 'boring-avatars';
 import Link from 'next/link';
 import { Logout } from './LogOut';
 import { UserAvatar } from './UserAvatar';

@@ -1,16 +1,16 @@
 import Link from 'next/link';
-import { PostData } from '../types';
-import Avatar from 'boring-avatars';
+import { PostData, ProfileData } from '../types';
 import { createClient } from '@/lib/supabase/server';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { japaneseFormattedDate } from '@/lib/common';
+import { UserAvatar } from './UserAvatar';
 
 type Props = PostData & { manage?: boolean };
 
 export const PostsItem = async (props: Props) => {
   const supabase = await createClient();
   // プロフィールに設定された表示名の取得
-  const { display_name }: { display_name: string } = await getProfileById(
+  const profileInfo: ProfileData = await getProfileById(
     supabase,
     props.user_id,
   );
@@ -35,10 +35,10 @@ export const PostsItem = async (props: Props) => {
         </div>
         <div className="flex items-start gap-2">
           <div className="w-7 h-7 rounded-full">
-            <Avatar name={display_name} size={28} variant="beam" />
+            <UserAvatar profiles={profileInfo} avatarSize={28} />
           </div>
           <div>
-            <p className="text-base">{display_name}</p>
+            <p className="text-base">{profileInfo.display_name}</p>
             <p className="text-sm text-gray-500">{japaneseFormattedDate(props.created_at)}</p>
           </div>
         </div>

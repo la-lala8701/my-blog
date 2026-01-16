@@ -30,7 +30,6 @@ export const AuthHeader = ({
             className="ml-8 w-11 h-11 rounded-full cursor-pointer"
           >
             <UserAvatar profiles={profiles} avatarSize={44} />
-            {/* <Avatar name={profiles?.display_name} size={44} variant="beam" /> */}
           </li>
         </ul>
       </nav>
