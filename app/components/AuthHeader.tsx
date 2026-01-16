@@ -1,13 +1,14 @@
 import Link from 'next/link';
-import Avatar from 'boring-avatars';
 import { useState } from 'react';
 import { Drawer } from './Drawer';
+import { UserAvatar } from './UserAvatar';
+import { ProfileData } from '../types';
 
 export const AuthHeader = ({
-  displayName,
+  profiles,
   userEmail,
 }: {
-  displayName: string | undefined;
+  profiles: ProfileData | null;
   userEmail: string | undefined;
 }) => {
   const [showMenu, setShowMenu] = useState(false);
@@ -28,7 +29,8 @@ export const AuthHeader = ({
             onClick={() => setShowMenu(true)}
             className="ml-8 w-11 h-11 rounded-full cursor-pointer"
           >
-            <Avatar name={displayName} size={44} variant="beam" />
+            <UserAvatar profiles={profiles} avatarSize={44} />
+            {/* <Avatar name={profiles?.display_name} size={44} variant="beam" /> */}
           </li>
         </ul>
       </nav>
@@ -36,7 +38,7 @@ export const AuthHeader = ({
       <Drawer
         isOpenMenu={showMenu}
         onClose={() => setShowMenu(false)}
-        displayName={displayName}
+        displayName={profiles?.display_name}
         userEmail={userEmail}
       />
     </div>

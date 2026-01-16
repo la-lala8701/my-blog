@@ -6,9 +6,12 @@ export const UserAvatar = ({
   profiles,
   avatarSize,
 }: {
-  profiles: ProfileData;
+  profiles: ProfileData | null;
   avatarSize: number;
 }) => {
+  if (!profiles) {
+    return;
+  }
   return (
     <>
       {profiles.avatar_url && profiles.avatar_url.length > 0 ? (
@@ -18,7 +21,7 @@ export const UserAvatar = ({
           width={avatarSize}
           height={avatarSize}
           loading="eager"
-          className="rounded-full object-cover"
+          className="rounded-full object-cover w-full h-full"
         />
       ) : (
         <Avatar name={profiles.display_name} size={avatarSize} variant="beam" />

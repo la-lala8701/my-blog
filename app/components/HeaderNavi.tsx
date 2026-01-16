@@ -5,6 +5,7 @@ import { AuthHeader } from './AuthHeader';
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { getProfileById } from '@/lib/supabaseFunctions';
+import { ProfileData } from '../types';
 
 export const HeaderNavi = () => {
   const supabase = createClient();
@@ -12,14 +13,14 @@ export const HeaderNavi = () => {
     context: { session },
   } = useAuth();
 
-  const [displayName, setDisplayName] = useState(undefined);
+  const [profiles, setProfiles] = useState<ProfileData | null>(null);
 
   useEffect(() => {
     // 未ログインなら何もしない
     if (!session?.user) return;
     // 初回取得
     getProfileById(supabase, session.user.id).then((profile) => {
-      setDisplayName(profile?.display_name);
+      setProfiles(profile);
     });
     // RealTimeでプロフィール更新を監視
     const profileSubscription = supabase
@@ -28,7 +29,7 @@ export const HeaderNavi = () => {
         'postgres_changes',
         { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${session.user.id}` },
         (payload) => {
-          setDisplayName(payload.new.display_name);
+          setProfiles(payload.new as ProfileData);
         },
       )
       .subscribe();
@@ -40,7 +41,7 @@ export const HeaderNavi = () => {
   }, [session?.user, supabase]);
 
   if (session) {
-    return <AuthHeader displayName={displayName} userEmail={session.user.email} />;
+    return <AuthHeader profiles={profiles} userEmail={session.user.email} />;
   }
 
   return <GuestHeader />;
