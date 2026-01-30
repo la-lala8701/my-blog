@@ -1,5 +1,4 @@
 import { Article } from '@/app/components/Article';
-import { PostEdit } from '@/app/components/PostEdit';
 import { Profile } from '@/app/components/Profile';
 import { PostData } from '@/app/types';
 import { createClient } from '@/lib/supabase/server';

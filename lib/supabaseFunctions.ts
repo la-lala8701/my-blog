@@ -101,14 +101,3 @@ export const updateProfileById = async (
   }
   alert('データを更新しました');
 };
-
-// export const uploadsImage = async (file) => {
-//   const { error } = await supabase.storage
-//     .from('bucket_name')
-//     .upload('file_path', file);
-//   if (error) {
-//     console.error('削除エラー:', error);
-//     alert('画像のアップロードに失敗しました。');
-//     return;
-//   }
-// };
