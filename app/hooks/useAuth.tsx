@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { createClient } from '@/lib/supabase/client';
+import { createBrowserSupabase } from '@/lib/supabase/browser';
 
 export const useAuth = () => {
   const router = useRouter();
@@ -31,7 +32,7 @@ export const useAuth = () => {
 
   const signInUser = async (email: string, password: string) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserSupabase();
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
