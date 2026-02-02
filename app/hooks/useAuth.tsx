@@ -4,7 +4,6 @@ import { AuthContext } from '../context/AuthContext';
 import { createClient } from '@/lib/supabase/client';
 
 export const useAuth = () => {
-  const supabase = createClient();
   const router = useRouter();
 
   const context = useContext(AuthContext);
@@ -14,6 +13,7 @@ export const useAuth = () => {
 
   const signUpUser = async (email: string, password: string) => {
     try {
+      const supabase = createClient();
       const { error: signUpError } = await supabase.auth.signUp({
         email,
         password,
@@ -31,6 +31,7 @@ export const useAuth = () => {
 
   const signInUser = async (email: string, password: string) => {
     try {
+      const supabase = createClient();
       const { error: signInError } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -48,6 +49,7 @@ export const useAuth = () => {
 
   const logoutUser = async () => {
     try {
+      const supabase = createClient();
       const { error } = await supabase.auth.signOut();
       if (error) {
         throw error;
@@ -62,6 +64,7 @@ export const useAuth = () => {
 
   const updatePassword = async (password: string) => {
     try {
+      const supabase = createClient();
       const { error } = await supabase.auth.updateUser({
         password,
       });
@@ -78,6 +81,7 @@ export const useAuth = () => {
 
   const updateEmail = async (email: string) => {
     try {
+      const supabase = createClient();
       const { error } = await supabase.auth.updateUser({
         email,
       });
