@@ -1,7 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { createClient } from '@/lib/supabase/client';
 import { createBrowserSupabase } from '@/lib/supabase/browser';
 
 export const useAuth = () => {
@@ -14,7 +13,7 @@ export const useAuth = () => {
 
   const signUpUser = async (email: string, password: string) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserSupabase();
       const { error: signUpError } = await supabase.auth.signUp({
         email,
         password,
@@ -50,7 +49,7 @@ export const useAuth = () => {
 
   const logoutUser = async () => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserSupabase();
       const { error } = await supabase.auth.signOut();
       if (error) {
         throw error;
@@ -65,7 +64,7 @@ export const useAuth = () => {
 
   const updatePassword = async (password: string) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserSupabase();
       const { error } = await supabase.auth.updateUser({
         password,
       });
@@ -82,7 +81,7 @@ export const useAuth = () => {
 
   const updateEmail = async (email: string) => {
     try {
-      const supabase = createClient();
+      const supabase = createBrowserSupabase();
       const { error } = await supabase.auth.updateUser({
         email,
       });

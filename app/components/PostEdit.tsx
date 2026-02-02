@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { DeleteModal } from './DeleteModal';
 import { EditButtons } from './EditButtons';
 import { PostData } from '../types';
-import { createClient } from '@/lib/supabase/client';
 import { updatePostPublishStatus } from '@/lib/supabaseFunctions';
 import Link from 'next/link';
+import { createBrowserSupabase } from '@/lib/supabase/browser';
 
 export const PostEdit = ({
   children,
@@ -17,7 +17,7 @@ export const PostEdit = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [release, setRelease] = useState<boolean>(post.is_published);
-  const supabase = createClient();
+  const supabase = createBrowserSupabase();
 
   const handleClick = async () => {
     // 公開・非公開の切り替え

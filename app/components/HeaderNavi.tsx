@@ -3,12 +3,12 @@ import { useAuth } from '../hooks/useAuth';
 import { GuestHeader } from './GuestHeader';
 import { AuthHeader } from './AuthHeader';
 import { useEffect, useState } from 'react';
-import { createClient } from '@/lib/supabase/client';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { ProfileData } from '../types';
+import { createBrowserSupabase } from '@/lib/supabase/browser';
 
 export const HeaderNavi = () => {
-  const supabase = createClient();
+  const supabase = createBrowserSupabase();
   const {
     context: { session },
   } = useAuth();

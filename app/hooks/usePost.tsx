@@ -1,11 +1,11 @@
 'use client';
-import { createClient } from '@/lib/supabase/client';
+import { createBrowserSupabase } from '@/lib/supabase/browser';
 import { deletePostById } from '@/lib/supabaseFunctions';
 import { useParams, useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useCallback } from 'react';
 
 export const usePost = () => {
-      const supabase = createClient();
+  const supabase = createBrowserSupabase();
   const params = useParams<{ id: string }>();
   const router = useRouter();
 

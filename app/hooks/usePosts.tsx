@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 import { PostData } from '../types';
 import { getAllPosts } from '@/lib/supabaseFunctions';
-import { createClient } from '@/lib/supabase/client';
+import { createBrowserSupabase } from '@/lib/supabase/browser';
 
 export const usePosts = () => {
-  const supabase = createClient();
+  const supabase = createBrowserSupabase();
   const [posts, setPosts] = useState<PostData[]>([]);
   useEffect(() => {
     const getPosts = async () => {

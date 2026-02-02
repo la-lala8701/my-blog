@@ -1,9 +1,9 @@
 'use client';
-import { createClient } from '@/lib/supabase/client';
 import { User } from '@supabase/supabase-js';
 import { useState } from 'react';
 import { ProfileData } from '../types';
 import { UserAvatar } from './UserAvatar';
+import { createBrowserSupabase } from '@/lib/supabase/browser';
 
 export const AvatarSettings = ({
   user,
@@ -12,7 +12,7 @@ export const AvatarSettings = ({
   user: User;
   profiles: ProfileData;
 }) => {
-  const supabase = createClient();
+  const supabase = createBrowserSupabase();
   const [file, setFile] = useState<File | null>(null);
   const [filePath, setFilePath] = useState('');
 

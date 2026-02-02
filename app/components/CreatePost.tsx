@@ -5,12 +5,12 @@ import { PostData } from '@/app/types';
 import { addPost } from '@/lib/supabaseFunctions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { createClient } from '@/lib/supabase/client';
 import { useCallback, useState } from 'react';
 import classes from '@/app/components/Article/Article.module.css';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+import { createBrowserSupabase } from '@/lib/supabase/browser';
 
 type Inputs = {
   title: string;
@@ -22,7 +22,7 @@ export const CreatePost = ({
 }: {
   display_name: string | null;
 }) => {
-  const supabase = createClient();
+  const supabase = createBrowserSupabase();
   const {
     handleSubmit,
     register,

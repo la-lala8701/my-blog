@@ -1,6 +1,5 @@
 'use client';
 import { PostData } from '@/app/types';
-import { createClient } from '@/lib/supabase/client';
 import { updatePostById } from '@/lib/supabaseFunctions';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -10,6 +9,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { useCallback, useState } from 'react';
+import { createBrowserSupabase } from '@/lib/supabase/browser';
 
 type Inputs = {
   title: string;
@@ -17,7 +17,7 @@ type Inputs = {
 };
 
 export const EditPost = ({ post }: { post: PostData }) => {
-  const supabase = createClient();
+  const supabase = createBrowserSupabase();
   const router = useRouter();
   const {
     handleSubmit,
