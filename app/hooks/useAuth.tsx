@@ -55,8 +55,8 @@ export const useAuth = () => {
       if (error) {
         throw error;
       }
-      // Optionally, redirect to the login page or home page after logout
-      await router.push('/');
+      alert('ログアウトしました。');
+      router.push('/');
     } catch (error) {
       alert('ログアウト中にエラーが発生しました。');
       console.error('Error logging out:', error);

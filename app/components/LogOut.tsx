@@ -7,7 +7,6 @@ export const Logout = () => {
 
   const handleLogoutClick = useCallback(async () => {
     await logoutUser();
-    alert('ログアウトしました。');
   }, [logoutUser]);
   return (
     <a
