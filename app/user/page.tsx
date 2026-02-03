@@ -2,23 +2,18 @@ import Link from 'next/link';
 import { Profile } from '../components/Profile';
 import { createClient } from '@/lib/supabase/server';
 import { PostData } from '../types';
-import { getUserPosts } from '@/lib/supabaseFunctions';
+import { getCurrentUser, getUserPosts } from '@/lib/supabaseFunctions';
 import { Posts } from '../components/Posts';
+import { User } from '@supabase/supabase-js';
 
 export default async function MyPage() {
-  const spabase = await createClient();
+  const supabase = await createClient();
+
   // 現在のユーザー情報を取得
-  const {
-    data: { user },
-    error,
-  } = await spabase.auth.getUser();
-  if (error || !user) {
-    console.error('認証セッションが不正です');
-    return;
-  }
+  const user: User = await getCurrentUser(supabase) as User;
 
   // ユーザーが書いた記事を取得する
-  const posts: PostData[] | null = await getUserPosts(spabase, user.id);
+  const posts: PostData[] | null = await getUserPosts(supabase, user.id);
 
   return (
     <div className="max-w-5xl mx-auto pt-12 pb-16 px-4">

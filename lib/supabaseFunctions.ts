@@ -96,3 +96,18 @@ export const updateProfileById = async (
   }
   alert('データを更新しました');
 };
+
+// 現在のユーザー情報を取得する関数
+export const getCurrentUser = async (supabase: SupabaseClient) => {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    console.error('認証セッションが不正です');
+    return null;
+  }
+
+  return user;
+};

@@ -2,7 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
 import { PostData, PostFormValues } from '@/app/types';
-import { addPost } from '@/lib/supabaseFunctions';
+import { addPost, getCurrentUser } from '@/lib/supabaseFunctions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
@@ -11,6 +11,7 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { createBrowserSupabase } from '@/lib/supabase/client';
+import { User } from '@supabase/supabase-js';
 
 export const CreatePost = ({
   display_name,
@@ -38,13 +39,7 @@ export const CreatePost = ({
   const onSubmit: SubmitHandler<PostFormValues> = async (data) => {
     try {
       // 現在のユーザー情報を取得
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        alert('ログインしていません');
-        return;
-      }
+      const user: User = await getCurrentUser(supabase) as User;
 
       // 表示名が設定されていない時の処理
       if (!display_name || display_name.length === 0) {

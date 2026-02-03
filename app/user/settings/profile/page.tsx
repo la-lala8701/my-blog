@@ -1,21 +1,15 @@
 import Link from 'next/link';
-import { getProfileById } from '@/lib/supabaseFunctions';
+import { getCurrentUser, getProfileById } from '@/lib/supabaseFunctions';
 import { ProfileSettings } from '@/app/components/ProfileSettings';
 import { createClient } from '@/lib/supabase/server';
 import { ProfileData } from '@/app/types';
 import { UserAvatar } from '@/app/components/UserAvatar';
+import { User } from '@supabase/supabase-js';
 
 export default async function ProfilePage() {
-  const supabase = await createClient();
   // 現在のユーザー情報を取得
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-  if (error || !user) {
-    console.error('認証セッションが不正です');
-    return;
-  }
+  const supabase = await createClient();
+  const user: User = await getCurrentUser(supabase) as User;
 
   // プロフィールに設定された表示名の取得
   const profileInfo: ProfileData = await getProfileById(supabase, user.id);
