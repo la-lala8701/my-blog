@@ -1,11 +1,7 @@
 'use client';
 import { useAuth } from '@/app/hooks/useAuth';
+import { AuthInputType } from '@/app/types';
 import { SubmitHandler, useForm } from 'react-hook-form';
-
-type SignupData = {
-  email: string;
-  password: string;
-};
 
 export default function SignupPage() {
   const { signUpUser } = useAuth();
@@ -13,9 +9,9 @@ export default function SignupPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<SignupData>();
+  } = useForm<AuthInputType>();
 
-  const onSubmit: SubmitHandler<SignupData> = async (data) => {
+  const onSubmit: SubmitHandler<AuthInputType> = async (data) => {
     await signUpUser(data.email, data.password);
   };
 

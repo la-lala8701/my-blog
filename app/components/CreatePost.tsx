@@ -1,7 +1,7 @@
 'use client';
 import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
-import { PostData } from '@/app/types';
+import { PostData, PostFormValues } from '@/app/types';
 import { addPost } from '@/lib/supabaseFunctions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
@@ -11,11 +11,6 @@ import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
 import { createBrowserSupabase } from '@/lib/supabase/client';
-
-type Inputs = {
-  title: string;
-  content: string;
-};
 
 export const CreatePost = ({
   display_name,
@@ -28,7 +23,7 @@ export const CreatePost = ({
     register,
     reset,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<PostFormValues>();
   const router = useRouter();
   const id = uuidv4();
   const [tab, setTab] = useState<'write' | 'preview'>('write');
@@ -40,7 +35,7 @@ export const CreatePost = ({
     [],
   );
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<PostFormValues> = async (data) => {
     try {
       // 現在のユーザー情報を取得
       const {
@@ -124,7 +119,7 @@ export const CreatePost = ({
           {tab === 'write' ? (
             <div className="px-5 pt-5 pb-3.5">
               <textarea
-                className="border border-gray-300 rounded-md p-2 w-full field-sizing-content min-h-[200px]"
+                className="border border-gray-300 rounded-md p-2 w-full field-sizing-content min-h-50"
                 placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
                 {...register('content', { required: true })}
                 onChange={handleContentChange}

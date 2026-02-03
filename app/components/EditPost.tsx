@@ -1,5 +1,5 @@
 'use client';
-import { PostData } from '@/app/types';
+import { PostData, PostFormValues } from '@/app/types';
 import { updatePostById } from '@/lib/supabaseFunctions';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -11,11 +11,6 @@ import rehypeRaw from 'rehype-raw';
 import { useCallback, useState } from 'react';
 import { createBrowserSupabase } from '@/lib/supabase/client';
 
-type Inputs = {
-  title: string;
-  content: string;
-};
-
 export const EditPost = ({ post }: { post: PostData }) => {
   const supabase = createBrowserSupabase();
   const router = useRouter();
@@ -23,7 +18,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<PostFormValues>();
   const [tab, setTab] = useState<'write' | 'preview'>('write');
   const [content, setContent] = useState(post.content);
   const handleContentChange = useCallback(
@@ -33,7 +28,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
     [],
   );
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<PostFormValues> = async (data) => {
     try {
       // 記事編集のロジック
       await updatePostById(supabase, post.id, { ...post, ...data, updated_at: new Date().toISOString() });
@@ -93,7 +88,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
               <div className="px-5 pt-5 pb-3.5">
                 <textarea
                   defaultValue={post.content}
-                  className="w-full border border-gray-300 rounded-md p-2 field-sizing-content min-h-[200px]"
+                  className="w-full border border-gray-300 rounded-md p-2 field-sizing-content min-h-50"
                   placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
                   {...register('content', { required: true })}
                   onChange={handleContentChange}

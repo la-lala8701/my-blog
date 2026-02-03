@@ -14,3 +14,22 @@ export type ProfileData = {
   description: string;
   avatar_url?: string;
 };
+
+export type PostFormValues = {
+  title: string;
+  content: string;
+};
+
+export type AuthInputType = {
+  email: string;
+  password: string;
+};
+
+export type AuthContextType = {
+  user: {
+    id: string;
+    email: string | null;
+  } | null;
+  profile: ProfileData | null;
+  setProfile: (profile: ProfileData | null) => void;
+};
