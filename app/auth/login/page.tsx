@@ -23,7 +23,7 @@ export default function LoginPage() {
   );
 
   const handleSubmit = useCallback(
-    async (e: React.FormEvent<HTMLFormElement>) => {
+    async (e: React.SubmitEvent<HTMLFormElement>) => {
       e.preventDefault();
       // ログインのロジックをここに実装
       await signInUser(email, password);
