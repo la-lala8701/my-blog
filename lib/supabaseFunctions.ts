@@ -2,13 +2,7 @@ import { PostData } from '@/app/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 
-// 記事データ
-// これは使わないだろう...
-export const getAllPosts = async (supabase: SupabaseClient) => {
-  const posts = await supabase.from('posts').select('*');
-  return posts.data;
-};
-
+// 記事のCRUD操作
 export const getPublicPosts = async (supabase: SupabaseClient) => {
   const posts = await supabase.from('posts').select('*').eq('is_published', true);
   return posts.data;
@@ -60,6 +54,7 @@ export const updatePostById = async (
   alert('記事が更新されました！');
 };
 
+// 公開状態の更新
 export const updatePostPublishStatus = async (
   supabase: SupabaseClient,
   id: string,
