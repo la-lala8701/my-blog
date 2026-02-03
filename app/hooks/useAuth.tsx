@@ -2,7 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { createBrowserSupabase } from '@/lib/supabase/browser';
+import { createBrowserSupabase } from '@/lib/supabase/client';
 
 export const useAuth = () => {
   const router = useRouter();

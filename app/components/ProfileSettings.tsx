@@ -3,7 +3,7 @@ import { updateProfileById } from '@/lib/supabaseFunctions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProfileData } from '../types';
 import { useRouter } from 'next/navigation';
-import { createBrowserSupabase } from '@/lib/supabase/browser';
+import { createBrowserSupabase } from '@/lib/supabase/client';
 
 export const ProfileSettings = (props: ProfileData) => {
   const supabase = createBrowserSupabase();

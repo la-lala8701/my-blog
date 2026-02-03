@@ -1,5 +1,5 @@
 'use client';
-import { createBrowserSupabase } from '@/lib/supabase/browser';
+import { createBrowserSupabase } from '@/lib/supabase/client';
 import { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import { createContext, useEffect, useState } from 'react';
 
@@ -27,8 +27,8 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
   }, []);
 
   return (
-    <AuthContext.Provider value={{session}}>
+    <AuthContext value={{session}}>
         {children}
-    </AuthContext.Provider>
+    </AuthContext>
   )
 };

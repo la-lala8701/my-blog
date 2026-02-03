@@ -3,7 +3,7 @@ import { User } from '@supabase/supabase-js';
 import { useState } from 'react';
 import { ProfileData } from '../types';
 import { UserAvatar } from './UserAvatar';
-import { createBrowserSupabase } from '@/lib/supabase/browser';
+import { createBrowserSupabase } from '@/lib/supabase/client';
 
 export const AvatarSettings = ({
   user,

@@ -1,5 +1,5 @@
 'use client';
-import { createBrowserSupabase } from '@/lib/supabase/browser';
+import { createBrowserSupabase } from '@/lib/supabase/client';
 import { deletePostById } from '@/lib/supabaseFunctions';
 import { useParams, useRouter } from 'next/navigation';
 import { Dispatch, SetStateAction, useCallback } from 'react';

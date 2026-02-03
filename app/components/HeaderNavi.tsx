@@ -5,7 +5,7 @@ import { AuthHeader } from './AuthHeader';
 import { useEffect, useState } from 'react';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { ProfileData } from '../types';
-import { createBrowserSupabase } from '@/lib/supabase/browser';
+import { createBrowserSupabase } from '@/lib/supabase/client';
 
 export const HeaderNavi = () => {
   const supabase = createBrowserSupabase();

@@ -6,7 +6,7 @@ import { EditButtons } from './EditButtons';
 import { PostData } from '../types';
 import { updatePostPublishStatus } from '@/lib/supabaseFunctions';
 import Link from 'next/link';
-import { createBrowserSupabase } from '@/lib/supabase/browser';
+import { createBrowserSupabase } from '@/lib/supabase/client';
 
 export const PostEdit = ({
   children,

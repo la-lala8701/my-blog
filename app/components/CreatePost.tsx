@@ -10,7 +10,7 @@ import classes from '@/app/components/Article/Article.module.css';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import { createBrowserSupabase } from '@/lib/supabase/browser';
+import { createBrowserSupabase } from '@/lib/supabase/client';
 
 type Inputs = {
   title: string;
