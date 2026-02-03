@@ -24,12 +24,3 @@ export type AuthInputType = {
   email: string;
   password: string;
 };
-
-export type AuthContextType = {
-  user: {
-    id: string;
-    email: string | null;
-  } | null;
-  profile: ProfileData | null;
-  setProfile: (profile: ProfileData | null) => void;
-};
