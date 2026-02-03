@@ -4,15 +4,18 @@ import { AuthChangeEvent, Session } from '@supabase/supabase-js';
 import { createContext, useEffect, useState } from 'react';
 
 type AuthContextType = {
-    session: Session | null
-}
+  session: Session | null;
+};
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined)
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined,
+);
 
-export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [session, setSession] = useState<Session | null>(null);
   // console.log("AuthProviderがレンダリングされました");
-  
 
   useEffect(() => {
     const supabase = createBrowserSupabase();
@@ -26,9 +29,5 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({children}) 
     };
   }, []);
 
-  return (
-    <AuthContext value={{session}}>
-        {children}
-    </AuthContext>
-  )
+  return <AuthContext value={{ session }}>{children}</AuthContext>;
 };
