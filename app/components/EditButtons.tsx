@@ -1,10 +1,9 @@
 'use client';
 import Link from "next/link";
-import { usePost } from "../hooks/usePost";
-import { Dispatch, SetStateAction } from "react";
+import { useParams } from "next/navigation";
 
-export const EditButtons = ({setShowModal}: {setShowModal: Dispatch<SetStateAction<boolean>>}) => {
-  const { params, handleShowModal } = usePost();
+export const EditButtons = ({openDeleteModal}: {openDeleteModal: () => void}) => {
+  const params = useParams<{ id: string }>();
 
   return (
     <div className="text-right mt-20">
@@ -14,7 +13,7 @@ export const EditButtons = ({setShowModal}: {setShowModal: Dispatch<SetStateActi
         </button>
       </Link>
       <button
-        onClick={() => handleShowModal(setShowModal)}
+        onClick={() => openDeleteModal()}
         className="ml-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 cursor-pointer"
       >
         削除
