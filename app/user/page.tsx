@@ -5,6 +5,7 @@ import { PostData } from '../types';
 import { getCurrentUser, getUserPosts } from '@/lib/supabaseFunctions';
 import { Posts } from '../components/Posts';
 import { User } from '@supabase/supabase-js';
+import { ManagePostsSearch } from '../components/ManagePostsSearch';
 
 export default async function MyPage() {
   const supabase = await createClient();
@@ -17,7 +18,6 @@ export default async function MyPage() {
 
   return (
     <div className="max-w-5xl mx-auto pt-12 pb-16 px-4">
-      <h1 className="text-4xl font-bold mb-8 text-center">マイページ</h1>
       <div className='flex gap-12'>
         <div className='w-64 shrink-0'>
           <Profile userId={user.id} />
@@ -33,6 +33,7 @@ export default async function MyPage() {
           </ul>
         </div>
         <div className='flex-auto'>
+          <ManagePostsSearch />
           {posts && posts.length > 0 ? <Posts postsData={posts} manage={true} /> : <p className='text-center'>記事がまだありません</p>}
         </div>
       </div>
