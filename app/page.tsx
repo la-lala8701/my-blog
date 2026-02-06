@@ -12,7 +12,7 @@ export default async function Home() {
   }
   return (
     <section className="max-w-3xl mx-auto mt-12 mb-16 px-4">
-      <h1 className="text-3xl pb-6">記事一覧</h1>
+      <h2 className="text-3xl pb-6">記事一覧</h2>
       <Posts postsData={posts} />
     </section>
   );
