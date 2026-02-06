@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { HeaderNavi } from './HeaderNavi';
+import { Search } from './Search';
 
 export const Header = () => {
 
@@ -9,6 +10,7 @@ export const Header = () => {
         <Link className="p-1.5 text-2xl font-bold" href="/">
           Home
         </Link>
+        <Search />
         <HeaderNavi />
       </div>
     </header>
