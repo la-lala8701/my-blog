@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 type SearchInputType = {
@@ -10,8 +10,7 @@ type SearchInputType = {
 export const Search = () => {
   const { register, handleSubmit } = useForm<SearchInputType>();
   const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const { replace } = useRouter();
+  const { push } = useRouter();
 
   const onSubmit: SubmitHandler<SearchInputType> = (data) => {
     const params = new URLSearchParams(searchParams);
@@ -20,7 +19,7 @@ export const Search = () => {
     } else {
       params.delete('query');
     }
-    replace(`${pathname}?${params.toString()}`);
+    push(`/?${params.toString()}`);
   };
   return (
     <div className="w-full max-w-md mx-auto">
