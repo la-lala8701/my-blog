@@ -4,7 +4,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 
 // 記事のCRUD操作
 export const getPublicPosts = async (supabase: SupabaseClient) => {
-  const posts = await supabase.from('posts').select('*').eq('is_published', true);
+  const posts = await supabase.from('posts').select('*').eq('is_published', true).order('created_at', { ascending: false });
   return posts.data;
 };
 
