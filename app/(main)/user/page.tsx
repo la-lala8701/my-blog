@@ -1,11 +1,11 @@
 import Link from 'next/link';
-import { Profile } from '../../components/Profile';
 import { createClient } from '@/lib/supabase/server';
-import { PostData } from '../../types';
 import { getCurrentUser, getUserPosts } from '@/lib/supabaseFunctions';
-import { Posts } from '../../components/Posts';
+import { Posts } from '@/app/components/Posts';
 import { User } from '@supabase/supabase-js';
-import { ManagePostsSearch } from '../../components/ManagePostsSearch';
+import { ManagePostsSearch } from '@/app/components/ManagePostsSearch';
+import { PostData } from '@/app/types';
+import { Profile } from '@/app/components/Profile';
 
 export default async function MyPage() {
   const supabase = await createClient();
