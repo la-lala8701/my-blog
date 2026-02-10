@@ -1,5 +1,5 @@
 import { getPublicPosts } from '@/lib/supabaseFunctions';
-import { Posts } from './components/Posts';
+import { Posts } from '@/app/components/Posts';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 

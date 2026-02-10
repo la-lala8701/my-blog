@@ -20,7 +20,7 @@ export const AuthHeader = ({
           <li>
             <Link
               className="px-4 py-3 bg-green-300 rounded-md hover:bg-green-400"
-              href="/create"
+              href="/user/create"
             >
               記事作成
             </Link>

@@ -7,7 +7,7 @@ export const GuestHeader = () => {
         <li>
           <Link
             className="px-4 py-3 bg-blue-300 rounded-md hover:bg-blue-400"
-            href="/auth/login"
+            href="/login"
           >
             ログイン
           </Link>
@@ -15,7 +15,7 @@ export const GuestHeader = () => {
         <li>
           <Link
             className="ml-4 px-4 py-3 bg-yellow-300 rounded-md hover:bg-yellow-400"
-            href="/auth/sign-up"
+            href="/sign-up"
           >
             サインアップ
           </Link>

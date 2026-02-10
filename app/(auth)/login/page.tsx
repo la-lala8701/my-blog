@@ -66,15 +66,15 @@ export default function LoginPage() {
       <ul>
         <li className="mt-2">
           <Link
-            href="/auth/forgot-password"
+            href="/forgot-password"
             className="text-blue-500 hover:underline"
           >
-            パスワードをお忘れですか？
+            パスワードを忘れた方
           </Link>
         </li>
         <li>
-          <Link href="/auth/sign-up" className="text-blue-500 hover:underline">
-            アカウントをお持ちでないですか？登録はこちら
+          <Link href="/sign-up" className="text-blue-500 hover:underline">
+            新規登録はこちら
           </Link>
         </li>
       </ul>
