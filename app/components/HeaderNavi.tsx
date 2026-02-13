@@ -1,7 +1,7 @@
 'use client';
 import { useAuth } from '../hooks/useAuth';
 import { GuestHeader } from './GuestHeader';
-import { AuthHeader } from './AuthHeader';
+import { LoginHeader } from './LoginHeader';
 import { useEffect, useState } from 'react';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { ProfileData } from '../types';
@@ -41,7 +41,7 @@ export const HeaderNavi = () => {
   }, [session?.user, supabase]);
 
   if (session) {
-    return <AuthHeader profiles={profiles} userEmail={session.user.email} />;
+    return <LoginHeader profiles={profiles} userEmail={session.user.email} />;
   }
 
   return <GuestHeader />;
