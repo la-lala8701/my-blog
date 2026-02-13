@@ -17,7 +17,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-20 p-8 border border-gray-300 rounded-md shadow-md">
+    <div className="max-w-md mx-auto mt-12 p-8 border border-gray-300 rounded-md shadow-md">
       <h1 className="text-2xl text-center font-bold mb-6">ログイン</h1>
       <form className="mb-10" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
