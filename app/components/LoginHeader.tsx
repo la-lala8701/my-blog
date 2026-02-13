@@ -4,7 +4,7 @@ import { Drawer } from './Drawer';
 import { UserAvatar } from './UserAvatar';
 import { ProfileData } from '../types';
 
-export const AuthHeader = ({
+export const LoginHeader = ({
   profiles,
   userEmail,
 }: {
