@@ -1,7 +1,8 @@
-import { getPublicPosts, searchPosts } from '@/lib/supabaseFunctions';
+import { getPublicPosts, searchPublicPosts } from '@/lib/supabaseFunctions';
 import { Posts } from '@/app/components/Posts';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
+import { PostData } from '../types';
 
 export default async function Home({searchParams}: {searchParams?: { query?: string; page?: string}}) {
   const supabase = await createClient();
@@ -11,10 +12,10 @@ export default async function Home({searchParams}: {searchParams?: { query?: str
     if (!query) {
       return await getPublicPosts(supabase);
     } else {
-      return await searchPosts(supabase, query);
+      return await searchPublicPosts(supabase, query);
     }
   }
-  const posts = await fetchfilteredPosts();
+  const posts: PostData[] | null = await fetchfilteredPosts();
 
   if (!posts || posts.length === 0) {
     notFound();

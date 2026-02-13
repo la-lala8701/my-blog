@@ -118,13 +118,24 @@ export const getCurrentUser = async (supabase: SupabaseClient) => {
   return user;
 };
 
-// 記事検索
-export const searchPosts = async (supabase: SupabaseClient, query: string) => {
+// 公開記事検索
+export const searchPublicPosts = async (supabase: SupabaseClient, query: string) => {
   const { data, error } = await supabase
     .from('posts')
     .select()
     .or(`title.ilike.%${query}%,content.ilike.%${query}%`)
     .eq('is_published', true);
+  if (error) throw error;
+  return data;
+};
+
+// 管理記事検索
+export const searchUserPosts = async (supabase: SupabaseClient, query: string, userId: string) => {
+  const { data, error } = await supabase
+    .from('posts')
+    .select()
+    .or(`title.ilike.%${query}%,content.ilike.%${query}%`)
+    .eq('user_id', userId);
   if (error) throw error;
   return data;
 };

@@ -1,20 +1,34 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { getCurrentUser, getUserPosts } from '@/lib/supabaseFunctions';
+import { getCurrentUser, getUserPosts, searchUserPosts } from '@/lib/supabaseFunctions';
 import { Posts } from '@/app/components/Posts';
 import { User } from '@supabase/supabase-js';
 import { ManagePostsSearch } from '@/app/components/ManagePostsSearch';
 import { PostData } from '@/app/types';
 import { Profile } from '@/app/components/Profile';
 
-export default async function MyPage() {
+export default async function MyPage({
+  searchParams,
+}: {
+  searchParams?: { query?: string; page?: string };
+}) {
   const supabase = await createClient();
 
   // 現在のユーザー情報を取得
   const user: User = (await getCurrentUser(supabase)) as User;
 
-  // ユーザーが書いた記事を取得する
-  const posts: PostData[] | null = await getUserPosts(supabase, user.id);
+  const fetchfilteredPosts = async () => {
+    // 検索クエリを取得
+    const query: string = (await searchParams)?.query || '';
+    if (!query) {
+      // ユーザーが書いた記事を取得する
+      return await getUserPosts(supabase, user.id);
+    } else {
+      // ユーザーが書いた記事を検索する
+      return await searchUserPosts(supabase, query, user.id);
+    }
+  };
+  const posts: PostData[] | null = await fetchfilteredPosts();
 
   return (
     <div className="max-w-5xl mx-auto pt-12 pb-16 px-4">
