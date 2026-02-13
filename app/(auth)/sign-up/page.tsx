@@ -1,6 +1,7 @@
 'use client';
 import { useAuth } from '@/app/hooks/useAuth';
 import { AuthInputType } from '@/app/types';
+import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 export default function SignupPage() {
@@ -16,8 +17,8 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-12">
-      <h1 className="text-3xl font-bold mb-6 text-center">サインアップ</h1>
+    <div className="max-w-md mx-auto mt-20 p-8 border border-gray-300 rounded-md shadow-md">
+      <h1 className="text-2xl font-bold mb-6 text-center">サインアップ</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='space-y-4 mb-8'>
           <div>
@@ -75,6 +76,9 @@ export default function SignupPage() {
           サインアップ
         </button>
       </form>
+      <Link href="/login" className="block text-center mt-12 text-gray-500 underline hover:text-gray-700">
+        ログインはこちら
+      </Link>
     </div>
   );
 }

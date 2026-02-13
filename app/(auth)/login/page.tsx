@@ -17,9 +17,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-12 px-6 py-8 border border-gray-300 rounded-md shadow-md">
+    <div className="max-w-md mx-auto mt-20 p-8 border border-gray-300 rounded-md shadow-md">
       <h1 className="text-2xl text-center font-bold mb-6">ログイン</h1>
-      <form className="mb-8" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mb-10" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
           <label className="block mb-1">
             メールアドレス
@@ -38,7 +38,7 @@ export default function LoginPage() {
             {...register('email', { required: true })}
           />
         </div>
-        <div className="mb-8">
+        <div className="mb-4">
           <label className="block mb-1">
             パスワード
             {errors.password && (
@@ -56,6 +56,12 @@ export default function LoginPage() {
             {...register('password', { required: true })}
           />
         </div>
+        <Link
+          href="/forgot-password"
+          className="text-blue-500 text-sm hover:underline mb-6 block"
+        >
+          パスワードを忘れた方
+        </Link>
         <button
           type="submit"
           className="block w-full cursor-pointer bg-blue-500 text-white rounded-md py-3 hover:bg-blue-600"
@@ -63,21 +69,9 @@ export default function LoginPage() {
           ログイン
         </button>
       </form>
-      <ul>
-        <li className="mt-2">
-          <Link
-            href="/forgot-password"
-            className="text-blue-500 hover:underline"
-          >
-            パスワードを忘れた方
-          </Link>
-        </li>
-        <li>
-          <Link href="/sign-up" className="text-blue-500 hover:underline">
-            新規登録はこちら
-          </Link>
-        </li>
-      </ul>
+      <Link href="/sign-up" className="block text-gray-500 underline text-center border-t pt-6 border-gray-300">
+        新規登録はこちら
+      </Link>
     </div>
   );
 }
