@@ -5,10 +5,10 @@ import { Search } from './Search';
 export const Header = () => {
 
   return (
-    <header className="py-6 px-14 border-b border-gray-300">
-      <div className="flex items-center justify-between">
+    <header className="py-6 border-b border-gray-300">
+      <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
         <Link className="p-1.5 text-2xl font-bold" href="/">
-          Home
+          MyBlog
         </Link>
         <Search />
         <HeaderNavi />
