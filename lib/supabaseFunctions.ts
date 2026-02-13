@@ -1,10 +1,13 @@
 import { PostData } from '@/app/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 
-
 // 記事のCRUD操作
 export const getPublicPosts = async (supabase: SupabaseClient) => {
-  const posts = await supabase.from('posts').select('*').eq('is_published', true).order('created_at', { ascending: false });
+  const posts = await supabase
+    .from('posts')
+    .select('*')
+    .eq('is_published', true)
+    .order('created_at', { ascending: false });
   return posts.data;
 };
 
@@ -45,7 +48,10 @@ export const updatePostById = async (
   id: string,
   updatedPost: Partial<PostData>,
 ) => {
-  const { error } = await supabase.from('posts').update(updatedPost).eq('id', id);
+  const { error } = await supabase
+    .from('posts')
+    .update(updatedPost)
+    .eq('id', id);
   if (error) {
     console.error('更新エラー:', error);
     alert('記事の更新に失敗しました。');
@@ -110,4 +116,15 @@ export const getCurrentUser = async (supabase: SupabaseClient) => {
   }
 
   return user;
+};
+
+// 記事検索
+export const searchPosts = async (supabase: SupabaseClient, query: string) => {
+  const { data, error } = await supabase
+    .from('posts')
+    .select()
+    .or(`title.ilike.%${query}%,content.ilike.%${query}%`)
+    .eq('is_published', true);
+  if (error) throw error;
+  return data;
 };
