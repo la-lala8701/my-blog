@@ -1,4 +1,5 @@
-import { HeaderAuth } from '../components/Header/HeaderAuth';
+import { Header } from "@/app/components/Header/Auth/Header";
+
 
 export default function AuthLayout({
   children,
@@ -7,7 +8,7 @@ export default function AuthLayout({
 }>) {
   return (
     <div className="px-4">
-      <HeaderAuth />
+      <Header />
       {children}
     </div>
   );

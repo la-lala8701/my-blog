@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-export const HeaderAuth = () => {
+export const Header = () => {
 
   return (
     <header className="py-6">
