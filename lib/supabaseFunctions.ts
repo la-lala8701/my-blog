@@ -10,7 +10,14 @@ export const getPublicPosts = async (supabase: SupabaseClient) => {
     .order('created_at', { ascending: false });
   return posts.data;
 };
-
+export const getUserPosts = async (supabase: SupabaseClient, id: string) => {
+  const posts = await supabase
+    .from('posts')
+    .select('*')
+    .eq('user_id', id)
+    .order('created_at', { ascending: false });
+  return posts.data;
+};
 export const getPostById = async (supabase: SupabaseClient, id: string) => {
   const post = await supabase.from('posts').select('*').eq('id', id).single();
   return post.data;
