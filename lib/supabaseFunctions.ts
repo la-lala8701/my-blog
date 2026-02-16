@@ -14,13 +14,30 @@ export const getPublicPosts = async (supabase: SupabaseClient) => {
   return posts.data;
 };
 // ユーザーが書いた記事の取得
-export const getUserPosts = async (supabase: SupabaseClient, id: string) => {
+export const getUserPosts = async (
+  supabase: SupabaseClient,
+  userId: string,
+) => {
   const posts = await supabase
     .from('posts')
     .select('*')
-    .eq('user_id', id)
+    .eq('user_id', userId)
     .order('created_at', { ascending: false });
   return posts.data;
+};
+// 管理記事検索
+export const searchUserPosts = async (
+  supabase: SupabaseClient,
+  query: string,
+  userId: string,
+) => {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*')
+    .or(`title.ilike.%${query}%,content.ilike.%${query}%`)
+    .eq('user_id', userId);
+  if (error) throw error;
+  return data;
 };
 // 詳細記事の取得
 export const getPostById = async (supabase: SupabaseClient, id: string) => {
@@ -144,20 +161,6 @@ export const searchPublicPosts = async (
     .select()
     .or(`title.ilike.%${query}%,content.ilike.%${query}%`)
     .eq('is_published', true);
-  if (error) throw error;
-  return data;
-};
-// 管理記事検索
-export const searchUserPosts = async (
-  supabase: SupabaseClient,
-  query: string,
-  userId: string,
-) => {
-  const { data, error } = await supabase
-    .from('posts')
-    .select()
-    .or(`title.ilike.%${query}%,content.ilike.%${query}%`)
-    .eq('user_id', userId);
   if (error) throw error;
   return data;
 };
