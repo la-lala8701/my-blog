@@ -17,8 +17,10 @@ export default async function Home({searchParams}: {searchParams?: { query?: str
   }
   const posts: PostData[] | null = await fetchfilteredPosts();
 
-  if (!posts || posts.length === 0) {
+  if (!posts) {
     notFound();
+  } else if (posts.length === 0) {
+    return <p className="text-center mt-12">記事が見つかりませんでした... 🙏</p>;
   }
   return (
     <section className="max-w-3xl mx-auto mt-12 mb-16 px-4">
