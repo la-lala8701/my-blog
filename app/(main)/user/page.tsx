@@ -24,7 +24,7 @@ export default async function MyPage({
       // ユーザーが書いた記事を取得する
       return await getUserPosts(supabase, user.id);
     } else {
-      // ユーザーが書いた記事を検索する
+      // ユーザーが書いた記事かつ検索した記事を取得する
       return await searchUserPosts(supabase, query, user.id);
     }
   };
