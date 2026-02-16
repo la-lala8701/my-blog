@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { EditButtons } from '@/app/components/EditButtons';
+import { EditButtons } from '@/app/components/Post/EditButtons';
 import { ModalContent, PostData } from '@/app/types';
 import {
   deletePostById,

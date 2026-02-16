@@ -1,8 +1,8 @@
 // 使っていないコンポーネント
-import { Article } from '@/app/components/Article';
-import { PostData } from '../types';
+import { PostContent } from '@/app/components/Post/PostContent';
+import { PostData } from '@/app/types';
 import { getPostById } from '@/lib/supabaseFunctions';
-import { Profile } from './Profile';
+import { Profile } from '@/app/components/Profile/Profile';
 import { createClient } from '@/lib/supabase/server';
 
 export const Post = async ({ pageId }: { pageId: string }) => {
@@ -12,7 +12,7 @@ export const Post = async ({ pageId }: { pageId: string }) => {
   return (
     <div className="flex gap-10 mx-auto max-w-5xl mt-12">
       <div className="max-w-3xl flex-1">
-        <Article post={getPost} />
+        <PostContent post={getPost} />
       </div>
       <div className="w-56 sticky top-12 h-fit">
         <Profile userId={getPost.user_id} />

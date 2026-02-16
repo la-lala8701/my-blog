@@ -1,7 +1,7 @@
 'use client';
 import { updateProfileById } from '@/lib/supabaseFunctions';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { ProfileData } from '../types';
+import { ProfileData } from '@/app/types';
 import { useRouter } from 'next/navigation';
 import { createBrowserSupabase } from '@/lib/supabase/client';
 

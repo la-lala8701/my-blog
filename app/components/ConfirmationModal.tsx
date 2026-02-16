@@ -1,5 +1,5 @@
 'use client';
-import { ModalContent } from '../types';
+import { ModalContent } from '@/app/types';
 
 export const ConfirmationModal = ({
   modalContent,

@@ -1,10 +1,10 @@
 'use client';
-import { useAuth } from '../hooks/useAuth';
-import { GuestHeader } from './GuestHeader';
-import { LoginHeader } from './LoginHeader';
+import { useAuth } from '@/app/hooks/useAuth';
+import { GuestHeader } from '@/app/components/Header/GuestHeader';
+import { LoginHeader } from '@/app/components/Header/LoginHeader';
 import { useEffect, useState } from 'react';
 import { getProfileById } from '@/lib/supabaseFunctions';
-import { ProfileData } from '../types';
+import { ProfileData } from '@/app/types';
 import { createBrowserSupabase } from '@/lib/supabase/client';
 
 export const HeaderNavi = () => {

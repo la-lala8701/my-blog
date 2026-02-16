@@ -1,5 +1,5 @@
-import { PostsItem } from './PostsItem';
-import { PostData } from '../types';
+import { PostsItem } from '@/app/components/Posts/PostsItem';
+import { PostData } from '@/app/types';
 
 export const Posts = async ({postsData, manage}: {postsData: PostData[], manage?: boolean}) => {
 

@@ -1,8 +1,8 @@
 'use client';
 import { User } from '@supabase/supabase-js';
 import { useState } from 'react';
-import { ProfileData } from '../types';
-import { UserAvatar } from './UserAvatar';
+import { ProfileData } from '@/app/types';
+import { UserAvatar } from '@/app/components/Profile/UserAvatar';
 import { createBrowserSupabase } from '@/lib/supabase/client';
 
 export const AvatarSettings = ({

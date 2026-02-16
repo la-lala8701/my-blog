@@ -1,11 +1,15 @@
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { getCurrentUser, getUserPosts, searchUserPosts } from '@/lib/supabaseFunctions';
-import { Posts } from '@/app/components/Posts';
+import {
+  getCurrentUser,
+  getUserPosts,
+  searchUserPosts,
+} from '@/lib/supabaseFunctions';
+import { Posts } from '@/app/components/Posts/Posts';
 import { User } from '@supabase/supabase-js';
-import { ManagePostsSearch } from '@/app/components/ManagePostsSearch';
+import { ManagePostsSearch } from '@/app/components/Search/ManagePostsSearch';
 import { PostData } from '@/app/types';
-import { Profile } from '@/app/components/Profile';
+import { Profile } from '@/app/components/Profile/Profile';
 
 export default async function MyPage({
   searchParams,

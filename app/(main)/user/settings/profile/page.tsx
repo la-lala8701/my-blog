@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import { getCurrentUser, getProfileById } from '@/lib/supabaseFunctions';
-import { ProfileSettings } from '@/app/components/ProfileSettings';
+import { ProfileSettings } from '@/app/components/Profile/ProfileSettings';
 import { createClient } from '@/lib/supabase/server';
 import { ProfileData } from '@/app/types';
-import { UserAvatar } from '@/app/components/UserAvatar';
+import { UserAvatar } from '@/app/components/Profile/UserAvatar';
 import { User } from '@supabase/supabase-js';
 
 export default async function ProfilePage() {

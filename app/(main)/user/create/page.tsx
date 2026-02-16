@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CreatePost } from '@/app/components/CreatePost';
+import { CreatePost } from '@/app/components/Post/CreatePost';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentUser, getProfileById } from '@/lib/supabaseFunctions';
 import { User } from '@supabase/supabase-js';

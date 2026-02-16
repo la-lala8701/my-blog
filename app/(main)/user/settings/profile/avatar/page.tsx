@@ -1,4 +1,4 @@
-import { AvatarSettings } from "@/app/components/AvatarSettings";
+import { AvatarSettings } from "@/app/components/Profile/AvatarSettings";
 import { ProfileData } from "@/app/types";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser, getProfileById } from "@/lib/supabaseFunctions";

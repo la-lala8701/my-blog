@@ -1,20 +1,17 @@
-import { PostData, ProfileData } from '../../types';
+import { PostData, ProfileData } from '../../../types';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
-import classes from './Article.module.css';
+import classes from './PostContent.module.css';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { createClient } from '@/lib/supabase/server';
 import { japaneseFormattedDate } from '@/lib/common';
-import { UserAvatar } from '../UserAvatar';
+import { UserAvatar } from '@/app/components/Profile/UserAvatar';
 
-export const Article = async ({ post }: { post: PostData }) => {
+export const PostContent = async ({ post }: { post: PostData }) => {
   // プロフィールに設定された表示名の取得
   const supabase = await createClient();
-  const profileInfo: ProfileData = await getProfileById(
-    supabase,
-    post.user_id,
-  );
+  const profileInfo: ProfileData = await getProfileById(supabase, post.user_id);
 
   return (
     <article className="px-4">
@@ -27,9 +24,11 @@ export const Article = async ({ post }: { post: PostData }) => {
           <p className="text-base">{profileInfo.display_name}</p>
           <p className="text-sm text-gray-500">
             <span>投稿日 {japaneseFormattedDate(post.created_at)}</span>
-            {post.updated_at && post.created_at !== post.updated_at ? <span className="ml-3">
-              更新日 {japaneseFormattedDate(post.updated_at)}
-            </span> : null}
+            {post.updated_at && post.created_at !== post.updated_at ? (
+              <span className="ml-3">
+                更新日 {japaneseFormattedDate(post.updated_at)}
+              </span>
+            ) : null}
           </p>
         </div>
       </div>

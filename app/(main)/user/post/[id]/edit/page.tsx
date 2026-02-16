@@ -1,4 +1,4 @@
-import { EditPost } from '@/app/components/EditPost';
+import { EditPost } from '@/app/components/Post/EditPost';
 import { createClient } from '@/lib/supabase/server';
 import { getPostById } from '@/lib/supabaseFunctions';
 

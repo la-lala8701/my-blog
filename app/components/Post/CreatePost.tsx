@@ -6,7 +6,7 @@ import { addPost, getCurrentUser } from '@/lib/supabaseFunctions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
-import classes from '@/app/components/Article/Article.module.css';
+import classes from '@/app/components/Post/PostContent/PostContent.module.css';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';

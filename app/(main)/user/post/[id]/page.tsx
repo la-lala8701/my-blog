@@ -1,4 +1,4 @@
-import { Article } from '@/app/components/Article';
+import { PostContent } from '@/app/components/Post/PostContent';
 import { PostActions } from '@/app/components/Post/PostActions';
 import { PostData } from '@/app/types';
 import { createClient } from '@/lib/supabase/server';
@@ -16,7 +16,7 @@ export default async function Post({
   return (
     <div className="max-w-3xl mt-12 mb-16 mx-auto">
       <PostActions post={getPost}>
-        <Article post={getPost} />
+        <PostContent post={getPost} />
       </PostActions>
     </div>
   );

@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import { PostData, ProfileData } from '../types';
+import { PostData, ProfileData } from '@/app/types';
 import { createClient } from '@/lib/supabase/server';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { japaneseFormattedDate } from '@/lib/common';
-import { UserAvatar } from './UserAvatar';
+import { UserAvatar } from '@/app/components/Profile/UserAvatar';
 
 type Props = PostData & { manage?: boolean };
 
