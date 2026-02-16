@@ -1,5 +1,5 @@
 import { Article } from '@/app/components/Article';
-import { PostEdit } from '@/app/components/PostEdit';
+import { PostActions } from '@/app/components/Post/PostActions';
 import { PostData } from '@/app/types';
 import { createClient } from '@/lib/supabase/server';
 import { getPostById } from '@/lib/supabaseFunctions';
@@ -15,9 +15,9 @@ export default async function Post({
 
   return (
     <div className="max-w-3xl mt-12 mb-16 mx-auto">
-      <PostEdit post={getPost}>
+      <PostActions post={getPost}>
         <Article post={getPost} />
-      </PostEdit>
+      </PostActions>
     </div>
   );
 }

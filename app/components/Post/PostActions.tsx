@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import { EditButtons } from './EditButtons';
-import { ModalContent, PostData } from '../types';
+import { EditButtons } from '@/app/components/EditButtons';
+import { ModalContent, PostData } from '@/app/types';
 import {
   deletePostById,
   updatePostPublishStatus,
@@ -9,9 +9,9 @@ import {
 import Link from 'next/link';
 import { createBrowserSupabase } from '@/lib/supabase/client';
 import { useParams, useRouter } from 'next/navigation';
-import { ConfirmationModal } from './ConfirmationModal';
+import { ConfirmationModal } from '@/app/components/ConfirmationModal';
 
-export const PostEdit = ({
+export const PostActions = ({
   children,
   post,
 }: {
