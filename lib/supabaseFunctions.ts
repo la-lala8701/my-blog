@@ -1,7 +1,10 @@
 import { PostData } from '@/app/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 
-// 記事のCRUD操作
+/*====================
+記事のCRUD操作
+====================*/
+// 公開記事の取得
 export const getPublicPosts = async (supabase: SupabaseClient) => {
   const posts = await supabase
     .from('posts')
@@ -10,6 +13,7 @@ export const getPublicPosts = async (supabase: SupabaseClient) => {
     .order('created_at', { ascending: false });
   return posts.data;
 };
+// ユーザーが書いた記事の取得
 export const getUserPosts = async (supabase: SupabaseClient, id: string) => {
   const posts = await supabase
     .from('posts')
@@ -18,16 +22,12 @@ export const getUserPosts = async (supabase: SupabaseClient, id: string) => {
     .order('created_at', { ascending: false });
   return posts.data;
 };
+// 詳細記事の取得
 export const getPostById = async (supabase: SupabaseClient, id: string) => {
   const post = await supabase.from('posts').select('*').eq('id', id).single();
   return post.data;
 };
-
-export const getUserPosts = async (supabase: SupabaseClient, id: string) => {
-  const posts = await supabase.from('posts').select('*').eq('user_id', id);
-  return posts.data;
-};
-
+// 記事の追加
 export const addPost = async (supabase: SupabaseClient, post: PostData) => {
   const { error: postError } = await supabase.from('posts').insert(post);
   if (postError) {
@@ -37,7 +37,7 @@ export const addPost = async (supabase: SupabaseClient, post: PostData) => {
   }
   alert('記事が投稿されました！');
 };
-
+// 記事の削除
 export const deletePostById = async (supabase: SupabaseClient, id: string) => {
   const { error: deleteError } = await supabase
     .from('posts')
@@ -49,7 +49,7 @@ export const deletePostById = async (supabase: SupabaseClient, id: string) => {
     return;
   }
 };
-
+// 記事内容の更新
 export const updatePostById = async (
   supabase: SupabaseClient,
   id: string,
@@ -76,7 +76,10 @@ export const updatePostPublishStatus = async (
   await supabase.from('posts').update({ is_published }).eq('id', id);
 };
 
-// プロフィールデータ
+/*====================
+プロフィールのCRUD操作
+====================*/
+// プロフィールデータの取得
 export const getProfileById = async (supabase: SupabaseClient, id: string) => {
   const { data, error } = await supabase
     .from('profiles')
@@ -91,7 +94,7 @@ export const getProfileById = async (supabase: SupabaseClient, id: string) => {
 
   return data;
 };
-
+// プロフィールデータの更新
 export const updateProfileById = async (
   supabase: SupabaseClient,
   id: string,
@@ -110,6 +113,9 @@ export const updateProfileById = async (
   alert('データを更新しました');
 };
 
+/*====================
+ユーザー認証関連
+====================*/
 // 現在のユーザー情報を取得する関数
 export const getCurrentUser = async (supabase: SupabaseClient) => {
   const {
@@ -125,8 +131,14 @@ export const getCurrentUser = async (supabase: SupabaseClient) => {
   return user;
 };
 
+/*====================
+検索機能
+====================*/
 // 公開記事検索
-export const searchPublicPosts = async (supabase: SupabaseClient, query: string) => {
+export const searchPublicPosts = async (
+  supabase: SupabaseClient,
+  query: string,
+) => {
   const { data, error } = await supabase
     .from('posts')
     .select()
@@ -135,9 +147,12 @@ export const searchPublicPosts = async (supabase: SupabaseClient, query: string)
   if (error) throw error;
   return data;
 };
-
 // 管理記事検索
-export const searchUserPosts = async (supabase: SupabaseClient, query: string, userId: string) => {
+export const searchUserPosts = async (
+  supabase: SupabaseClient,
+  query: string,
+  userId: string,
+) => {
   const { data, error } = await supabase
     .from('posts')
     .select()
