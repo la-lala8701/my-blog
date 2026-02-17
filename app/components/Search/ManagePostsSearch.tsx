@@ -1,6 +1,7 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
 type SearchInputType = {
@@ -12,6 +13,10 @@ export const ManagePostsSearch = () => {
   const pathName = usePathname();
   const searchParams = useSearchParams();
   const { replace } = useRouter();
+
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLElement | null>(null);
+
   const onSubmit: SubmitHandler<SearchInputType> = (data) => {
     const params = new URLSearchParams(searchParams);
     if (data.term) {
@@ -21,9 +26,32 @@ export const ManagePostsSearch = () => {
     }
     replace(`${pathName}?${params.toString()}`);
   };
+
+  const toggleMenu = useCallback((e: MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    setIsOpen((prev) => !prev);
+  }, []);
+  useEffect(() => {
+    const handleClickToCloseMenu = (e: any) => {
+      const element = dropdownRef.current;
+      if (!isOpen || element?.contains(e.target)) {
+        return;
+      }
+      setIsOpen(false);
+    };
+    addEventListener('click', handleClickToCloseMenu);
+    return () => {
+      removeEventListener('click', handleClickToCloseMenu);
+    };
+  }, [isOpen, dropdownRef]);
   return (
     <div className="w-full max-w-md ml-auto flex mb-12 gap-2">
-      <form action="" method="post" onSubmit={handleSubmit(onSubmit)} className="grow">
+      <form
+        action=""
+        method="post"
+        onSubmit={handleSubmit(onSubmit)}
+        className="grow"
+      >
         <input
           type="text"
           placeholder="Search posts..."
@@ -32,10 +60,11 @@ export const ManagePostsSearch = () => {
           defaultValue={searchParams.get('query')?.toString()}
         />
       </form>
-      <details className="relative">
+      <details className="relative" open={isOpen} ref={dropdownRef}>
         <summary
           className="inline-block cursor-pointer bg-gray-200 px-3 py-2 rounded-md list-none"
           role="button"
+          onClick={toggleMenu}
         >
           Sort
         </summary>
