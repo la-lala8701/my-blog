@@ -72,38 +72,29 @@ graph TD
 ## ER図
 ``` mermaid
 erDiagram
-    auth_users ||--|| profiles : "1:1 (extends)"
-    profiles ||--o{ posts : "1:N (authors)"
-    posts ||--o{ comments : "1:N (belongs to)"
-    profiles ||--o{ comments : "1:N (writes)"
+    auth_users ||--|| profiles : "1:1 (id = id)"
+    auth_users ||--o{ posts : "1:N (id = user_id)"
 
     auth_users {
-        uuid id PK
+        uuid id PK "Primary Key"
         string email
-        string encrypted_password
     }
 
     profiles {
-        uuid id PK, FK "references auth.users"
-        string username
-        string avatar_url
-        timestamp updated_at
+        uuid id PK, FK "References auth.users.id"
+        text display_name
+        text description
+        text avatar_url
     }
 
     posts {
         uuid id PK
-        uuid user_id FK "references profiles.id"
-        string title
+        uuid user_id FK "References auth.users.id"
+        text title
         text content
+        boolean is_published
         timestamp created_at
-    }
-
-    comments {
-        uuid id PK
-        uuid post_id FK "references posts.id"
-        uuid user_id FK "references profiles.id"
-        text content
-        timestamp created_at
+        timestamp updated_at
     }
 ```
 
