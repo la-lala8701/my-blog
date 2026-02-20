@@ -15,7 +15,7 @@ export const ManagePostsSearch = () => {
   const { replace } = useRouter();
 
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLElement | null>(null);
+  const dropdownRef = useRef<HTMLDetailsElement | null>(null);
 
   const onSubmit: SubmitHandler<SearchInputType> = (data) => {
     const params = new URLSearchParams(searchParams);
