@@ -1,36 +1,117 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## プロダクト概要
+本プロダクトは、誰でも手軽に始められる、オープンなブログプラットフォームです。
+アカウントを作成することで、誰でもすぐに自分の好きなことや伝えたいことを投稿することができます。
+投稿された記事はログイン不要で誰でも自由に閲覧可能です。
 
-## Getting Started
+## URL
+https://my-blog-snowy-three-41.vercel.app/
 
-First, run the development server:
+## 機能一覧
+- 記事のCRUD
+  - Markdownでの記事作成機能
+  - Preview機能
+- 公開・非公開制御
+- 認証機能
+  - 新規登録
+  - ログイン
+  - ログアウト
+- プロフィール編集
+  - プロフィール画像投稿
+  - 表示名編集
+  - 自己紹介文編集
+- パスワート変更
+- 検索・絞り込み機能
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 使用技術
+### フロントエンド
+- Next.js(App Router)
+- TypeScript: 
+- Tailwind CSS
+### バックエンド / インフラ
+- Supabase
+  - PostgreSQL
+  - Authentication
+  - Row Level Security(RLS)
+- Vercel
+### 開発ツール
+- ESLint
+- Prettier
+
+## インフラ構成図
+``` mermaid
+graph TD
+    subgraph Client ["Browser / Client"]
+        User["User Device"]
+    end
+
+    subgraph Vercel ["Vercel (Frontend)"]
+        NextJS["Next.js App (App Router)"]
+        ServerActions["Server Actions / API Routes"]
+    end
+
+    subgraph Supabase ["Supabase (Backend as a Service)"]
+        Auth["Supabase Auth (Authentication)"]
+        DB[(PostgreSQL Database)]
+        Storage["Supabase Storage (Images)"]
+        RLS["Row Level Security (Policy)"]
+    end
+
+    %% Interactions
+    User <-->|HTTPS / UI| NextJS
+    NextJS <-->|Data Fetching| ServerActions
+    
+    ServerActions <-->|Admin Access / Secret Key| DB
+    User <-->|Client Side Access / Public Key| Auth
+    User <-->|Direct Data Access| RLS
+    RLS --- DB
+    
+    %% Optional Storage Interaction
+    User -.->|Upload / View| Storage
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ER図
+``` mermaid
+erDiagram
+    auth_users ||--|| profiles : "1:1 (extends)"
+    profiles ||--o{ posts : "1:N (authors)"
+    posts ||--o{ comments : "1:N (belongs to)"
+    profiles ||--o{ comments : "1:N (writes)"
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    auth_users {
+        uuid id PK
+        string email
+        string encrypted_password
+    }
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+    profiles {
+        uuid id PK, FK "references auth.users"
+        string username
+        string avatar_url
+        timestamp updated_at
+    }
 
-## Learn More
+    posts {
+        uuid id PK
+        uuid user_id FK "references profiles.id"
+        string title
+        text content
+        timestamp created_at
+    }
 
-To learn more about Next.js, take a look at the following resources:
+    comments {
+        uuid id PK
+        uuid post_id FK "references posts.id"
+        uuid user_id FK "references profiles.id"
+        text content
+        timestamp created_at
+    }
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 工夫した点 / 設計意図
+- Supabase Authの認証情報をもとに、閲覧可能なページを制御しました
+- SupabaseのRLSを利用し、DBレベルで権限を厳格に分けてセキュリティを担保しました
+- Server / Client Component の責務分離を意識しました
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 苦労した点 / 学んだこと
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 今後の展望
