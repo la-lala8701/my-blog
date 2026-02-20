@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { ProfileData } from '../types';
+import { ProfileData } from '@/app/types';
 import Avatar from 'boring-avatars';
 
 export const UserAvatar = ({
