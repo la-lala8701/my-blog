@@ -24,8 +24,9 @@ https://my-blog-snowy-three-41.vercel.app/
 
 ## 使用技術
 ### フロントエンド
+- React
 - Next.js(App Router)
-- TypeScript: 
+- TypeScript
 - Tailwind CSS
 ### バックエンド / インフラ
 - Supabase
