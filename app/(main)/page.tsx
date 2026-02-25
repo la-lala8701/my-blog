@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 import { PostData } from '../types';
 
+export const revalidate = 3600;
+
 export default async function Home({searchParams}: {searchParams?: { query?: string; page?: string}}) {
   const supabase = await createClient();
 

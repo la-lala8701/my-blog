@@ -4,6 +4,8 @@ import { PostData } from '@/app/types';
 import { createClient } from '@/lib/supabase/server';
 import { getPostById } from '@/lib/supabaseFunctions';
 
+export const revalidate = 3600;
+
 export default async function Post({
   params,
 }: {
