@@ -1,3 +1,7 @@
 export default function Loading() {
-    return <p>Loading</p>
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <p className="text-center text-lg">Now Loading...</p>
+    </div>
+  );
 }
