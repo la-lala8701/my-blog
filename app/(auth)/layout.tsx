@@ -1,4 +1,4 @@
-import { Header } from "@/app/components/Header/Auth/Header";
+import { Header } from "@/app/components/layouts/Header/Auth/Header";
 
 
 export default function AuthLayout({

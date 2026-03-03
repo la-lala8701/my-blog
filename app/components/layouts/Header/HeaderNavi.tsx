@@ -1,7 +1,7 @@
 'use client';
 import { useAuth } from '@/app/hooks/useAuth';
-import { GuestHeader } from '@/app/components/Header/GuestHeader';
-import { LoginHeader } from '@/app/components/Header/LoginHeader';
+import { GuestHeader } from '@/app/components/layouts/Header/GuestHeader';
+import { LoginHeader } from '@/app/components/layouts/Header/LoginHeader';
 import { useEffect, useState } from 'react';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { ProfileData } from '@/app/types';

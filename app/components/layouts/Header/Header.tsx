@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { HeaderNavi } from '@/app/components/Header/HeaderNavi';
+import { HeaderNavi } from '@/app/components/layouts/Header/HeaderNavi';
 import { Search } from '@/app/components/Search/Search';
 
 export const Header = () => {
