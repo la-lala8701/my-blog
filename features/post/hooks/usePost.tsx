@@ -19,5 +19,6 @@ export const usePost = () => {
     },
     [setTab],
   );
-  return { content, handleContentChange, tab, handleTabChange };
+    content: { content, handleContentChange },
+    tab: { tab, handleTabChange },
 };
