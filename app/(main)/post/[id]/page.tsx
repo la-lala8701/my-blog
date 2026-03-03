@@ -1,4 +1,4 @@
-import { PostContent } from '@/app/components/Post/PostContent';
+import { PostContent } from '@/features/post/components/PostContent';
 import { Profile } from '@/app/components/Profile/Profile';
 import { PostData } from '@/app/types';
 import { createClient } from '@/lib/supabase/server';

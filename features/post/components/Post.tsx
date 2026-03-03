@@ -1,5 +1,5 @@
 // 使っていないコンポーネント
-import { PostContent } from '@/app/components/Post/PostContent';
+import { PostContent } from '@/features/post/components/PostContent';
 import { PostData } from '@/app/types';
 import { getPostById } from '@/lib/supabaseFunctions';
 import { Profile } from '@/app/components/Profile/Profile';

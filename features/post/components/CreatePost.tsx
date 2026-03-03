@@ -5,13 +5,10 @@ import { PostData, PostFormValues } from '@/app/types';
 import { addPost, getCurrentUser } from '@/lib/supabaseFunctions';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { useCallback, useState } from 'react';
-import classes from '@/app/components/Post/PostContent/PostContent.module.css';
-import Markdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
 import { createBrowserSupabase } from '@/lib/supabase/client';
 import { User } from '@supabase/supabase-js';
+import { usePost } from '../hooks/usePost';
+import { Preview } from '@/app/components/elements/Preview';
 
 export const CreatePost = ({
   display_name,
@@ -27,14 +24,8 @@ export const CreatePost = ({
   } = useForm<PostFormValues>();
   const router = useRouter();
   const id = uuidv4();
-  const [tab, setTab] = useState<'write' | 'preview'>('write');
-  const [content, setContent] = useState('');
-  const handleContentChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setContent(e.target.value);
-    },
-    [],
-  );
+
+  const { content, handleContentChange, tab, handleTabChange } = usePost();
 
   const onSubmit: SubmitHandler<PostFormValues> = async (data) => {
     try {
@@ -99,13 +90,13 @@ export const CreatePost = ({
             <ul className="flex flex-wrap -mb-px">
               <li
                 className={`me-2 inline-block py-3 px-8 border-b border-transparent rounded-t-md ${tab === 'write' ? ' text-blue-600 border-b-blue-600' : 'hover:text-blue-600 hover:border-b-blue-600 cursor-pointer'}`}
-                onClick={() => setTab('write')}
+                onClick={() => handleTabChange('write')}
               >
                 Write
               </li>
               <li
                 className={`me-2 inline-block py-3 px-8 border-b border-transparent rounded-t-md ${tab === 'preview' ? ' text-blue-600 border-b-blue-600' : 'hover:text-blue-600 hover:border-b-blue-600 cursor-pointer'}`}
-                onClick={() => setTab('preview')}
+                onClick={() => handleTabChange('preview')}
               >
                 Preview
               </li>
@@ -121,17 +112,7 @@ export const CreatePost = ({
               ></textarea>
             </div>
           ) : tab === 'preview' ? (
-            <div className="px-10 pb-10">
-              <section className={classes.markdown}>
-                <Markdown
-                  remarkPlugins={[remarkGfm]}
-                  skipHtml={false}
-                  rehypePlugins={[rehypeRaw]}
-                >
-                  {content}
-                </Markdown>
-              </section>
-            </div>
+            <Preview content={content} />
           ) : null}
         </div>
       </div>
