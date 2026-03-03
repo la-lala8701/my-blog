@@ -2,7 +2,7 @@ import { getProfileById } from '@/lib/supabaseFunctions';
 import { ProfileData } from '@/app/types';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { UserAvatar } from '@/app/components/Profile/UserAvatar';
+import { UserAvatar } from '@/app/components/elements/UserAvatar';
 
 export const Profile = async ({ userId }: { userId: string }) => {
   const supabase = await createClient();

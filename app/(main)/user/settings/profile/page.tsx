@@ -3,13 +3,13 @@ import { getCurrentUser, getProfileById } from '@/lib/supabaseFunctions';
 import { ProfileSettings } from '@/app/components/Profile/ProfileSettings';
 import { createClient } from '@/lib/supabase/server';
 import { ProfileData } from '@/app/types';
-import { UserAvatar } from '@/app/components/Profile/UserAvatar';
+import { UserAvatar } from '@/app/components/elements/UserAvatar';
 import { User } from '@supabase/supabase-js';
 
 export default async function ProfilePage() {
   // 現在のユーザー情報を取得
   const supabase = await createClient();
-  const user: User = await getCurrentUser(supabase) as User;
+  const user: User = (await getCurrentUser(supabase)) as User;
 
   // プロフィールに設定された表示名の取得
   const profileInfo: ProfileData = await getProfileById(supabase, user.id);
@@ -25,7 +25,9 @@ export default async function ProfilePage() {
         >
           <UserAvatar profiles={profileInfo} avatarSize={128} />
         </Link>
-        <span className='inline-block py-0.5 px-1.5 rounded-md border absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none'>編集</span>
+        <span className="inline-block py-0.5 px-1.5 rounded-md border absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+          編集
+        </span>
       </div>
       <ProfileSettings
         id={user.id}

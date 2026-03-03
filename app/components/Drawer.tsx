@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Logout } from './LogOut';
-import { UserAvatar } from '@/app/components/Profile/UserAvatar';
+import { UserAvatar } from '@/app/components/elements/UserAvatar';
 import { ProfileData } from '../types';
 
 type DrawerProps = {

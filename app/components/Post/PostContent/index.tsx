@@ -6,7 +6,7 @@ import classes from './PostContent.module.css';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { createClient } from '@/lib/supabase/server';
 import { japaneseFormattedDate } from '@/lib/common';
-import { UserAvatar } from '@/app/components/Profile/UserAvatar';
+import { UserAvatar } from '@/app/components/elements/UserAvatar';
 
 export const PostContent = async ({ post }: { post: PostData }) => {
   // プロフィールに設定された表示名の取得
