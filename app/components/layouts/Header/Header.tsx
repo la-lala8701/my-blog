@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { HeaderNavi } from '@/app/components/layouts/Header/HeaderNavi';
-import { Search } from '@/app/components/elements/Search/Search';
+import { Search } from '@/app/components/elements/Search';
 
 export const Header = () => {
   return (
