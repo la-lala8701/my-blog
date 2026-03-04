@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { usePost } from '../hooks/usePost';
 import { Preview } from '@/app/components/elements/Preview';
+import { useCreateForm } from '../hooks/useCreateForm';
 
 export const CreatePost = ({
   display_name,
@@ -9,7 +10,8 @@ export const CreatePost = ({
   display_name: string | null;
 }) => {
 
-  const { content, tab, form } = usePost({ mode: 'create', display_name });
+  const { content, tab } = usePost();
+  const { form } = useCreateForm({ display_name });
 
   return (
     <form className="space-y-4" onSubmit={form.handleSubmit(form.onSubmit)}>

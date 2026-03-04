@@ -3,9 +3,11 @@ import { PostData } from '@/features/post/types';
 import Link from 'next/link';
 import { usePost } from '../hooks/usePost';
 import { Preview } from '@/app/components/elements/Preview';
+import { useEditForm } from '../hooks/useEditForm';
 
 export const EditPost = ({ post }: { post: PostData }) => {
-  const { content, tab, form } = usePost({ mode: 'edit', post });
+  const { content, tab } = usePost();
+  const { form } = useEditForm({ post });
 
   return (
     <div className="mx-auto max-w-5xl py-12">
