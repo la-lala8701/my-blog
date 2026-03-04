@@ -1,14 +1,12 @@
 import Link from 'next/link';
-import { PostData } from '@/features/post/types';
 import { ProfileData } from '@/app/types';
 import { createClient } from '@/lib/supabase/server';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { japaneseFormattedDate } from '@/lib/common';
 import { UserAvatar } from '@/app/components/elements/UserAvatar';
+import { PostsItemProps } from '../types';
 
-type Props = PostData & { manage?: boolean };
-
-export const PostsItem = async (props: Props) => {
+export const PostsItem = async (props: PostsItemProps) => {
   const supabase = await createClient();
   // プロフィールに設定された表示名の取得
   const profileInfo: ProfileData = await getProfileById(
