@@ -12,14 +12,9 @@ import { useRouter } from 'next/navigation';
 import { useCallback, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
+import { UsePostProps } from '../types';
 
-type usePostProps = {
-  display_name?: string | null;
-  mode: 'create' | 'edit';
-  post?: PostData;
-};
-
-export const usePost = (props: usePostProps) => {
+export const usePost = (props: UsePostProps) => {
   const [content, setContent] = useState('');
   const [tab, setTab] = useState<'write' | 'preview'>('write');
 
