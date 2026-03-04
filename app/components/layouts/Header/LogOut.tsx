@@ -1,6 +1,6 @@
 'use client';
 import { useCallback } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '@/app/hooks/useAuth';
 
 export const Logout = () => {
   const { logoutUser } = useAuth();
