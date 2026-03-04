@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
-import { Drawer } from '@/app/components/Drawer';
+import { Drawer } from '@/app/components/layouts/Header/Drawer';
 import { UserAvatar } from '@/app/components/elements/UserAvatar';
-import { ProfileData } from '@/app/types';
+import { ProfileData } from '@/features/profile/types';
 
 export const LoginHeader = ({
   profiles,

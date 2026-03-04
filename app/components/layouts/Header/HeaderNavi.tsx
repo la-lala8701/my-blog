@@ -4,7 +4,7 @@ import { GuestHeader } from '@/app/components/layouts/Header/GuestHeader';
 import { LoginHeader } from '@/app/components/layouts/Header/LoginHeader';
 import { useEffect, useState } from 'react';
 import { getProfileById } from '@/lib/supabaseFunctions';
-import { ProfileData } from '@/app/types';
+import { ProfileData } from '@/features/profile/types';
 import { createBrowserSupabase } from '@/lib/supabase/client';
 
 export const HeaderNavi = () => {

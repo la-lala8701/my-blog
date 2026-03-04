@@ -1,5 +1,5 @@
 import { AvatarSettings } from '@/features/profile/components/AvatarSettings';
-import { ProfileData } from '@/app/types';
+import { ProfileData } from '@/features/profile/types';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentUser, getProfileById } from '@/lib/supabaseFunctions';
 import { User } from '@supabase/supabase-js';

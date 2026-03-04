@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { getCurrentUser, getProfileById } from '@/lib/supabaseFunctions';
 import { ProfileSettings } from '@/features/profile/components/ProfileSettings';
 import { createClient } from '@/lib/supabase/server';
-import { ProfileData } from '@/app/types';
+import { ProfileData } from '@/features/profile/types';
 import { UserAvatar } from '@/app/components/elements/UserAvatar';
 import { User } from '@supabase/supabase-js';
 

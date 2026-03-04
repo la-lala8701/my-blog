@@ -1,5 +1,5 @@
 'use client';
-import { ProfileData } from '@/app/types';
+import { ProfileData } from '@/features/profile/types';
 import { useProfileForm } from '../hooks/useProfileForm';
 
 export const ProfileSettings = (props: ProfileData) => {

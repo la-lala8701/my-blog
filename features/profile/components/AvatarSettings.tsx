@@ -1,6 +1,6 @@
 'use client';
 import { User } from '@supabase/supabase-js';
-import { ProfileData } from '@/app/types';
+import { ProfileData } from '@/features/profile/types';
 import { UserAvatar } from '@/app/components/elements/UserAvatar';
 import { useAvatarForm } from '../hooks/useAvatarForm';
 

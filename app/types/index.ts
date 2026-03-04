@@ -1,10 +1,3 @@
-export type ProfileData = {
-  id: string;
-  display_name: string;
-  description: string;
-  avatar_url?: string;
-};
-
 export type AuthInputType = {
   email: string;
   password: string;

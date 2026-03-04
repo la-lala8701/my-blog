@@ -1,4 +1,4 @@
-import { ProfileData } from "@/app/types";
+import { ProfileData } from "@/features/profile/types";
 import { createBrowserSupabase } from "@/lib/supabase/client";
 import { updateProfileById } from "@/lib/supabaseFunctions";
 import { useRouter } from "next/navigation";

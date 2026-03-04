@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ProfileData } from '@/app/types';
+import { ProfileData } from '@/features/profile/types';
 import { createClient } from '@/lib/supabase/server';
 import { getProfileById } from '@/lib/supabaseFunctions';
 import { japaneseFormattedDate } from '@/lib/common';

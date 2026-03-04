@@ -1,4 +1,4 @@
-import { ProfileData } from '@/app/types';
+import { ProfileData } from '@/features/profile/types';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';

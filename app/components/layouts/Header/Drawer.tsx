@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { Logout } from './LogOut';
 import { UserAvatar } from '@/app/components/elements/UserAvatar';
-import { ProfileData } from '../types';
+import { ProfileData } from '@/features/profile/types';
 
 type DrawerProps = {
   isOpenMenu: boolean;
