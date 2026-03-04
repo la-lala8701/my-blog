@@ -1,6 +1,5 @@
 'use client';
-import { PostData } from '@/features/post/types';
-import { PostFormValues } from '@/app/types';
+import { PostData, PostFormValues } from '@/features/post/types';
 import { createBrowserSupabase } from '@/lib/supabase/client';
 import {
   addPost,

@@ -13,3 +13,8 @@ export type UsePostProps = {
   mode: 'create' | 'edit';
   post?: PostData;
 };
+
+export type PostFormValues = {
+  title: string;
+  content: string;
+};

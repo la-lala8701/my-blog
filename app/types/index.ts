@@ -5,11 +5,6 @@ export type ProfileData = {
   avatar_url?: string;
 };
 
-export type PostFormValues = {
-  title: string;
-  content: string;
-};
-
 export type AuthInputType = {
   email: string;
   password: string;
