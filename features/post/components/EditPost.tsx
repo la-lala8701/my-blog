@@ -1,52 +1,29 @@
 'use client';
-import { PostData, PostFormValues } from '@/app/types';
-import { updatePostById } from '@/lib/supabaseFunctions';
+import { PostData } from '@/app/types';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { createBrowserSupabase } from '@/lib/supabase/client';
 import { usePost } from '../hooks/usePost';
 import { Preview } from '@/app/components/elements/Preview';
 
 export const EditPost = ({ post }: { post: PostData }) => {
-  const supabase = createBrowserSupabase();
-  const router = useRouter();
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<PostFormValues>();
-  const { content, tab } = usePost();
-
-  const onSubmit: SubmitHandler<PostFormValues> = async (data) => {
-    try {
-      // 記事編集のロジック
-      await updatePostById(supabase, post.id, { ...post, ...data, updated_at: new Date().toISOString() });
-
-      // 編集後の記事ページへリダイレクト
-      router.push(`/user/post/${post.id}`);
-    } catch (error) {
-      console.error('予期せぬエラー:', error);
-    }
-  };
+  const { content, tab, form } = usePost({ mode: 'edit', post });
 
   return (
     <div className="mx-auto max-w-5xl py-12">
       <h1 className="text-3xl font-bold mb-8 text-center">記事編集ページ</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={form.handleSubmit(form.onSubmit)}>
         <div className="mb-6">
           <label className="block mb-1" htmlFor="title">
             タイトル
             <span className="text-red-500">*</span>
             <span className="ml-2 text-sm text-red-500">
-              {errors.title && <span>入力してください</span>}
+              {form.errors.title && <span>入力してください</span>}
             </span>
           </label>
           <input
             type="text"
             defaultValue={post.title}
             className="w-full border border-gray-300 rounded-md p-2"
-            {...register('title', { required: true })}
+            {...form.register('title', { required: true })}
           />
         </div>
         <div className="mb-6">
@@ -54,7 +31,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
             内容
             <span className="text-red-500">*</span>
             <span className="ml-2 text-sm text-red-500">
-              {errors.content && <span>入力してください</span>}
+              {form.errors.content && <span>入力してください</span>}
             </span>
           </label>
           <div className="border border-gray-300">
@@ -80,7 +57,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
                   defaultValue={post.content}
                   className="w-full border border-gray-300 rounded-md p-2 field-sizing-content min-h-50"
                   placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
-                  {...register('content', { required: true })}
+                  {...form.register('content', { required: true })}
                   onChange={content.handleContentChange}
                 />
               </div>

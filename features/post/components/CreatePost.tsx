@@ -1,12 +1,5 @@
 'use client';
-import { v4 as uuidv4 } from 'uuid';
 import Link from 'next/link';
-import { PostData, PostFormValues } from '@/app/types';
-import { addPost, getCurrentUser } from '@/lib/supabaseFunctions';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
-import { createBrowserSupabase } from '@/lib/supabase/client';
-import { User } from '@supabase/supabase-js';
 import { usePost } from '../hooks/usePost';
 import { Preview } from '@/app/components/elements/Preview';
 
@@ -15,65 +8,23 @@ export const CreatePost = ({
 }: {
   display_name: string | null;
 }) => {
-  const supabase = createBrowserSupabase();
-  const {
-    handleSubmit,
-    register,
-    reset,
-    formState: { errors },
-  } = useForm<PostFormValues>();
-  const router = useRouter();
-  const id = uuidv4();
 
-  const { content, tab } = usePost();
-
-  const onSubmit: SubmitHandler<PostFormValues> = async (data) => {
-    try {
-      // 現在のユーザー情報を取得
-      const user: User = await getCurrentUser(supabase) as User;
-
-      // 表示名が設定されていない時の処理
-      if (!display_name || display_name.length === 0) {
-        alert('プロフィール設定から、表示名を設定してください。');
-        return;
-      }
-
-      // 新規記事データ
-      const newPost: PostData = {
-        id,
-        user_id: user.id,
-        title: data.title,
-        content: data.content,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-        is_published: false,
-      };
-
-      // 記事をpostsテーブルに挿入する
-      await addPost(supabase, newPost);
-      // フォームをリセット
-      reset();
-      // 投稿した記事ページへリダイレクト
-      router.push(`/user/post/${id}`);
-    } catch (error) {
-      console.error('予期せぬエラー', error);
-    }
-  };
+  const { content, tab, form } = usePost({ mode: 'create', display_name });
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-4" onSubmit={form.handleSubmit(form.onSubmit)}>
       {/* タイトル */}
       <div>
         <label className="block mb-1">
           タイトル
           <span className="text-red-500">*</span>
           <span className="ml-2 text-sm text-red-500">
-            {errors.title && <span>入力してください</span>}
+            {form.errors.title && <span>入力してください</span>}
           </span>
         </label>
         <input
           className="border border-gray-300 rounded-md p-2 w-full"
-          {...register('title', { required: true })}
+          {...form.register('title', { required: true })}
         />
       </div>
       {/* 内容 */}
@@ -82,7 +33,7 @@ export const CreatePost = ({
           内容
           <span className="text-red-500">*</span>
           <span className="ml-2 text-sm text-red-500">
-            {errors.content && <span>入力してください</span>}
+            {form.errors.content && <span>入力してください</span>}
           </span>
         </label>
         <div className="border border-gray-300">
@@ -107,7 +58,7 @@ export const CreatePost = ({
               <textarea
                 className="border border-gray-300 rounded-md p-2 w-full field-sizing-content min-h-50"
                 placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
-                {...register('content', { required: true })}
+                {...form.register('content', { required: true })}
                 onChange={content.handleContentChange}
               ></textarea>
             </div>
