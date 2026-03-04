@@ -105,15 +105,16 @@ erDiagram
 - Server / Client Component の責務分離を意識しました
 
 ## 苦労した点 / 学んだこと
-### Server / Client Component の責務分離
+### Server / Client Component の責務分離について
 記事詳細ページの実装において、Server Component と Client Component の責務分離に苦労しました。<br>
-当初はデータ取得とUI操作を同一コンポーネントで扱っていたため、loading.tsx が正しく発火せず、意図したローディング表示が行われない問題がありました。
+当初はデータ取得とUI操作を同一コンポーネントで扱っていたため、`loading.tsx` が正しく発火せず、意図したローディング表示が行われない問題がありました。
 
-そこで以下のように分離し、Server Component の階層を適切に保つ構造へ再設計しました。
+そこで以下のように役割を分離し、Server Component の階層を適切に保つ構造へ再設計しました。
 - データ表示部分を Server Component (PostContent)
 - ユーザー操作部分を Client Component (PostActions)
 
-これにより、Next.js App Router のストリーミングと loading.tsx が正しく機能するようになりました。
+その結果、データ取得中に `loading.tsx` が正しく表示されるようになり、ページ遷移時のローディング体験を改善できました。<br>
+この経験から、App Router におけるコンポーネント設計の重要性を学びました。
 
 ## 今後の展望 / 改良予定
 ### データベース・リレーションの最適化
