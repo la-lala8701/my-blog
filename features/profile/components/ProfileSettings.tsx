@@ -1,33 +1,9 @@
 'use client';
-import { updateProfileById } from '@/lib/supabaseFunctions';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { ProfileData } from '@/app/types';
-import { useRouter } from 'next/navigation';
-import { createBrowserSupabase } from '@/lib/supabase/client';
+import { useProfileForm } from '../hooks/useProfileForm';
 
 export const ProfileSettings = (props: ProfileData) => {
-  const supabase = createBrowserSupabase();
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ProfileData>();
-
-  const onSubmit: SubmitHandler<ProfileData> = async (data) => {
-    try {
-      // データを更新
-      await updateProfileById(
-        supabase,
-        props.id,
-        data.display_name,
-        data.description,
-      );
-      router.refresh();
-    } catch (error) {
-      console.error('予期せぬエラー', error);
-    }
-  };
+  const { handleSubmit, register, errors, onSubmit } = useProfileForm({ id: props.id });
 
   return (
     <div>
