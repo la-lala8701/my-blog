@@ -5,7 +5,7 @@ import {
   getUserPosts,
   searchUserPosts,
 } from '@/lib/supabaseFunctions';
-import { Posts } from '@/features/Posts/components/Posts';
+import { Posts } from '@/features/posts/components/Posts';
 import { User } from '@supabase/supabase-js';
 import { ManagePostsSearch } from '@/app/components/Search/ManagePostsSearch';
 import { PostData } from '@/app/types';

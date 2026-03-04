@@ -1,4 +1,4 @@
-import { PostsItem } from '@/features/Posts/components/PostsItem';
+import { PostsItem } from '@/features/posts/components/PostsItem';
 import { PostData } from '@/app/types';
 
 export const Posts = async ({
