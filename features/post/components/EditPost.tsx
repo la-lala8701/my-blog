@@ -1,5 +1,5 @@
 'use client';
-import { PostData } from '@/app/types';
+import { PostData } from '@/features/post/types';
 import Link from 'next/link';
 import { usePost } from '../hooks/usePost';
 import { Preview } from '@/app/components/elements/Preview';

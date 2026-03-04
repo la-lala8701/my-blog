@@ -1,4 +1,4 @@
-import { PostData, ProfileData } from '@/app/types';
+import { ProfileData } from '@/app/types';
 import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -7,6 +7,7 @@ import { getProfileById } from '@/lib/supabaseFunctions';
 import { createClient } from '@/lib/supabase/server';
 import { japaneseFormattedDate } from '@/lib/common';
 import { UserAvatar } from '@/app/components/elements/UserAvatar';
+import { PostData } from '@/features/post/types';
 
 export const PostContent = async ({ post }: { post: PostData }) => {
   // プロフィールに設定された表示名の取得

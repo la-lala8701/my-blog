@@ -1,6 +1,6 @@
 import { PostContent } from '@/features/post/components/PostContent';
 import { Profile } from '@/features/profile/components/Profile';
-import { PostData } from '@/app/types';
+import { PostData } from '@/features/post/types';
 import { createClient } from '@/lib/supabase/server';
 import { getPostById } from '@/lib/supabaseFunctions';
 

@@ -2,7 +2,7 @@ import { getPublicPosts, searchPublicPosts } from '@/lib/supabaseFunctions';
 import { Posts } from '@/features/posts/components/Posts';
 import { notFound } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
-import { PostData } from '../types';
+import { PostData } from '@/features/post/types';
 
 export const revalidate = 3600;
 

@@ -1,6 +1,6 @@
 // 使っていないコンポーネント
 import { PostContent } from '@/features/post/components/PostContent';
-import { PostData } from '@/app/types';
+import { PostData } from '@/features/post/types';
 import { getPostById } from '@/lib/supabaseFunctions';
 import { Profile } from '@/features/profile/components/Profile';
 import { createClient } from '@/lib/supabase/server';

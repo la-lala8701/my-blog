@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { EditButtons } from '@/features/post/components/EditButtons';
-import { ModalContent, PostData } from '@/app/types';
+import { ModalContent } from '@/app/types';
+import { PostData } from '@/features/post/types';
 import {
   deletePostById,
   updatePostPublishStatus,

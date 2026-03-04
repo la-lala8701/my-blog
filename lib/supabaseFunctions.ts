@@ -1,4 +1,4 @@
-import { PostData } from '@/app/types';
+import { PostData } from '@/features/post/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 /*====================

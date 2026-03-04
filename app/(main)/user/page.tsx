@@ -8,7 +8,7 @@ import {
 import { Posts } from '@/features/posts/components/Posts';
 import { User } from '@supabase/supabase-js';
 import { ManagePostsSearch } from '@/app/components/Search/ManagePostsSearch';
-import { PostData } from '@/app/types';
+import { PostData } from '@/features/post/types';
 import { Profile } from '@/features/profile/components/Profile';
 
 export default async function MyPage({
