@@ -9,7 +9,7 @@ import {
 import Link from 'next/link';
 import { createBrowserSupabase } from '@/lib/supabase/client';
 import { useParams, useRouter } from 'next/navigation';
-import { ConfirmationModal } from '@/app/components/ConfirmationModal';
+import { ConfirmationModal } from '@/app/components/elements/ConfirmationModal';
 
 export const PostActions = ({
   children,

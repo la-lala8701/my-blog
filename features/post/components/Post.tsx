@@ -2,7 +2,7 @@
 import { PostContent } from '@/features/post/components/PostContent';
 import { PostData } from '@/app/types';
 import { getPostById } from '@/lib/supabaseFunctions';
-import { Profile } from '@/app/components/Profile/Profile';
+import { Profile } from '@/features/profile/components/Profile';
 import { createClient } from '@/lib/supabase/server';
 
 export const Post = async ({ pageId }: { pageId: string }) => {

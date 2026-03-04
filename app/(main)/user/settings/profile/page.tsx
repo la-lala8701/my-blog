@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getCurrentUser, getProfileById } from '@/lib/supabaseFunctions';
-import { ProfileSettings } from '@/app/components/Profile/ProfileSettings';
+import { ProfileSettings } from '@/features/profile/components/ProfileSettings';
 import { createClient } from '@/lib/supabase/server';
 import { ProfileData } from '@/app/types';
 import { UserAvatar } from '@/app/components/elements/UserAvatar';

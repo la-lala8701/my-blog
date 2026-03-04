@@ -9,7 +9,7 @@ import { Posts } from '@/features/posts/components/Posts';
 import { User } from '@supabase/supabase-js';
 import { ManagePostsSearch } from '@/app/components/Search/ManagePostsSearch';
 import { PostData } from '@/app/types';
-import { Profile } from '@/app/components/Profile/Profile';
+import { Profile } from '@/features/profile/components/Profile';
 
 export default async function MyPage({
   searchParams,
