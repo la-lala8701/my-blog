@@ -27,7 +27,12 @@ export const HeaderNavi = () => {
       .channel('public:profiles')
       .on(
         'postgres_changes',
-        { event: 'UPDATE', schema: 'public', table: 'profiles', filter: `id=eq.${session.user.id}` },
+        {
+          event: 'UPDATE',
+          schema: 'public',
+          table: 'profiles',
+          filter: `id=eq.${session.user.id}`,
+        },
         (payload) => {
           setProfiles(payload.new as ProfileData);
         },
@@ -37,11 +42,14 @@ export const HeaderNavi = () => {
     return () => {
       supabase.removeChannel(profileSubscription);
     };
-
   }, [session?.user, supabase]);
 
   if (session) {
-    return <LoginHeader profiles={profiles} userEmail={session.user.email} />;
+    return (
+      // 右上に持っていきたい
+
+      <LoginHeader profiles={profiles} userEmail={session.user.email} />
+    );
   }
 
   return <GuestHeader />;

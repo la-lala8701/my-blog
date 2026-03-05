@@ -22,16 +22,14 @@ export const Search = () => {
     push(`/?${params.toString()}`);
   };
   return (
-    <div className="w-full max-w-md mx-auto">
-      <form action="" method='post' onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          {...register('term')}
-          defaultValue={searchParams.get('query')?.toString()}
-        />
-      </form>
-    </div>
+    <form action="" method="post" onSubmit={handleSubmit(onSubmit)}>
+      <input
+        type="text"
+        placeholder="Search..."
+        className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        {...register('term')}
+        defaultValue={searchParams.get('query')?.toString()}
+      />
+    </form>
   );
 };

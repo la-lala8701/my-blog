@@ -6,7 +6,7 @@ export const GuestHeader = () => {
       <ul className="flex items-center">
         <li>
           <Link
-            className="px-4 py-3 bg-blue-300 rounded-md hover:bg-blue-400"
+            className="px-3 py-2 text-sm inline-block bg-blue-300 rounded-md hover:bg-blue-400 text-center"
             href="/login"
           >
             ログイン
@@ -14,10 +14,10 @@ export const GuestHeader = () => {
         </li>
         <li>
           <Link
-            className="ml-4 px-4 py-3 bg-yellow-300 rounded-md hover:bg-yellow-400"
+            className="ml-3 px-3 py-2 text-sm inline-block bg-yellow-300 rounded-md hover:bg-yellow-400 text-center"
             href="/sign-up"
           >
-            サインアップ
+            新規登録
           </Link>
         </li>
       </ul>
