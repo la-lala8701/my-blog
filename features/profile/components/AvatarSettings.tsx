@@ -3,6 +3,7 @@ import { User } from '@supabase/supabase-js';
 import { ProfileData } from '@/features/profile/types';
 import { UserAvatar } from '@/app/components/elements/UserAvatar';
 import { useAvatarForm } from '../hooks/useAvatarForm';
+import { RealtimeChangeAvatar } from './RealtimeChangeAvatar';
 
 export const AvatarSettings = ({
   user,
@@ -18,7 +19,9 @@ export const AvatarSettings = ({
       <h1 className="text-center text-2xl">プロフィール画像の変更</h1>
       {/* ここにプレビュー画像を表示する */}
       <div className="flex justify-center my-4 w-32 h-32 rounded-full mx-auto">
-        <UserAvatar profiles={profiles} avatarSize={128} />
+        <RealtimeChangeAvatar userId={user.id} profiles={profiles}>
+          {(AvatarProfile) => <UserAvatar profiles={AvatarProfile} avatarSize={128} />}
+        </RealtimeChangeAvatar>
       </div>
       <form
         action=""
