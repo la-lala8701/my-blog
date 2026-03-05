@@ -10,7 +10,7 @@ export const Post = async ({ pageId }: { pageId: string }) => {
   const getPost: PostData = await getPostById(supabase, pageId);
 
   return (
-    <div className="flex gap-10 mx-auto max-w-5xl mt-12">
+    <div className="mx-auto max-w-5xl mt-12 flex flex-col gap-10">
       <div className="max-w-3xl flex-1">
         <PostContent post={getPost} />
       </div>

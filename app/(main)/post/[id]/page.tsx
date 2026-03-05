@@ -16,11 +16,11 @@ export default async function Post({
   const getPost: PostData = await getPostById(supabase, pageId);
 
   return (
-    <div className="flex gap-10 mx-auto max-w-5xl mt-12 mb-16">
-      <div className="max-w-3xl flex-1">
+    <div className="flex gap-10 mx-auto max-w-5xl mt-12 mb-16 px-12 flex-col lg:flex-row">
+      <div className="w-full lg:max-w-3xl lg:flex-1">
         <PostContent post={getPost} />
       </div>
-      <div className="w-56 sticky top-12 h-fit">
+      <div className="w-full md:w-56 md:sticky top-12 md:h-fit">
         <Profile userId={getPost.user_id} />
       </div>
     </div>
