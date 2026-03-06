@@ -32,9 +32,9 @@ export const ManagePostsSearch = () => {
     setIsOpen((prev) => !prev);
   }, []);
   useEffect(() => {
-    const handleClickToCloseMenu = (e: any) => {
+    const handleClickToCloseMenu = (e: globalThis.MouseEvent) => {
       const element = dropdownRef.current;
-      if (!isOpen || element?.contains(e.target)) {
+      if (!isOpen || element?.contains(e.target as Node)) {
         return;
       }
       setIsOpen(false);
