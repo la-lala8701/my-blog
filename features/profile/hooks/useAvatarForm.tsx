@@ -1,11 +1,13 @@
 import { createBrowserSupabase } from '@/lib/supabase/client';
 import { User } from '@supabase/supabase-js';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 export const useAvatarForm = ({ user }: { user: User }) => {
   const supabase = createBrowserSupabase();
   const [file, setFile] = useState<File | null>(null);
   const [filePath, setFilePath] = useState('');
+  const router = useRouter();
 
   // supabase strageに古い画像があれば画像名を取得する関数
   const getOldImageName = async (userId: string) => {
@@ -117,6 +119,7 @@ export const useAvatarForm = ({ user }: { user: User }) => {
       return;
     }
     alert('プロフィール画像が更新されました');
+    router.refresh();
   };
 
   return { handleUploadStrage, handleSubmit };

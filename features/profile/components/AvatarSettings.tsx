@@ -15,8 +15,8 @@ export const AvatarSettings = ({
   const { handleUploadStrage, handleSubmit } = useAvatarForm({ user });
 
   return (
-    <div className="max-w-sm mx-auto mt-12">
-      <h1 className="text-center text-2xl">プロフィール画像の変更</h1>
+    <div>
+      <h1 className="text-xl font-semibold text-center mb-4">プロフィール画像の変更</h1>
       {/* ここにプレビュー画像を表示する */}
       <div className="flex justify-center my-4 w-32 h-32 rounded-full mx-auto">
         <RealtimeChangeAvatar userId={user.id} profiles={profiles}>
@@ -36,7 +36,7 @@ export const AvatarSettings = ({
           Upload file
         </label>
         <input
-          className="file:bg-zinc-200 file:py-2 file:px-4 file:me-4 file:cursor-pointer cursor-pointer border border-zinc-500 text-sm rounded-xl focus:ring-sky-500 focus:ring-2 focus:border-0 block w-full shadow-xs placeholder:text-body"
+          className="file:bg-zinc-200 file:py-2 file:px-4 file:me-4 file:cursor-pointer cursor-pointer border border-zinc-500 text-sm rounded-xl focus:ring-sky-500 focus:ring-2 focus:border-0 block w-full shadow-xs placeholder:text-body bg-white"
           type="file"
           name="avatar"
           accept="image/png, image/jpg, image/jpeg"
