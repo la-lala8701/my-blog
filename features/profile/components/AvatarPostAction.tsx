@@ -4,7 +4,6 @@ import { ProfileData } from '../types';
 import { AvatarSettings } from './AvatarSettings';
 import { User } from '@supabase/supabase-js';
 import { MouseEventHandler, useCallback, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export const AvatarPostAction = ({
   children,
@@ -17,7 +16,6 @@ export const AvatarPostAction = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const avatarChangeRef = useRef<HTMLDivElement>(null);
-  // const router = useRouter();
 
   const handleClickOutside: MouseEventHandler<HTMLDivElement> = useCallback((e) => {
     const element = avatarChangeRef.current;
