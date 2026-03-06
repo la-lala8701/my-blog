@@ -3,8 +3,12 @@
 アカウントを作成することで、誰でもすぐに自分の好きなことや伝えたいことを投稿することができます。<br>
 投稿された記事はログイン不要で誰でも自由に閲覧可能です。
 
-## URL
+## URL / デモ
 https://my-blog-snowy-three-41.vercel.app/
+
+**デモアカウント**<br>
+email: test@email.com<br>
+password: testtest
 
 ## 機能一覧
 - 記事のCRUD
