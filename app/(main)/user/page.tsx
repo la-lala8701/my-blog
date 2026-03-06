@@ -10,7 +10,6 @@ import { User } from '@supabase/supabase-js';
 import { ManagePostsSearch } from '@/app/components/elements/ManagePostsSearch';
 import { PostData } from '@/features/post/types';
 import { Profile } from '@/features/profile/components/Profile';
-import { Search } from '@/app/components/elements/Search';
 
 export default async function MyPage({
   searchParams,
