@@ -134,8 +134,8 @@ erDiagram
 | **`app/components/elements`** | **汎用UIパーツ**。ページ全体で使われるコンポーネントを格納する | `Button.tsx`, `LoadingSpinner.tsx` |
 | **`app/components/layouts`** | **共通レイアウト**。全てのページにおいて表示されるようなコンポーネントを格納する | `Header.tsx`, `Footer.tsx` |
 | **`features/{feature_name}`** | **機能単位のモジュール**。特定の機能（ドメイン）に紐づくコンポーネントやロジック（Hooks等）などを格納する | `features/auth/`, `features/post/` |
-<br><br>
 
+<br><br>
 ## 苦労した点 / 学んだこと
 ### Server / Client Component の責務分離について
 記事詳細ページの実装において、Server Component と Client Component の責務分離に苦労しました。<br>
