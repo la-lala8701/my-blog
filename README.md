@@ -10,6 +10,14 @@ https://my-blog-snowy-three-41.vercel.app/
 email: test@email.com<br>
 password: testtest
 
+| トップ画面 | 記事投稿 |
+|---|---|
+| <img src="./docs/TopPage.png" width="350"> | <img src="./docs/PostDemo.gif" width="350"> |
+
+| プロフィール画像変更 | 記事管理 |
+|---|---|
+| <img src="./docs/AvatarChangingDemo.gif" width="350"> | <img src="./docs/ManagePage.png" width="350"> |
+
 ## 機能一覧
 - 記事のCRUD
   - Markdownでの記事作成機能
