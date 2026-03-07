@@ -2,7 +2,9 @@
 本プロダクトは、誰でも手軽に始められる、オープンなブログプラットフォームです。<br>
 アカウントを作成することで、誰でもすぐに自分の好きなことや伝えたいことを投稿することができます。<br>
 投稿された記事はログイン不要で誰でも自由に閲覧可能です。
+
 <br><br>
+
 ## URL / デモ
 https://my-blog-snowy-three-41.vercel.app/
 
@@ -40,6 +42,7 @@ password: testtest
   - 自己紹介文編集
 - パスワート変更
 - 検索・絞り込み機能
+
 <br><br>
 
 ## 使用技術
@@ -57,6 +60,7 @@ password: testtest
 ### 開発ツール
 - ESLint
 - Prettier
+
 <br><br>
 
 ## インフラ構成図
@@ -90,6 +94,7 @@ graph TD
     %% Optional Storage Interaction
     User -.->|Upload / View| Storage
 ```
+
 <br><br>
 
 ## ER図
@@ -120,6 +125,7 @@ erDiagram
         timestamp updated_at
     }
 ```
+
 <br><br>
 
 ## 工夫した点 / 設計意図
@@ -136,6 +142,7 @@ erDiagram
 | **`features/{feature_name}`** | **機能単位のモジュール**。特定の機能（ドメイン）に紐づくコンポーネントやロジック（Hooks等）などを格納する | `features/auth/`, `features/post/` |
 
 <br><br>
+
 ## 苦労した点 / 学んだこと
 ### Server / Client Component の責務分離について
 記事詳細ページの実装において、Server Component と Client Component の責務分離に苦労しました。<br>
@@ -158,6 +165,7 @@ Supabase Realtimeを用いたアバター更新機能を実装。親コンポー
 
 #### 実装の裏側
 当初、 `useContext` の実装慣習（Providerで囲む形）を混同してしまい、自分自身を再帰呼び出しする無限ループが発生しました。しかし、この失敗を経て Render Props が「データを流し込む関数」であることを深く理解し、正しく実装することができました。
+
 <br><br>
 
 ## 今後の展望 / 改良予定
