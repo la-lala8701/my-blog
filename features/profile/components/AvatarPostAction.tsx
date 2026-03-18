@@ -46,7 +46,7 @@ export const AvatarPostAction = ({
       {children}
       {isOpen ? (
         <div
-          className="fixed bg-black/80 w-full h-full top-0 left-0 z-10 flex items-center justify-center"
+          className="fixed bg-black/80 w-full h-full top-0 left-0 z-10 flex items-center justify-center px-4"
           onClick={handleClickOutside}
         >
           <div
