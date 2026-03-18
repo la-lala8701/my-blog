@@ -14,7 +14,7 @@ export default async function Post({
   const getPost: PostData = await getPostById(supabase, pageId);
 
   return (
-    <div className="max-w-3xl mt-12 mb-16 mx-auto">
+    <div className="max-w-3xl mt-12 mb-16 mx-auto px-4">
       <PostActions post={getPost}>
         <PostContent post={getPost} />
       </PostActions>
