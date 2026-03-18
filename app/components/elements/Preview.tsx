@@ -6,7 +6,7 @@ import classes from '@/features/post/components/PostContent/PostContent.module.c
 export const Preview = ({ content }: { content: string }) => {
 
   return (
-    <div className="px-10 pb-10">
+    <div className="px-5 pb-5 md:px-10 md:pb-10">
       <section className={classes.markdown}>
         <Markdown
           remarkPlugins={[remarkGfm]}
