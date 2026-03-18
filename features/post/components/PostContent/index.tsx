@@ -15,10 +15,10 @@ export const PostContent = async ({ post }: { post: PostData }) => {
   const profileInfo: ProfileData = await getProfileById(supabase, post.user_id);
 
   return (
-    <article className="px-4">
+    <article>
       <h1 className="text-5xl leading-normal font-bold">{post?.title}</h1>
       <div className="flex items-start gap-2 mt-12">
-        <div className="w-7 h-7 rounded-full">
+        <div className="w-7 h-7 rounded-full shrink-0">
           <UserAvatar profiles={profileInfo} avatarSize={28} />
         </div>
         <div>

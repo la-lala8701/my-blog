@@ -16,7 +16,7 @@ export default async function Post({
   const getPost: PostData = await getPostById(supabase, pageId);
 
   return (
-    <div className="flex gap-10 mx-auto max-w-5xl mt-12 mb-16 px-12 flex-col lg:flex-row">
+    <div className="flex gap-10 mx-auto max-w-5xl mt-12 mb-16 px-7 md:px-12 flex-col lg:flex-row">
       <div className="w-full lg:max-w-3xl flex-auto">
         <PostContent post={getPost} />
       </div>
