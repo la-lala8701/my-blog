@@ -9,8 +9,8 @@ export const ConfirmationModal = ({
   closeModal: () => void;
 }) => {
   return (
-    <div className="bg-black/50 fixed top-0 right-0 left-0 bottom-0">
-      <dl className="min-w-lg absolute top-1/2 left-1/2 -translate-1/2 bg-white rounded-lg">
+    <div className="bg-black/50 fixed top-0 right-0 left-0 bottom-0 z-20">
+      <dl className="w-10/12 max-w-md absolute top-1/2 left-1/2 -translate-1/2 bg-white rounded-lg">
         <dt
           className={`${modalContent.bgColor} px-6 py-4 text-white font-bold text-2xl rounded-t-lg`}
         >
