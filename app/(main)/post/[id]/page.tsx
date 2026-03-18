@@ -17,10 +17,10 @@ export default async function Post({
 
   return (
     <div className="flex gap-10 mx-auto max-w-5xl mt-12 mb-16 px-12 flex-col lg:flex-row">
-      <div className="w-full lg:max-w-3xl lg:flex-1">
+      <div className="w-full lg:max-w-3xl flex-auto">
         <PostContent post={getPost} />
       </div>
-      <div className="w-full md:w-56 md:sticky top-12 md:h-fit">
+      <div className="md:w-56 md:sticky top-12 shrink-0">
         <Profile userId={getPost.user_id} />
       </div>
     </div>

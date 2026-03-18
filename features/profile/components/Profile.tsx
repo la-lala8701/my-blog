@@ -15,7 +15,7 @@ export const Profile = async ({ userId }: { userId: string }) => {
         <span className="w-20 h-20 rounded-full shrink-0">
           <UserAvatar profiles={profileInfo} avatarSize={80} />
         </span>
-        <span className="text-lg font-semibold shrink wrap-anywhere">
+        <span className="text-lg font-semibold wrap-anywhere">
           {profileInfo.display_name.length > 0 ? (
             profileInfo.display_name
           ) : (
