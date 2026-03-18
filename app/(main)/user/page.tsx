@@ -36,8 +36,8 @@ export default async function MyPage({
 
   return (
     <div className="max-w-5xl mx-auto pt-12 pb-16 px-4">
-      <div className="flex gap-12">
-        <div className="w-64 shrink-0">
+      <div className="lg:flex gap-12">
+        <div className="lg:w-64 shrink-0 lg:mb-0 mb-12">
           <Profile userId={user.id} />
           <ul className="mt-9">
             <li>
