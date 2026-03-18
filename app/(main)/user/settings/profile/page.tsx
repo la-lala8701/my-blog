@@ -15,7 +15,7 @@ export default async function ProfilePage() {
   const profiles: ProfileData = await getProfileById(supabase, user.id);
 
   return (
-    <div className="max-w-2xl mx-auto mt-12 px-4">
+    <div className="max-w-2xl mx-auto my-12 px-4">
       <h1 className="text-3xl font-bold mb-6 text-center">プロフィール設定</h1>
       <AvatarPostAction profiles={profiles} user={user}>
         <ProfileSettings
