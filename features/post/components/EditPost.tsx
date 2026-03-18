@@ -10,7 +10,7 @@ export const EditPost = ({ post }: { post: PostData }) => {
   const { form } = useEditForm({ post });
 
   return (
-    <div className="mx-auto max-w-5xl py-12">
+    <div className="mx-auto max-w-5xl py-12 px-4 md:px-6 lg:px-8">
       <h1 className="text-3xl font-bold mb-8 text-center">記事編集ページ</h1>
       <form onSubmit={form.handleSubmit(form.onSubmit)}>
         <div className="mb-6">

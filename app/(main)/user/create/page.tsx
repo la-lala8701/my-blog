@@ -15,7 +15,7 @@ export default async function CreatePage() {
   );
 
   return (
-    <div className="mx-auto max-w-5xl py-12">
+    <div className="mx-auto max-w-5xl py-12 px-4 md:px-6 lg:px-8">
       {!display_name ? (
         <dl className="border text-red-600 rounded-md px-4 py-3 mb-12">
           <dt className="font-bold flex place-items-end gap-2"><span className='inline-block'>【注意】</span></dt>
