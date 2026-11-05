@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CreatePost } from '@/features/post/components/CreatePost';
+import { CreatePostForm } from '@/features/post/components/CreatePostForm';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentUser, getProfileById } from '@/lib/supabaseFunctions';
 import { User } from '@supabase/supabase-js';
@@ -25,7 +25,7 @@ export default async function CreatePage() {
         </dl>
       ) : null}
       <h1 className="text-3xl font-bold mb-8 text-center">記事作成</h1>
-      <CreatePost display_name={display_name} />
+      <CreatePostForm display_name={display_name} />
     </div>
   );
 }

@@ -18,3 +18,7 @@ export type PostFormValues = {
   title: string;
   content: string;
 };
+
+export type SubmitResult =
+| { success: true; id: string }
+| { success: false; error: string };
