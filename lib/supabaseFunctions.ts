@@ -44,16 +44,18 @@ export const getPostById = async (supabase: SupabaseClient, id: string) => {
   const post = await supabase.from('posts').select('*').eq('id', id).single();
   return post.data;
 };
+
 // 記事の追加
 export const addPost = async (supabase: SupabaseClient, post: PostData) => {
   const { error: postError } = await supabase.from('posts').insert(post);
+
   if (postError) {
-    console.error('投稿エラー:', postError);
-    alert('記事の投稿に失敗しました。');
-    return;
+    return { success: false }
   }
-  alert('記事が投稿されました！');
+
+  return { success: true }
 };
+
 // 記事の削除
 export const deletePostById = async (supabase: SupabaseClient, id: string) => {
   const { error: deleteError } = await supabase
