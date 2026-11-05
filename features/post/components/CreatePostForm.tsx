@@ -83,7 +83,7 @@ export const CreatePostForm = ({
               </li>
             </ul>
           </div>
-          <div className={tab === 'preview' ? 'hidden' : 'px-5 pt-5 pb-3.5'}>
+          <div className={tab === 'write' ? 'px-5 pt-5 pb-3.5' : 'hidden'}>
             <textarea
               className="border border-gray-300 rounded-md p-2 w-full field-sizing-content min-h-50"
               placeholder="マークダウンで内容を記載してください（GitHub Flavored Markdownをサポートしています）"
