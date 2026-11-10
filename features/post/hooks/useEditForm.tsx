@@ -1,42 +1,26 @@
 import { createBrowserSupabase } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { PostData, PostFormValues } from '../types';
+import { PostData, PostFormValues, SubmitResult } from '../types';
 import { updatePostById } from '@/lib/supabaseFunctions';
 
-export const useEditForm = (props: { post?: PostData | null }) => {
+export const useEditForm = (props: { post: PostData }) => {
   const supabase = createBrowserSupabase();
-  const router = useRouter();
-  const {
-    handleSubmit,
-    register,
-    formState: { errors },
-  } = useForm<PostFormValues>();
 
-  const onSubmit: SubmitHandler<PostFormValues> = async (
-    data: PostFormValues,
-  ) => {
-    /*----- 編集のロジック -----*/
-    if (!props.post) {
-      console.error('記事データが見つかりません');
-      return;
-    }
-    try {
-      // 記事編集のロジック
-      await updatePostById(supabase, props.post.id as string, {
-        ...props.post,
-        ...data,
-        updated_at: new Date().toISOString(),
-      });
+  const submitPost = async (data: PostFormValues): Promise<SubmitResult> => {
+    // 記事データの更新
+    const result = await updatePostById(supabase, props.post.id as string, {
+      ...props.post,
+      ...data,
+      updated_at: new Date().toISOString(),
+    });
 
-      // 編集後の記事ページへリダイレクト
-      router.push(`/user/post/${props.post?.id}`);
-    } catch (error) {
-      console.error('予期せぬエラー:', error);
+    if (!result.success) {
+      return { success: false, error: '記事の更新に失敗しました。' };
     }
-  };
+
+    return { success: true };
+  }
 
   return {
-    form: { handleSubmit, register, errors, onSubmit },
+    submitPost,
   };
 };

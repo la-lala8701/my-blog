@@ -5,8 +5,8 @@ import classes from '@/features/post/components/PostContent/PostContent.module.c
 import { Control, useWatch } from 'react-hook-form';
 import { PostFormValues } from '@/features/post/types';
 
-export const Preview = ({ control }: { control: Control<PostFormValues> }) => {
-  const content: string = useWatch({ control, name: 'content', defaultValue: '' });
+export const Preview = ({ control, content }: { control: Control<PostFormValues>, content?: string }) => {
+  const contentValue: string = useWatch({ control, name: 'content', defaultValue: content || '' });
 
   return (
     <div className="px-5 pb-5 md:px-10 md:pb-10">
@@ -16,7 +16,7 @@ export const Preview = ({ control }: { control: Control<PostFormValues> }) => {
           skipHtml={false}
           rehypePlugins={[rehypeRaw]}
         >
-          { content }
+          { contentValue }
         </Markdown>
       </section>
     </div>
