@@ -20,5 +20,9 @@ export type PostFormValues = {
 };
 
 export type SubmitResult =
-| { success: true; id: string }
+| { success: true; id?: string }
 | { success: false; error: string };
+
+export type GetPostByIdResult =
+| { success: false; code: string }
+| { success: true; data: PostData };
