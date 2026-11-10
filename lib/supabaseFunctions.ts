@@ -68,6 +68,7 @@ export const deletePostById = async (supabase: SupabaseClient, id: string) => {
     return;
   }
 };
+
 // 記事内容の更新
 export const updatePostById = async (
   supabase: SupabaseClient,
@@ -78,12 +79,12 @@ export const updatePostById = async (
     .from('posts')
     .update(updatedPost)
     .eq('id', id);
+
   if (error) {
-    console.error('更新エラー:', error);
-    alert('記事の更新に失敗しました。');
-    return;
+    return { success: false };
   }
-  alert('記事が更新されました！');
+
+  return { success: true };
 };
 
 // 公開状態の更新
