@@ -1,4 +1,4 @@
-import { PostData } from '@/features/post/types';
+import { GetPostByIdResult, PostData } from '@/features/post/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 /*====================
@@ -39,10 +39,20 @@ export const searchUserPosts = async (
   if (error) throw error;
   return data;
 };
+
 // 詳細記事の取得
-export const getPostById = async (supabase: SupabaseClient, id: string) => {
-  const post = await supabase.from('posts').select('*').eq('id', id).single();
-  return post.data;
+export const getPostById = async (supabase: SupabaseClient, id: string): Promise<GetPostByIdResult> => {
+  const { data, error } = await supabase.from('posts').select('*').eq('id', id).maybeSingle();
+
+  if (error) {
+    return { success: false, code: 'READ_ERROR' };
+  }
+
+  if (!data) {
+    return { success: false, code: 'NOT_FOUND' };
+  }
+
+  return { success: true, data: data as PostData };
 };
 
 // 記事の追加
