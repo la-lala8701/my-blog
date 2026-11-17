@@ -1,4 +1,4 @@
-import { PostData } from '@/features/post/types';
+import { GetPostByIdResult, PostData } from '@/features/post/types';
 import { SupabaseClient } from '@supabase/supabase-js';
 
 /*====================
@@ -39,21 +39,33 @@ export const searchUserPosts = async (
   if (error) throw error;
   return data;
 };
+
 // 詳細記事の取得
-export const getPostById = async (supabase: SupabaseClient, id: string) => {
-  const post = await supabase.from('posts').select('*').eq('id', id).single();
-  return post.data;
+export const getPostById = async (supabase: SupabaseClient, id: string): Promise<GetPostByIdResult> => {
+  const { data, error } = await supabase.from('posts').select('*').eq('id', id).maybeSingle();
+
+  if (error) {
+    return { success: false, code: 'READ_ERROR' };
+  }
+
+  if (!data) {
+    return { success: false, code: 'NOT_FOUND' };
+  }
+
+  return { success: true, data: data as PostData };
 };
+
 // 記事の追加
 export const addPost = async (supabase: SupabaseClient, post: PostData) => {
   const { error: postError } = await supabase.from('posts').insert(post);
+
   if (postError) {
-    console.error('投稿エラー:', postError);
-    alert('記事の投稿に失敗しました。');
-    return;
+    return { success: false }
   }
-  alert('記事が投稿されました！');
+
+  return { success: true }
 };
+
 // 記事の削除
 export const deletePostById = async (supabase: SupabaseClient, id: string) => {
   const { error: deleteError } = await supabase
@@ -66,6 +78,7 @@ export const deletePostById = async (supabase: SupabaseClient, id: string) => {
     return;
   }
 };
+
 // 記事内容の更新
 export const updatePostById = async (
   supabase: SupabaseClient,
@@ -76,12 +89,12 @@ export const updatePostById = async (
     .from('posts')
     .update(updatedPost)
     .eq('id', id);
+
   if (error) {
-    console.error('更新エラー:', error);
-    alert('記事の更新に失敗しました。');
-    return;
+    return { success: false };
   }
-  alert('記事が更新されました！');
+
+  return { success: true };
 };
 
 // 公開状態の更新
