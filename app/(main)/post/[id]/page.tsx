@@ -26,7 +26,7 @@ export default async function Post({
       errorMessage = '予期せぬエラーが発生しました。';
     }
 
-    return <div className="text-center text-red-600">{errorMessage}</div>;
+    return <div className="text-center text-red-600 mt-12">{errorMessage}</div>;
   }
 
   const getPost: PostData = getPostByIdResult.data;
